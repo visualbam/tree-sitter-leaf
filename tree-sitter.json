@@ -28,7 +28,7 @@
             }
         ],
         "links": {
-            "repository": "https://github.com/tree-sitter/tree-sitter-leaf"
+            "repository": "https://github.com/visualbam/tree-sitter-leaf"
         }
     },
     "bindings": {

@@ -45,3 +45,7 @@ zig-out/
 *.tar.gz
 *.tgz
 *.zip
+
+.idea
+.index-build
+Package.resolved
