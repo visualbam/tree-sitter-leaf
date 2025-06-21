@@ -70,76 +70,93 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "#extend("
-        },
-        {
-          "type": "SYMBOL",
-          "name": "string_literal"
-        },
-        {
-          "type": "STRING",
-          "value": "):"
-        },
-        {
-          "type": "REPEAT",
+          "type": "FIELD",
+          "name": "start",
           "content": {
-            "type": "CHOICE",
+            "type": "SEQ",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "export_directive"
+                "type": "STRING",
+                "value": "#extend("
               },
               {
                 "type": "SYMBOL",
-                "name": "import_directive"
+                "name": "string_literal"
               },
               {
-                "type": "SYMBOL",
-                "name": "if_directive"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "unless_directive"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "for_directive"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "while_directive"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "evaluate_directive"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "leaf_variable"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "html_element"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "html_self_closing_tag"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "html_comment"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "text"
+                "type": "STRING",
+                "value": "):"
               }
             ]
           }
         },
         {
-          "type": "STRING",
-          "value": "#endextend"
+          "type": "FIELD",
+          "name": "content",
+          "content": {
+            "type": "REPEAT",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "export_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "import_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "if_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "unless_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "for_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "while_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "evaluate_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "leaf_variable"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "html_element"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "html_self_closing_tag"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "html_comment"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "text"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "end",
+          "content": {
+            "type": "STRING",
+            "value": "#endextend"
+          }
         }
       ]
     },
@@ -147,68 +164,85 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "#export("
-        },
-        {
-          "type": "SYMBOL",
-          "name": "string_literal"
-        },
-        {
-          "type": "STRING",
-          "value": "):"
-        },
-        {
-          "type": "REPEAT",
+          "type": "FIELD",
+          "name": "start",
           "content": {
-            "type": "CHOICE",
+            "type": "SEQ",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "if_directive"
+                "type": "STRING",
+                "value": "#export("
               },
               {
                 "type": "SYMBOL",
-                "name": "unless_directive"
+                "name": "string_literal"
               },
               {
-                "type": "SYMBOL",
-                "name": "for_directive"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "while_directive"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "evaluate_directive"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "leaf_variable"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "html_element"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "html_self_closing_tag"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "html_comment"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "text"
+                "type": "STRING",
+                "value": "):"
               }
             ]
           }
         },
         {
-          "type": "STRING",
-          "value": "#endexport"
+          "type": "FIELD",
+          "name": "content",
+          "content": {
+            "type": "REPEAT",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "if_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "unless_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "for_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "while_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "evaluate_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "leaf_variable"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "html_element"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "html_self_closing_tag"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "html_comment"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "text"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "end",
+          "content": {
+            "type": "STRING",
+            "value": "#endexport"
+          }
         }
       ]
     },
@@ -216,72 +250,89 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "#if("
-        },
-        {
-          "type": "SYMBOL",
-          "name": "expression"
-        },
-        {
-          "type": "STRING",
-          "value": "):"
-        },
-        {
-          "type": "REPEAT",
+          "type": "FIELD",
+          "name": "start",
           "content": {
-            "type": "CHOICE",
+            "type": "SEQ",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "export_directive"
+                "type": "STRING",
+                "value": "#if("
               },
               {
                 "type": "SYMBOL",
-                "name": "import_directive"
+                "name": "expression"
               },
               {
-                "type": "SYMBOL",
-                "name": "unless_directive"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "for_directive"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "while_directive"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "evaluate_directive"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "leaf_variable"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "html_element"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "html_self_closing_tag"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "html_comment"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "text"
+                "type": "STRING",
+                "value": "):"
               }
             ]
           }
         },
         {
-          "type": "STRING",
-          "value": "#endif"
+          "type": "FIELD",
+          "name": "content",
+          "content": {
+            "type": "REPEAT",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "export_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "import_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "unless_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "for_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "while_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "evaluate_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "leaf_variable"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "html_element"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "html_self_closing_tag"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "html_comment"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "text"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "end",
+          "content": {
+            "type": "STRING",
+            "value": "#endif"
+          }
         }
       ]
     },
@@ -289,72 +340,89 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "#unless("
-        },
-        {
-          "type": "SYMBOL",
-          "name": "expression"
-        },
-        {
-          "type": "STRING",
-          "value": "):"
-        },
-        {
-          "type": "REPEAT",
+          "type": "FIELD",
+          "name": "start",
           "content": {
-            "type": "CHOICE",
+            "type": "SEQ",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "export_directive"
+                "type": "STRING",
+                "value": "#unless("
               },
               {
                 "type": "SYMBOL",
-                "name": "import_directive"
+                "name": "expression"
               },
               {
-                "type": "SYMBOL",
-                "name": "if_directive"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "for_directive"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "while_directive"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "evaluate_directive"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "leaf_variable"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "html_element"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "html_self_closing_tag"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "html_comment"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "text"
+                "type": "STRING",
+                "value": "):"
               }
             ]
           }
         },
         {
-          "type": "STRING",
-          "value": "#endunless"
+          "type": "FIELD",
+          "name": "content",
+          "content": {
+            "type": "REPEAT",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "export_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "import_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "if_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "for_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "while_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "evaluate_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "leaf_variable"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "html_element"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "html_self_closing_tag"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "html_comment"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "text"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "end",
+          "content": {
+            "type": "STRING",
+            "value": "#endunless"
+          }
         }
       ]
     },
@@ -362,80 +430,97 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "#for("
-        },
-        {
-          "type": "SYMBOL",
-          "name": "identifier"
-        },
-        {
-          "type": "STRING",
-          "value": "in"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "expression"
-        },
-        {
-          "type": "STRING",
-          "value": "):"
-        },
-        {
-          "type": "REPEAT",
+          "type": "FIELD",
+          "name": "start",
           "content": {
-            "type": "CHOICE",
+            "type": "SEQ",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "export_directive"
+                "type": "STRING",
+                "value": "#for("
               },
               {
                 "type": "SYMBOL",
-                "name": "import_directive"
+                "name": "identifier"
+              },
+              {
+                "type": "STRING",
+                "value": "in"
               },
               {
                 "type": "SYMBOL",
-                "name": "if_directive"
+                "name": "expression"
               },
               {
-                "type": "SYMBOL",
-                "name": "unless_directive"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "while_directive"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "evaluate_directive"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "leaf_variable"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "html_element"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "html_self_closing_tag"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "html_comment"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "text"
+                "type": "STRING",
+                "value": "):"
               }
             ]
           }
         },
         {
-          "type": "STRING",
-          "value": "#endfor"
+          "type": "FIELD",
+          "name": "content",
+          "content": {
+            "type": "REPEAT",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "export_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "import_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "if_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "unless_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "while_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "evaluate_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "leaf_variable"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "html_element"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "html_self_closing_tag"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "html_comment"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "text"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "end",
+          "content": {
+            "type": "STRING",
+            "value": "#endfor"
+          }
         }
       ]
     },
@@ -443,72 +528,89 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "#while("
-        },
-        {
-          "type": "SYMBOL",
-          "name": "expression"
-        },
-        {
-          "type": "STRING",
-          "value": "):"
-        },
-        {
-          "type": "REPEAT",
+          "type": "FIELD",
+          "name": "start",
           "content": {
-            "type": "CHOICE",
+            "type": "SEQ",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "export_directive"
+                "type": "STRING",
+                "value": "#while("
               },
               {
                 "type": "SYMBOL",
-                "name": "import_directive"
+                "name": "expression"
               },
               {
-                "type": "SYMBOL",
-                "name": "if_directive"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "unless_directive"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "for_directive"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "evaluate_directive"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "leaf_variable"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "html_element"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "html_self_closing_tag"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "html_comment"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "text"
+                "type": "STRING",
+                "value": "):"
               }
             ]
           }
         },
         {
-          "type": "STRING",
-          "value": "#endwhile"
+          "type": "FIELD",
+          "name": "content",
+          "content": {
+            "type": "REPEAT",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "export_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "import_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "if_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "unless_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "for_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "evaluate_directive"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "leaf_variable"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "html_element"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "html_self_closing_tag"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "html_comment"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "text"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "end",
+          "content": {
+            "type": "STRING",
+            "value": "#endwhile"
+          }
         }
       ]
     },
@@ -613,6 +715,43 @@
         {
           "type": "SYMBOL",
           "name": "parenthesized_expression"
+        }
+      ]
+    },
+    "html_element": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "start",
+          "content": {
+            "type": "SYMBOL",
+            "name": "start_tag"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "content",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "html_content"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "end",
+          "content": {
+            "type": "SYMBOL",
+            "name": "end_tag"
+          }
         }
       ]
     },
@@ -1097,31 +1236,6 @@
         {
           "type": "SYMBOL",
           "name": "expression"
-        }
-      ]
-    },
-    "html_element": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "start_tag"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "html_content"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "end_tag"
         }
       ]
     },

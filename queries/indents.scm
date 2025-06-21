@@ -1,19 +1,28 @@
-[
-  (extend_directive)
-  (export_directive)
-  (if_directive)
-  (unless_directive)
-  (for_directive)
-  (while_directive)
-  (html_element)
-] @indent
+; Use named fields for indentation
+(extend_directive
+    start: _ @indent.begin
+    end: _ @indent.end)
 
-[
-  "#endextend"
-  "#endexport"
-  "#endif"
-  "#endunless"
-  "#endfor"
-  "#endwhile"
-  (end_tag)
-] @outdent
+(export_directive
+    start: _ @indent.begin
+    end: _ @indent.end)
+
+(if_directive
+    start: _ @indent.begin
+    end: _ @indent.end)
+
+(unless_directive
+    start: _ @indent.begin
+    end: _ @indent.end)
+
+(for_directive
+    start: _ @indent.begin
+    end: _ @indent.end)
+
+(while_directive
+    start: _ @indent.begin
+    end: _ @indent.end)
+
+(html_element
+    start: _ @indent.begin
+    end: _ @indent.end)
