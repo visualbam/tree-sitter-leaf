@@ -1,0 +1,39 @@
+{
+  "name": "leaf-tree-sitter",
+  "version": "1.0.0",
+  "description": "Tree-sitter grammar for Leaf template language (Swift Vapor)",
+  "main": "grammar.js",
+  "keywords": [
+    "tree-sitter",
+    "leaf",
+    "templates",
+    "swift",
+    "vapor",
+    "parser"
+  ],
+  "tree-sitter": [
+    {
+      "scope": "source.leaf",
+      "file-types": [
+        "leaf"
+      ],
+      "injection-regex": "leaf"
+    }
+  ],
+  "dependencies": {
+    "tree-sitter": "^0.20.0"
+  },
+  "devDependencies": {
+    "tree-sitter-cli": "^0.20.0"
+  },
+  "scripts": {
+    "test": "tree-sitter test",
+    "parse": "tree-sitter parse",
+    "generate": "tree-sitter generate"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/visualbam/leaf-tree-sitter.git"
+  },
+  "license": "MIT"
+}

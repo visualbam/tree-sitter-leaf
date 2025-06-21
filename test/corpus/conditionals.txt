@@ -1,0 +1,20 @@
+================================================================================
+If statement
+================================================================================
+
+#if(user.isActive):
+    <p>Welcome, #(user.name)!</p>
+#endif
+
+--------------------------------------------------------------------------------
+
+(template
+  (if_directive
+    (expression (member_access (identifier) (identifier)))
+    (html_element
+      (start_tag (tag_name))
+      (html_content
+        (text)
+        (leaf_variable (expression (member_access (identifier) (identifier))))
+        (text))
+      (end_tag (tag_name)))))

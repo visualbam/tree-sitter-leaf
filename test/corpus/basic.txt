@@ -1,0 +1,22 @@
+================================================================================
+Basic extend and export
+================================================================================
+
+#extend("layout"):
+    #export("content"):
+        <h1>#(title)</h1>
+    #endexport
+#endextend
+
+--------------------------------------------------------------------------------
+
+(template
+  (extend_directive
+    (string_literal)
+    (export_directive
+      (string_literal)
+      (html_element
+        (start_tag (tag_name))
+        (html_content
+          (leaf_variable (expression (identifier))))
+        (end_tag (tag_name))))))
