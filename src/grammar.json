@@ -125,12 +125,8 @@
           "value": "("
         },
         {
-          "type": "FIELD",
-          "name": "template",
-          "content": {
-            "type": "SYMBOL",
-            "name": "string_literal"
-          }
+          "type": "SYMBOL",
+          "name": "string_literal"
         },
         {
           "type": "STRING",
@@ -141,72 +137,64 @@
           "value": ":"
         },
         {
-          "type": "FIELD",
-          "name": "body",
+          "type": "REPEAT",
           "content": {
-            "type": "REPEAT",
-            "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "export_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "import_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "if_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "unless_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "for_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "while_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "evaluate_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "leaf_variable"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "html_element"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "html_self_closing_tag"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "html_comment"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "text"
-                }
-              ]
-            }
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "export_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "import_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "if_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "unless_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "for_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "while_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "evaluate_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "leaf_variable"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "html_element"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "html_self_closing_tag"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "html_comment"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "text"
+              }
+            ]
           }
         },
         {
-          "type": "FIELD",
-          "name": "end",
-          "content": {
-            "type": "SYMBOL",
-            "name": "end_extend_directive"
-          }
+          "type": "SYMBOL",
+          "name": "end_extend_directive"
         }
       ]
     },
@@ -222,12 +210,8 @@
           "value": "("
         },
         {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "SYMBOL",
-            "name": "string_literal"
-          }
+          "type": "SYMBOL",
+          "name": "string_literal"
         },
         {
           "type": "STRING",
@@ -238,64 +222,56 @@
           "value": ":"
         },
         {
-          "type": "FIELD",
-          "name": "body",
+          "type": "REPEAT",
           "content": {
-            "type": "REPEAT",
-            "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "if_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "unless_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "for_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "while_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "evaluate_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "leaf_variable"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "html_element"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "html_self_closing_tag"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "html_comment"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "text"
-                }
-              ]
-            }
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "if_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "unless_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "for_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "while_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "evaluate_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "leaf_variable"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "html_element"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "html_self_closing_tag"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "html_comment"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "text"
+              }
+            ]
           }
         },
         {
-          "type": "FIELD",
-          "name": "end",
-          "content": {
-            "type": "SYMBOL",
-            "name": "end_export_directive"
-          }
+          "type": "SYMBOL",
+          "name": "end_export_directive"
         }
       ]
     },
@@ -311,12 +287,8 @@
           "value": "("
         },
         {
-          "type": "FIELD",
-          "name": "condition",
-          "content": {
-            "type": "SYMBOL",
-            "name": "expression"
-          }
+          "type": "SYMBOL",
+          "name": "expression"
         },
         {
           "type": "STRING",
@@ -327,68 +299,60 @@
           "value": ":"
         },
         {
-          "type": "FIELD",
-          "name": "body",
+          "type": "REPEAT",
           "content": {
-            "type": "REPEAT",
-            "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "export_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "import_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "unless_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "for_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "while_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "evaluate_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "leaf_variable"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "html_element"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "html_self_closing_tag"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "html_comment"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "text"
-                }
-              ]
-            }
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "export_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "import_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "unless_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "for_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "while_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "evaluate_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "leaf_variable"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "html_element"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "html_self_closing_tag"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "html_comment"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "text"
+              }
+            ]
           }
         },
         {
-          "type": "FIELD",
-          "name": "end",
-          "content": {
-            "type": "SYMBOL",
-            "name": "end_if_directive"
-          }
+          "type": "SYMBOL",
+          "name": "end_if_directive"
         }
       ]
     },
@@ -404,12 +368,8 @@
           "value": "("
         },
         {
-          "type": "FIELD",
-          "name": "condition",
-          "content": {
-            "type": "SYMBOL",
-            "name": "expression"
-          }
+          "type": "SYMBOL",
+          "name": "expression"
         },
         {
           "type": "STRING",
@@ -420,68 +380,60 @@
           "value": ":"
         },
         {
-          "type": "FIELD",
-          "name": "body",
+          "type": "REPEAT",
           "content": {
-            "type": "REPEAT",
-            "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "export_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "import_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "if_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "for_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "while_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "evaluate_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "leaf_variable"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "html_element"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "html_self_closing_tag"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "html_comment"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "text"
-                }
-              ]
-            }
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "export_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "import_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "if_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "for_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "while_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "evaluate_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "leaf_variable"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "html_element"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "html_self_closing_tag"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "html_comment"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "text"
+              }
+            ]
           }
         },
         {
-          "type": "FIELD",
-          "name": "end",
-          "content": {
-            "type": "SYMBOL",
-            "name": "end_unless_directive"
-          }
+          "type": "SYMBOL",
+          "name": "end_unless_directive"
         }
       ]
     },
@@ -497,24 +449,16 @@
           "value": "("
         },
         {
-          "type": "FIELD",
-          "name": "variable",
-          "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
+          "type": "SYMBOL",
+          "name": "identifier"
         },
         {
           "type": "STRING",
           "value": "in"
         },
         {
-          "type": "FIELD",
-          "name": "iterable",
-          "content": {
-            "type": "SYMBOL",
-            "name": "expression"
-          }
+          "type": "SYMBOL",
+          "name": "expression"
         },
         {
           "type": "STRING",
@@ -525,68 +469,60 @@
           "value": ":"
         },
         {
-          "type": "FIELD",
-          "name": "body",
+          "type": "REPEAT",
           "content": {
-            "type": "REPEAT",
-            "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "export_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "import_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "if_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "unless_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "while_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "evaluate_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "leaf_variable"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "html_element"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "html_self_closing_tag"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "html_comment"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "text"
-                }
-              ]
-            }
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "export_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "import_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "if_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "unless_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "while_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "evaluate_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "leaf_variable"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "html_element"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "html_self_closing_tag"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "html_comment"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "text"
+              }
+            ]
           }
         },
         {
-          "type": "FIELD",
-          "name": "end",
-          "content": {
-            "type": "SYMBOL",
-            "name": "end_for_directive"
-          }
+          "type": "SYMBOL",
+          "name": "end_for_directive"
         }
       ]
     },
@@ -602,12 +538,8 @@
           "value": "("
         },
         {
-          "type": "FIELD",
-          "name": "condition",
-          "content": {
-            "type": "SYMBOL",
-            "name": "expression"
-          }
+          "type": "SYMBOL",
+          "name": "expression"
         },
         {
           "type": "STRING",
@@ -618,68 +550,60 @@
           "value": ":"
         },
         {
-          "type": "FIELD",
-          "name": "body",
+          "type": "REPEAT",
           "content": {
-            "type": "REPEAT",
-            "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "export_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "import_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "if_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "unless_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "for_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "evaluate_directive"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "leaf_variable"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "html_element"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "html_self_closing_tag"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "html_comment"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "text"
-                }
-              ]
-            }
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "export_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "import_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "if_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "unless_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "for_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "evaluate_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "leaf_variable"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "html_element"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "html_self_closing_tag"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "html_comment"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "text"
+              }
+            ]
           }
         },
         {
-          "type": "FIELD",
-          "name": "end",
-          "content": {
-            "type": "SYMBOL",
-            "name": "end_while_directive"
-          }
+          "type": "SYMBOL",
+          "name": "end_while_directive"
         }
       ]
     },
@@ -791,36 +715,24 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "FIELD",
-          "name": "start_tag",
-          "content": {
-            "type": "SYMBOL",
-            "name": "start_tag"
-          }
+          "type": "SYMBOL",
+          "name": "start_tag"
         },
         {
-          "type": "FIELD",
-          "name": "content",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "html_content"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          }
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "html_content"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
-          "type": "FIELD",
-          "name": "end_tag",
-          "content": {
-            "type": "SYMBOL",
-            "name": "end_tag"
-          }
+          "type": "SYMBOL",
+          "name": "end_tag"
         }
       ]
     },

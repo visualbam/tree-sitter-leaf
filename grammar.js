@@ -45,15 +45,15 @@ module.exports = grammar({
         end_for_directive: $ => "#endfor",
         end_while_directive: $ => "#endwhile",
 
-        // Block directives with explicit end tags and named fields
+        // Block directives - NO fields around individual tokens
         extend_directive: ($) =>
             seq(
                 "#extend",
                 "(",
-                field('template', $.string_literal),
+                $.string_literal,
                 ")",
                 ":",
-                field('body', repeat(
+                repeat(
                     choice(
                         $.export_directive,
                         $.import_directive,
@@ -68,18 +68,18 @@ module.exports = grammar({
                         $.html_comment,
                         $.text,
                     ),
-                )),
-                field('end', $.end_extend_directive),
+                ),
+                $.end_extend_directive,
             ),
 
         export_directive: ($) =>
             seq(
                 "#export",
                 "(",
-                field('name', $.string_literal),
+                $.string_literal,
                 ")",
                 ":",
-                field('body', repeat(
+                repeat(
                     choice(
                         $.if_directive,
                         $.unless_directive,
@@ -92,18 +92,18 @@ module.exports = grammar({
                         $.html_comment,
                         $.text,
                     ),
-                )),
-                field('end', $.end_export_directive),
+                ),
+                $.end_export_directive,
             ),
 
         if_directive: ($) =>
             seq(
                 "#if",
                 "(",
-                field('condition', $.expression),
+                $.expression,
                 ")",
                 ":",
-                field('body', repeat(
+                repeat(
                     choice(
                         $.export_directive,
                         $.import_directive,
@@ -117,18 +117,18 @@ module.exports = grammar({
                         $.html_comment,
                         $.text,
                     ),
-                )),
-                field('end', $.end_if_directive),
+                ),
+                $.end_if_directive,
             ),
 
         unless_directive: ($) =>
             seq(
                 "#unless",
                 "(",
-                field('condition', $.expression),
+                $.expression,
                 ")",
                 ":",
-                field('body', repeat(
+                repeat(
                     choice(
                         $.export_directive,
                         $.import_directive,
@@ -142,20 +142,20 @@ module.exports = grammar({
                         $.html_comment,
                         $.text,
                     ),
-                )),
-                field('end', $.end_unless_directive),
+                ),
+                $.end_unless_directive,
             ),
 
         for_directive: ($) =>
             seq(
                 "#for",
                 "(",
-                field('variable', $.identifier),
+                $.identifier,
                 "in",
-                field('iterable', $.expression),
+                $.expression,
                 ")",
                 ":",
-                field('body', repeat(
+                repeat(
                     choice(
                         $.export_directive,
                         $.import_directive,
@@ -169,18 +169,18 @@ module.exports = grammar({
                         $.html_comment,
                         $.text,
                     ),
-                )),
-                field('end', $.end_for_directive),
+                ),
+                $.end_for_directive,
             ),
 
         while_directive: ($) =>
             seq(
                 "#while",
                 "(",
-                field('condition', $.expression),
+                $.expression,
                 ")",
                 ":",
-                field('body', repeat(
+                repeat(
                     choice(
                         $.export_directive,
                         $.import_directive,
@@ -194,8 +194,8 @@ module.exports = grammar({
                         $.html_comment,
                         $.text,
                     ),
-                )),
-                field('end', $.end_while_directive),
+                ),
+                $.end_while_directive,
             ),
 
         // Simple directives
@@ -226,9 +226,9 @@ module.exports = grammar({
         // HTML elements with enhanced structure
         html_element: ($) =>
             seq(
-                field('start_tag', $.start_tag),
-                field('content', optional($.html_content)),
-                field('end_tag', $.end_tag)
+                $.start_tag,
+                optional($.html_content),
+                $.end_tag
             ),
 
         html_content: ($) =>

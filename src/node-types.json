@@ -140,73 +140,60 @@
   {
     "type": "export_directive",
     "named": true,
-    "fields": {
-      "body": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "evaluate_directive",
-            "named": true
-          },
-          {
-            "type": "for_directive",
-            "named": true
-          },
-          {
-            "type": "html_comment",
-            "named": true
-          },
-          {
-            "type": "html_element",
-            "named": true
-          },
-          {
-            "type": "html_self_closing_tag",
-            "named": true
-          },
-          {
-            "type": "if_directive",
-            "named": true
-          },
-          {
-            "type": "leaf_variable",
-            "named": true
-          },
-          {
-            "type": "text",
-            "named": true
-          },
-          {
-            "type": "unless_directive",
-            "named": true
-          },
-          {
-            "type": "while_directive",
-            "named": true
-          }
-        ]
-      },
-      "end": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "end_export_directive",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "string_literal",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "end_export_directive",
+          "named": true
+        },
+        {
+          "type": "evaluate_directive",
+          "named": true
+        },
+        {
+          "type": "for_directive",
+          "named": true
+        },
+        {
+          "type": "html_comment",
+          "named": true
+        },
+        {
+          "type": "html_element",
+          "named": true
+        },
+        {
+          "type": "html_self_closing_tag",
+          "named": true
+        },
+        {
+          "type": "if_directive",
+          "named": true
+        },
+        {
+          "type": "leaf_variable",
+          "named": true
+        },
+        {
+          "type": "string_literal",
+          "named": true
+        },
+        {
+          "type": "text",
+          "named": true
+        },
+        {
+          "type": "unless_directive",
+          "named": true
+        },
+        {
+          "type": "while_directive",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -271,167 +258,135 @@
   {
     "type": "extend_directive",
     "named": true,
-    "fields": {
-      "body": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "evaluate_directive",
-            "named": true
-          },
-          {
-            "type": "export_directive",
-            "named": true
-          },
-          {
-            "type": "for_directive",
-            "named": true
-          },
-          {
-            "type": "html_comment",
-            "named": true
-          },
-          {
-            "type": "html_element",
-            "named": true
-          },
-          {
-            "type": "html_self_closing_tag",
-            "named": true
-          },
-          {
-            "type": "if_directive",
-            "named": true
-          },
-          {
-            "type": "import_directive",
-            "named": true
-          },
-          {
-            "type": "leaf_variable",
-            "named": true
-          },
-          {
-            "type": "text",
-            "named": true
-          },
-          {
-            "type": "unless_directive",
-            "named": true
-          },
-          {
-            "type": "while_directive",
-            "named": true
-          }
-        ]
-      },
-      "end": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "end_extend_directive",
-            "named": true
-          }
-        ]
-      },
-      "template": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "string_literal",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "end_extend_directive",
+          "named": true
+        },
+        {
+          "type": "evaluate_directive",
+          "named": true
+        },
+        {
+          "type": "export_directive",
+          "named": true
+        },
+        {
+          "type": "for_directive",
+          "named": true
+        },
+        {
+          "type": "html_comment",
+          "named": true
+        },
+        {
+          "type": "html_element",
+          "named": true
+        },
+        {
+          "type": "html_self_closing_tag",
+          "named": true
+        },
+        {
+          "type": "if_directive",
+          "named": true
+        },
+        {
+          "type": "import_directive",
+          "named": true
+        },
+        {
+          "type": "leaf_variable",
+          "named": true
+        },
+        {
+          "type": "string_literal",
+          "named": true
+        },
+        {
+          "type": "text",
+          "named": true
+        },
+        {
+          "type": "unless_directive",
+          "named": true
+        },
+        {
+          "type": "while_directive",
+          "named": true
+        }
+      ]
     }
   },
   {
     "type": "for_directive",
     "named": true,
-    "fields": {
-      "body": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "evaluate_directive",
-            "named": true
-          },
-          {
-            "type": "export_directive",
-            "named": true
-          },
-          {
-            "type": "html_comment",
-            "named": true
-          },
-          {
-            "type": "html_element",
-            "named": true
-          },
-          {
-            "type": "html_self_closing_tag",
-            "named": true
-          },
-          {
-            "type": "if_directive",
-            "named": true
-          },
-          {
-            "type": "import_directive",
-            "named": true
-          },
-          {
-            "type": "leaf_variable",
-            "named": true
-          },
-          {
-            "type": "text",
-            "named": true
-          },
-          {
-            "type": "unless_directive",
-            "named": true
-          },
-          {
-            "type": "while_directive",
-            "named": true
-          }
-        ]
-      },
-      "end": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "end_for_directive",
-            "named": true
-          }
-        ]
-      },
-      "iterable": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "expression",
-            "named": true
-          }
-        ]
-      },
-      "variable": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "end_for_directive",
+          "named": true
+        },
+        {
+          "type": "evaluate_directive",
+          "named": true
+        },
+        {
+          "type": "export_directive",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "html_comment",
+          "named": true
+        },
+        {
+          "type": "html_element",
+          "named": true
+        },
+        {
+          "type": "html_self_closing_tag",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "if_directive",
+          "named": true
+        },
+        {
+          "type": "import_directive",
+          "named": true
+        },
+        {
+          "type": "leaf_variable",
+          "named": true
+        },
+        {
+          "type": "text",
+          "named": true
+        },
+        {
+          "type": "unless_directive",
+          "named": true
+        },
+        {
+          "type": "while_directive",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -512,37 +467,24 @@
   {
     "type": "html_element",
     "named": true,
-    "fields": {
-      "content": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "html_content",
-            "named": true
-          }
-        ]
-      },
-      "end_tag": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "end_tag",
-            "named": true
-          }
-        ]
-      },
-      "start_tag": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "start_tag",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "end_tag",
+          "named": true
+        },
+        {
+          "type": "html_content",
+          "named": true
+        },
+        {
+          "type": "start_tag",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -567,77 +509,64 @@
   {
     "type": "if_directive",
     "named": true,
-    "fields": {
-      "body": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "evaluate_directive",
-            "named": true
-          },
-          {
-            "type": "export_directive",
-            "named": true
-          },
-          {
-            "type": "for_directive",
-            "named": true
-          },
-          {
-            "type": "html_comment",
-            "named": true
-          },
-          {
-            "type": "html_element",
-            "named": true
-          },
-          {
-            "type": "html_self_closing_tag",
-            "named": true
-          },
-          {
-            "type": "import_directive",
-            "named": true
-          },
-          {
-            "type": "leaf_variable",
-            "named": true
-          },
-          {
-            "type": "text",
-            "named": true
-          },
-          {
-            "type": "unless_directive",
-            "named": true
-          },
-          {
-            "type": "while_directive",
-            "named": true
-          }
-        ]
-      },
-      "condition": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "expression",
-            "named": true
-          }
-        ]
-      },
-      "end": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "end_if_directive",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "end_if_directive",
+          "named": true
+        },
+        {
+          "type": "evaluate_directive",
+          "named": true
+        },
+        {
+          "type": "export_directive",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "for_directive",
+          "named": true
+        },
+        {
+          "type": "html_comment",
+          "named": true
+        },
+        {
+          "type": "html_element",
+          "named": true
+        },
+        {
+          "type": "html_self_closing_tag",
+          "named": true
+        },
+        {
+          "type": "import_directive",
+          "named": true
+        },
+        {
+          "type": "leaf_variable",
+          "named": true
+        },
+        {
+          "type": "text",
+          "named": true
+        },
+        {
+          "type": "unless_directive",
+          "named": true
+        },
+        {
+          "type": "while_directive",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -891,153 +820,127 @@
   {
     "type": "unless_directive",
     "named": true,
-    "fields": {
-      "body": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "evaluate_directive",
-            "named": true
-          },
-          {
-            "type": "export_directive",
-            "named": true
-          },
-          {
-            "type": "for_directive",
-            "named": true
-          },
-          {
-            "type": "html_comment",
-            "named": true
-          },
-          {
-            "type": "html_element",
-            "named": true
-          },
-          {
-            "type": "html_self_closing_tag",
-            "named": true
-          },
-          {
-            "type": "if_directive",
-            "named": true
-          },
-          {
-            "type": "import_directive",
-            "named": true
-          },
-          {
-            "type": "leaf_variable",
-            "named": true
-          },
-          {
-            "type": "text",
-            "named": true
-          },
-          {
-            "type": "while_directive",
-            "named": true
-          }
-        ]
-      },
-      "condition": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "expression",
-            "named": true
-          }
-        ]
-      },
-      "end": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "end_unless_directive",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "end_unless_directive",
+          "named": true
+        },
+        {
+          "type": "evaluate_directive",
+          "named": true
+        },
+        {
+          "type": "export_directive",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "for_directive",
+          "named": true
+        },
+        {
+          "type": "html_comment",
+          "named": true
+        },
+        {
+          "type": "html_element",
+          "named": true
+        },
+        {
+          "type": "html_self_closing_tag",
+          "named": true
+        },
+        {
+          "type": "if_directive",
+          "named": true
+        },
+        {
+          "type": "import_directive",
+          "named": true
+        },
+        {
+          "type": "leaf_variable",
+          "named": true
+        },
+        {
+          "type": "text",
+          "named": true
+        },
+        {
+          "type": "while_directive",
+          "named": true
+        }
+      ]
     }
   },
   {
     "type": "while_directive",
     "named": true,
-    "fields": {
-      "body": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "evaluate_directive",
-            "named": true
-          },
-          {
-            "type": "export_directive",
-            "named": true
-          },
-          {
-            "type": "for_directive",
-            "named": true
-          },
-          {
-            "type": "html_comment",
-            "named": true
-          },
-          {
-            "type": "html_element",
-            "named": true
-          },
-          {
-            "type": "html_self_closing_tag",
-            "named": true
-          },
-          {
-            "type": "if_directive",
-            "named": true
-          },
-          {
-            "type": "import_directive",
-            "named": true
-          },
-          {
-            "type": "leaf_variable",
-            "named": true
-          },
-          {
-            "type": "text",
-            "named": true
-          },
-          {
-            "type": "unless_directive",
-            "named": true
-          }
-        ]
-      },
-      "condition": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "expression",
-            "named": true
-          }
-        ]
-      },
-      "end": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "end_while_directive",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "end_while_directive",
+          "named": true
+        },
+        {
+          "type": "evaluate_directive",
+          "named": true
+        },
+        {
+          "type": "export_directive",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "for_directive",
+          "named": true
+        },
+        {
+          "type": "html_comment",
+          "named": true
+        },
+        {
+          "type": "html_element",
+          "named": true
+        },
+        {
+          "type": "html_self_closing_tag",
+          "named": true
+        },
+        {
+          "type": "if_directive",
+          "named": true
+        },
+        {
+          "type": "import_directive",
+          "named": true
+        },
+        {
+          "type": "leaf_variable",
+          "named": true
+        },
+        {
+          "type": "text",
+          "named": true
+        },
+        {
+          "type": "unless_directive",
+          "named": true
+        }
+      ]
     }
   },
   {
