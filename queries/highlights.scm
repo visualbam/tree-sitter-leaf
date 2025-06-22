@@ -1,73 +1,94 @@
+; Directive keywords (more specific categorization)
+(extend_directive) @keyword.directive
+(export_directive) @keyword.directive
+(import_directive) @keyword.directive
+(if_directive) @keyword.directive
+(unless_directive) @keyword.directive
+(for_directive) @keyword.directive
+(while_directive) @keyword.directive
+(evaluate_directive) @keyword.directive
 
-; Directive keywords (these are part of the directive nodes)
-(extend_directive) @keyword
-(export_directive) @keyword
-(import_directive) @keyword
-(if_directive) @keyword
-(unless_directive) @keyword
-(for_directive) @keyword
-(while_directive) @keyword
-(evaluate_directive) @keyword
-
-; Operators
+; Enhanced operators with more specific categorization
 [
-  "+"
-  "-"
-  "*"
-  "/"
-  "%"
-  "=="
-  "!="
-  "<"
-  ">"
-  "<="
-  ">="
-  "&&"
-  "||"
-  "!"
-  "?"
-  ":"
-  "="
-] @operator
-
-; Punctuation
+    "+"
+    "-"
+    "*"
+    "/"
+    "%"
+    "=="
+    "!="
+    "<"
+    ">"
+    "<="
+    ">="
+    "&&"
+    "||"
+    "!"
+    "?"
+    ":"
+    "="
+    ] @operator.arithmetic
 [
-  "("
-  ")"
-  "["
-  "]"
-  "{"
-  "}"
-  ","
-  "."
-] @punctuation.delimiter
+    "=="
+    "!="
+    "<"
+    ">"
+    "<="
+    ">="
+    ] @operator.comparison
+[
+    "&&"
+    "||"
+    "!"
+    ] @operator.logical
 
-; Literals
+; Enhanced punctuation
+[
+    "("
+    ")"
+    "["
+    "]"
+    "{"
+    "}"
+    ] @punctuation.bracket
+[
+    ","
+    "."
+    ] @punctuation.delimiter
+
+; HTML tag punctuation (consistent highlighting)
+[
+    "<"    ; Opening tag start
+    "</"   ; Closing tag start
+    ">"    ; Tag end
+    ] @punctuation.bracket.html
+
+; More nuanced literals
 (string_literal) @string
-(number_literal) @number
-(boolean_literal) @constant.builtin
+(number_literal) @number.float
+(boolean_literal) @boolean
 
-; Identifiers and expressions
+; More detailed identifier handling
 (identifier) @variable
 (member_access (identifier) @variable.member)
-(function_call (identifier) @function)
+(function_call (identifier) @function.call)
 
-; HTML elements
-(tag_name) @tag
-(attribute_name) @attribute
-(attribute_value) @string
-(html_comment) @comment
+; HTML element enhancements
+(tag_name) @tag.html
+(attribute_name) @attribute.html
+(attribute_value) @string.html
+(html_comment) @comment.html
 
-; Leaf variables
-(leaf_variable) @variable.special
+; Special handling for leaf variables
+(leaf_variable) @variable.special.leaf
 
 ; Comments
-(comment) @comment
+(comment) @comment.line
 
-; Keywords
-"in" @keyword.operator
-"true" @constant.builtin
-"false" @constant.builtin
+; Refined keywords
+"in" @keyword.control
+"true" @boolean
+"false" @boolean
 
-; Text content
-(text) @text
+; Text and content handling
+(text) @text.plain

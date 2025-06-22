@@ -1,21 +1,27 @@
-; Indent after directive starts
-(extend_directive) @indent
-(export_directive) @indent
-(if_directive) @indent
-(unless_directive) @indent
-(for_directive) @indent
-(while_directive) @indent
+; Indentation queries for Leaf grammar
+; Adjusted to maintain consistent indentation for closing elements
 
-; HTML indentation
-(html_element) @indent
+[
+    (extend_directive)
+    (export_directive)
+    (if_directive)
+    (unless_directive)
+    (for_directive)
+    (while_directive)
+    (start_tag)
+    (html_element)
+    (html_content)
+    (template)
+    ] @indent.begin
 
-; Outdent on end directives
-(end_extend_directive) @outdent
-(end_export_directive) @outdent
-(end_if_directive) @outdent
-(end_unless_directive) @outdent
-(end_for_directive) @outdent
-(end_while_directive) @outdent
+[
+    (end_extend_directive)
+    (end_export_directive)
+    (end_if_directive)
+    (end_unless_directive)
+    (end_for_directive)
+    (end_while_directive)
+    (end_tag)
+    ] @indent.end
 
-; HTML end tag outdent
-(end_tag) @outdent
+
