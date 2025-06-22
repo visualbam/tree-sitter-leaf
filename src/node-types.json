@@ -141,7 +141,7 @@
     "type": "export_directive",
     "named": true,
     "fields": {
-      "content": {
+      "body": {
         "multiple": true,
         "required": false,
         "types": [
@@ -197,18 +197,10 @@
           }
         ]
       },
-      "start": {
-        "multiple": true,
+      "name": {
+        "multiple": false,
         "required": true,
         "types": [
-          {
-            "type": "#export(",
-            "named": false
-          },
-          {
-            "type": "):",
-            "named": false
-          },
           {
             "type": "string_literal",
             "named": true
@@ -280,7 +272,7 @@
     "type": "extend_directive",
     "named": true,
     "fields": {
-      "content": {
+      "body": {
         "multiple": true,
         "required": false,
         "types": [
@@ -344,18 +336,10 @@
           }
         ]
       },
-      "start": {
-        "multiple": true,
+      "template": {
+        "multiple": false,
         "required": true,
         "types": [
-          {
-            "type": "#extend(",
-            "named": false
-          },
-          {
-            "type": "):",
-            "named": false
-          },
           {
             "type": "string_literal",
             "named": true
@@ -368,7 +352,7 @@
     "type": "for_directive",
     "named": true,
     "fields": {
-      "content": {
+      "body": {
         "multiple": true,
         "required": false,
         "types": [
@@ -428,29 +412,23 @@
           }
         ]
       },
-      "start": {
-        "multiple": true,
+      "iterable": {
+        "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "#for(",
-            "named": false
-          },
-          {
-            "type": "):",
-            "named": false
-          },
-          {
             "type": "expression",
             "named": true
-          },
+          }
+        ]
+      },
+      "variable": {
+        "multiple": false,
+        "required": true,
+        "types": [
           {
             "type": "identifier",
             "named": true
-          },
-          {
-            "type": "in",
-            "named": false
           }
         ]
       }
@@ -545,7 +523,7 @@
           }
         ]
       },
-      "end": {
+      "end_tag": {
         "multiple": false,
         "required": true,
         "types": [
@@ -555,7 +533,7 @@
           }
         ]
       },
-      "start": {
+      "start_tag": {
         "multiple": false,
         "required": true,
         "types": [
@@ -590,7 +568,7 @@
     "type": "if_directive",
     "named": true,
     "fields": {
-      "content": {
+      "body": {
         "multiple": true,
         "required": false,
         "types": [
@@ -640,30 +618,22 @@
           }
         ]
       },
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      },
       "end": {
         "multiple": false,
         "required": true,
         "types": [
           {
             "type": "end_if_directive",
-            "named": true
-          }
-        ]
-      },
-      "start": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "#if(",
-            "named": false
-          },
-          {
-            "type": "):",
-            "named": false
-          },
-          {
-            "type": "expression",
             "named": true
           }
         ]
@@ -922,7 +892,7 @@
     "type": "unless_directive",
     "named": true,
     "fields": {
-      "content": {
+      "body": {
         "multiple": true,
         "required": false,
         "types": [
@@ -972,30 +942,22 @@
           }
         ]
       },
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      },
       "end": {
         "multiple": false,
         "required": true,
         "types": [
           {
             "type": "end_unless_directive",
-            "named": true
-          }
-        ]
-      },
-      "start": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "#unless(",
-            "named": false
-          },
-          {
-            "type": "):",
-            "named": false
-          },
-          {
-            "type": "expression",
             "named": true
           }
         ]
@@ -1006,7 +968,7 @@
     "type": "while_directive",
     "named": true,
     "fields": {
-      "content": {
+      "body": {
         "multiple": true,
         "required": false,
         "types": [
@@ -1056,30 +1018,22 @@
           }
         ]
       },
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      },
       "end": {
         "multiple": false,
         "required": true,
         "types": [
           {
             "type": "end_while_directive",
-            "named": true
-          }
-        ]
-      },
-      "start": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "#while(",
-            "named": false
-          },
-          {
-            "type": "):",
-            "named": false
-          },
-          {
-            "type": "expression",
             "named": true
           }
         ]
@@ -1115,19 +1069,19 @@
     "named": false
   },
   {
-    "type": "#export(",
+    "type": "#export",
     "named": false
   },
   {
-    "type": "#extend(",
+    "type": "#extend",
     "named": false
   },
   {
-    "type": "#for(",
+    "type": "#for",
     "named": false
   },
   {
-    "type": "#if(",
+    "type": "#if",
     "named": false
   },
   {
@@ -1135,11 +1089,11 @@
     "named": false
   },
   {
-    "type": "#unless(",
+    "type": "#unless",
     "named": false
   },
   {
-    "type": "#while(",
+    "type": "#while",
     "named": false
   },
   {
@@ -1160,10 +1114,6 @@
   },
   {
     "type": ")",
-    "named": false
-  },
-  {
-    "type": "):",
     "named": false
   },
   {
