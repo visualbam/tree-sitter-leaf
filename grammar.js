@@ -21,8 +21,23 @@ module.exports = grammar({
                     $.html_comment,
                     $.text,
                     $.comment,
+                    // Add standalone end directives
+                    $.end_extend_directive,
+                    $.end_export_directive,
+                    $.end_if_directive,
+                    $.end_unless_directive,
+                    $.end_for_directive,
+                    $.end_while_directive,
                 ),
             ),
+
+        // Define explicit end directive nodes
+        end_extend_directive: $ => "#endextend",
+        end_export_directive: $ => "#endexport",
+        end_if_directive: $ => "#endif",
+        end_unless_directive: $ => "#endunless",
+        end_for_directive: $ => "#endfor",
+        end_while_directive: $ => "#endwhile",
 
         // Block directives with explicit end tags and named fields
         extend_directive: ($) =>
@@ -44,7 +59,7 @@ module.exports = grammar({
                         $.text,
                     ),
                 )),
-                field('end', "#endextend"),
+                field('end', $.end_extend_directive),
             ),
 
         export_directive: ($) =>
@@ -64,7 +79,7 @@ module.exports = grammar({
                         $.text,
                     ),
                 )),
-                field('end', "#endexport"),
+                field('end', $.end_export_directive),
             ),
 
         if_directive: ($) =>
@@ -85,7 +100,7 @@ module.exports = grammar({
                         $.text,
                     ),
                 )),
-                field('end', "#endif"),
+                field('end', $.end_if_directive),
             ),
 
         unless_directive: ($) =>
@@ -106,7 +121,7 @@ module.exports = grammar({
                         $.text,
                     ),
                 )),
-                field('end', "#endunless"),
+                field('end', $.end_unless_directive),
             ),
 
         for_directive: ($) =>
@@ -127,7 +142,7 @@ module.exports = grammar({
                         $.text,
                     ),
                 )),
-                field('end', "#endfor"),
+                field('end', $.end_for_directive),
             ),
 
         while_directive: ($) =>
@@ -148,7 +163,7 @@ module.exports = grammar({
                         $.text,
                     ),
                 )),
-                field('end', "#endwhile"),
+                field('end', $.end_while_directive),
             ),
 
         // Simple directives

@@ -192,8 +192,8 @@
         "required": true,
         "types": [
           {
-            "type": "#endexport",
-            "named": false
+            "type": "end_export_directive",
+            "named": true
           }
         ]
       },
@@ -339,8 +339,8 @@
         "required": true,
         "types": [
           {
-            "type": "#endextend",
-            "named": false
+            "type": "end_extend_directive",
+            "named": true
           }
         ]
       },
@@ -423,8 +423,8 @@
         "required": true,
         "types": [
           {
-            "type": "#endfor",
-            "named": false
+            "type": "end_for_directive",
+            "named": true
           }
         ]
       },
@@ -645,8 +645,8 @@
         "required": true,
         "types": [
           {
-            "type": "#endif",
-            "named": false
+            "type": "end_if_directive",
+            "named": true
           }
         ]
       },
@@ -800,7 +800,6 @@
   {
     "type": "template",
     "named": true,
-    "root": true,
     "fields": {},
     "children": {
       "multiple": true,
@@ -808,6 +807,30 @@
       "types": [
         {
           "type": "comment",
+          "named": true
+        },
+        {
+          "type": "end_export_directive",
+          "named": true
+        },
+        {
+          "type": "end_extend_directive",
+          "named": true
+        },
+        {
+          "type": "end_for_directive",
+          "named": true
+        },
+        {
+          "type": "end_if_directive",
+          "named": true
+        },
+        {
+          "type": "end_unless_directive",
+          "named": true
+        },
+        {
+          "type": "end_while_directive",
           "named": true
         },
         {
@@ -954,8 +977,8 @@
         "required": true,
         "types": [
           {
-            "type": "#endunless",
-            "named": false
+            "type": "end_unless_directive",
+            "named": true
           }
         ]
       },
@@ -1038,8 +1061,8 @@
         "required": true,
         "types": [
           {
-            "type": "#endwhile",
-            "named": false
+            "type": "end_while_directive",
+            "named": true
           }
         ]
       },
@@ -1085,30 +1108,6 @@
   },
   {
     "type": "#*",
-    "named": false
-  },
-  {
-    "type": "#endexport",
-    "named": false
-  },
-  {
-    "type": "#endextend",
-    "named": false
-  },
-  {
-    "type": "#endfor",
-    "named": false
-  },
-  {
-    "type": "#endif",
-    "named": false
-  },
-  {
-    "type": "#endunless",
-    "named": false
-  },
-  {
-    "type": "#endwhile",
     "named": false
   },
   {
@@ -1249,6 +1248,30 @@
   },
   {
     "type": "attribute_name",
+    "named": true
+  },
+  {
+    "type": "end_export_directive",
+    "named": true
+  },
+  {
+    "type": "end_extend_directive",
+    "named": true
+  },
+  {
+    "type": "end_for_directive",
+    "named": true
+  },
+  {
+    "type": "end_if_directive",
+    "named": true
+  },
+  {
+    "type": "end_unless_directive",
+    "named": true
+  },
+  {
+    "type": "end_while_directive",
     "named": true
   },
   {

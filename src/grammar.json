@@ -1,5 +1,4 @@
 {
-  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
   "name": "leaf",
   "rules": {
     "template": {
@@ -62,9 +61,57 @@
           {
             "type": "SYMBOL",
             "name": "comment"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "end_extend_directive"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "end_export_directive"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "end_if_directive"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "end_unless_directive"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "end_for_directive"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "end_while_directive"
           }
         ]
       }
+    },
+    "end_extend_directive": {
+      "type": "STRING",
+      "value": "#endextend"
+    },
+    "end_export_directive": {
+      "type": "STRING",
+      "value": "#endexport"
+    },
+    "end_if_directive": {
+      "type": "STRING",
+      "value": "#endif"
+    },
+    "end_unless_directive": {
+      "type": "STRING",
+      "value": "#endunless"
+    },
+    "end_for_directive": {
+      "type": "STRING",
+      "value": "#endfor"
+    },
+    "end_while_directive": {
+      "type": "STRING",
+      "value": "#endwhile"
     },
     "extend_directive": {
       "type": "SEQ",
@@ -154,8 +201,8 @@
           "type": "FIELD",
           "name": "end",
           "content": {
-            "type": "STRING",
-            "value": "#endextend"
+            "type": "SYMBOL",
+            "name": "end_extend_directive"
           }
         }
       ]
@@ -240,8 +287,8 @@
           "type": "FIELD",
           "name": "end",
           "content": {
-            "type": "STRING",
-            "value": "#endexport"
+            "type": "SYMBOL",
+            "name": "end_export_directive"
           }
         }
       ]
@@ -330,8 +377,8 @@
           "type": "FIELD",
           "name": "end",
           "content": {
-            "type": "STRING",
-            "value": "#endif"
+            "type": "SYMBOL",
+            "name": "end_if_directive"
           }
         }
       ]
@@ -420,8 +467,8 @@
           "type": "FIELD",
           "name": "end",
           "content": {
-            "type": "STRING",
-            "value": "#endunless"
+            "type": "SYMBOL",
+            "name": "end_unless_directive"
           }
         }
       ]
@@ -518,8 +565,8 @@
           "type": "FIELD",
           "name": "end",
           "content": {
-            "type": "STRING",
-            "value": "#endfor"
+            "type": "SYMBOL",
+            "name": "end_for_directive"
           }
         }
       ]
@@ -608,8 +655,8 @@
           "type": "FIELD",
           "name": "end",
           "content": {
-            "type": "STRING",
-            "value": "#endwhile"
+            "type": "SYMBOL",
+            "name": "end_while_directive"
           }
         }
       ]
@@ -1616,6 +1663,6 @@
   "precedences": [],
   "externals": [],
   "inline": [],
-  "supertypes": [],
-  "reserved": {}
+  "supertypes": []
 }
+
