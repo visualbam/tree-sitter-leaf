@@ -1,11 +1,9 @@
-
 module.exports = grammar({
     name: "leaf",
 
     extras: ($) => [
         /\s/,
         $.comment,
-        // Add explicit newline handling for blocks
         token(prec(-1, /\n/))
     ],
 
@@ -27,7 +25,6 @@ module.exports = grammar({
                     $.html_comment,
                     $.text,
                     $.comment,
-                    // Add standalone end directives
                     $.end_extend_directive,
                     $.end_export_directive,
                     $.end_if_directive,
@@ -45,14 +42,10 @@ module.exports = grammar({
         end_for_directive: $ => "#endfor",
         end_while_directive: $ => "#endwhile",
 
-        // Block directives - NO fields around individual tokens
+        // Block directives with unified headers
         extend_directive: ($) =>
             seq(
-                "#extend",
-                "(",
-                $.string_literal,
-                ")",
-                ":",
+                $.extend_header,
                 repeat(
                     choice(
                         $.export_directive,
@@ -74,11 +67,7 @@ module.exports = grammar({
 
         export_directive: ($) =>
             seq(
-                "#export",
-                "(",
-                $.string_literal,
-                ")",
-                ":",
+                $.export_header,
                 repeat(
                     choice(
                         $.if_directive,
@@ -98,11 +87,7 @@ module.exports = grammar({
 
         if_directive: ($) =>
             seq(
-                "#if",
-                "(",
-                $.expression,
-                ")",
-                ":",
+                $.if_header,
                 repeat(
                     choice(
                         $.export_directive,
@@ -123,11 +108,7 @@ module.exports = grammar({
 
         unless_directive: ($) =>
             seq(
-                "#unless",
-                "(",
-                $.expression,
-                ")",
-                ":",
+                $.unless_header,
                 repeat(
                     choice(
                         $.export_directive,
@@ -148,13 +129,7 @@ module.exports = grammar({
 
         for_directive: ($) =>
             seq(
-                "#for",
-                "(",
-                $.identifier,
-                "in",
-                $.expression,
-                ")",
-                ":",
+                $.for_header,
                 repeat(
                     choice(
                         $.export_directive,
@@ -175,11 +150,7 @@ module.exports = grammar({
 
         while_directive: ($) =>
             seq(
-                "#while",
-                "(",
-                $.expression,
-                ")",
-                ":",
+                $.while_header,
                 repeat(
                     choice(
                         $.export_directive,
@@ -198,9 +169,16 @@ module.exports = grammar({
                 $.end_while_directive,
             ),
 
+        // Directive headers as unified tokens
+        extend_header: ($) => seq("#extend", "(", $.string_literal, ")", ":"),
+        export_header: ($) => seq("#export", "(", $.string_literal, ")", ":"),
+        if_header: ($) => seq("#if", "(", $.expression, ")", ":"),
+        unless_header: ($) => seq("#unless", "(", $.expression, ")", ":"),
+        for_header: ($) => seq("#for", "(", $.identifier, "in", $.expression, ")", ":"),
+        while_header: ($) => seq("#while", "(", $.expression, ")", ":"),
+
         // Simple directives
         import_directive: ($) => seq("#import(", $.string_literal, ")"),
-
         evaluate_directive: ($) => seq("#evaluate(", $.expression, ")"),
 
         // Leaf variables
@@ -223,7 +201,7 @@ module.exports = grammar({
                 $.parenthesized_expression,
             ),
 
-        // HTML elements with enhanced structure
+        // HTML elements
         html_element: ($) =>
             seq(
                 $.start_tag,

@@ -117,24 +117,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "#extend"
-        },
-        {
-          "type": "STRING",
-          "value": "("
-        },
-        {
           "type": "SYMBOL",
-          "name": "string_literal"
-        },
-        {
-          "type": "STRING",
-          "value": ")"
-        },
-        {
-          "type": "STRING",
-          "value": ":"
+          "name": "extend_header"
         },
         {
           "type": "REPEAT",
@@ -202,24 +186,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "#export"
-        },
-        {
-          "type": "STRING",
-          "value": "("
-        },
-        {
           "type": "SYMBOL",
-          "name": "string_literal"
-        },
-        {
-          "type": "STRING",
-          "value": ")"
-        },
-        {
-          "type": "STRING",
-          "value": ":"
+          "name": "export_header"
         },
         {
           "type": "REPEAT",
@@ -279,24 +247,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "#if"
-        },
-        {
-          "type": "STRING",
-          "value": "("
-        },
-        {
           "type": "SYMBOL",
-          "name": "expression"
-        },
-        {
-          "type": "STRING",
-          "value": ")"
-        },
-        {
-          "type": "STRING",
-          "value": ":"
+          "name": "if_header"
         },
         {
           "type": "REPEAT",
@@ -360,24 +312,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "#unless"
-        },
-        {
-          "type": "STRING",
-          "value": "("
-        },
-        {
           "type": "SYMBOL",
-          "name": "expression"
-        },
-        {
-          "type": "STRING",
-          "value": ")"
-        },
-        {
-          "type": "STRING",
-          "value": ":"
+          "name": "unless_header"
         },
         {
           "type": "REPEAT",
@@ -441,32 +377,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "#for"
-        },
-        {
-          "type": "STRING",
-          "value": "("
-        },
-        {
           "type": "SYMBOL",
-          "name": "identifier"
-        },
-        {
-          "type": "STRING",
-          "value": "in"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "expression"
-        },
-        {
-          "type": "STRING",
-          "value": ")"
-        },
-        {
-          "type": "STRING",
-          "value": ":"
+          "name": "for_header"
         },
         {
           "type": "REPEAT",
@@ -530,24 +442,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "#while"
-        },
-        {
-          "type": "STRING",
-          "value": "("
-        },
-        {
           "type": "SYMBOL",
-          "name": "expression"
-        },
-        {
-          "type": "STRING",
-          "value": ")"
-        },
-        {
-          "type": "STRING",
-          "value": ":"
+          "name": "while_header"
         },
         {
           "type": "REPEAT",
@@ -604,6 +500,164 @@
         {
           "type": "SYMBOL",
           "name": "end_while_directive"
+        }
+      ]
+    },
+    "extend_header": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "#extend"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "string_literal"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        }
+      ]
+    },
+    "export_header": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "#export"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "string_literal"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        }
+      ]
+    },
+    "if_header": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "#if"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        }
+      ]
+    },
+    "unless_header": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "#unless"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        }
+      ]
+    },
+    "for_header": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "#for"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "STRING",
+          "value": "in"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        }
+      ]
+    },
+    "while_header": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "#while"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
         }
       ]
     },
