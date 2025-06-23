@@ -181,6 +181,10 @@
           "named": true
         },
         {
+          "type": "export_directive",
+          "named": true
+        },
+        {
           "type": "export_header",
           "named": true
         },
@@ -202,6 +206,10 @@
         },
         {
           "type": "if_directive",
+          "named": true
+        },
+        {
+          "type": "import_directive",
           "named": true
         },
         {

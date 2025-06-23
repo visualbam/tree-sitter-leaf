@@ -231,6 +231,14 @@
             "members": [
               {
                 "type": "SYMBOL",
+                "name": "export_directive"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "import_directive"
+              },
+              {
+                "type": "SYMBOL",
                 "name": "if_directive"
               },
               {

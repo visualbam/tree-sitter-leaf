@@ -1,3 +1,4 @@
+
 module.exports = grammar({
     name: "leaf",
 
@@ -76,6 +77,8 @@ module.exports = grammar({
                 $.export_header,
                 repeat(
                     choice(
+                        $.export_directive,  // Added: nested export directives
+                        $.import_directive,  // Added: import directives  
                         $.if_directive,
                         $.unless_directive,
                         $.for_directive,
