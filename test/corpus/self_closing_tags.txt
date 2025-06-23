@@ -8,7 +8,26 @@ Self-closing HTML tags
 
 --------------------------------------------------------------------------------
 
-(document
-  (self_closing_tag (tag_name) (attribute (attribute_name) (quoted_attribute_value (attribute_value))) (attribute (attribute_name) (quoted_attribute_value (attribute_value))))
-  (self_closing_tag (tag_name))
-  (self_closing_tag (tag_name) (attribute (attribute_name) (quoted_attribute_value (attribute_value))) (attribute (attribute_name) (quoted_attribute_value (attribute_value)))))
+(template
+  (html_self_closing_tag
+    (tag_name)
+    (attribute
+      (attribute_name)
+      (attribute_value
+        (quoted_attribute_value)))
+    (attribute
+      (attribute_name)
+      (attribute_value
+        (quoted_attribute_value))))
+  (html_self_closing_tag
+    (tag_name))
+  (html_self_closing_tag
+    (tag_name)
+    (attribute
+      (attribute_name)
+      (attribute_value
+        (quoted_attribute_value)))
+    (attribute
+      (attribute_name)
+      (attribute_value
+        (quoted_attribute_value)))))

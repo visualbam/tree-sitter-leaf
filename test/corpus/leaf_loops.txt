@@ -1,5 +1,5 @@
 ================================================================================
-Leaf loop directives
+Basic for loop
 ================================================================================
 
 #for(item in items):
@@ -8,19 +8,21 @@ Leaf loop directives
 
 --------------------------------------------------------------------------------
 
-(document
-  (leaf_for_directive
-    (identifier)
-    (leaf_expression
-      (identifier))
-    (element
+(template
+  (for_directive
+    (for_header
+      (identifier)
+      (expression
+        (identifier)))
+    (html_element
       (start_tag
         (tag_name))
-      (leaf_interpolation
-        (leaf_expression
-          (leaf_member_access
-            (identifier)
-            (identifier))))
+      (html_content
+        (leaf_variable
+          (expression
+            (member_access
+              (identifier)
+              (identifier)))))
       (end_tag
         (tag_name)))
-    (leaf_endfor_directive)))
+    (end_for_directive)))

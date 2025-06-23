@@ -1,20 +1,19 @@
-
 ; ===== HTML INJECTIONS =====
 
 ; HTML Comments
-((comment) @injection.content
+((html_comment) @injection.content
     (#set! injection.language "comment"))
 
 ; Leaf Comments
-((leaf_comment) @injection.content
+((comment) @injection.content
     (#set! injection.language "comment"))
 
 ; CSS in style attributes
 ; <a style="/* css */">
 ((attribute
      (attribute_name) @_attr
-     (quoted_attribute_value
-         (attribute_value) @injection.content))
+     (attribute_value
+         (quoted_attribute_value) @injection.content))
     (#eq? @_attr "style")
     (#set! injection.language "css"))
 
@@ -22,8 +21,8 @@
 ; <input type="checkbox" onchange="this.closest('form').elements.output.value = this.checked">
 ((attribute
      (attribute_name) @_name
-     (quoted_attribute_value
-         (attribute_value) @injection.content))
+     (attribute_value
+         (quoted_attribute_value) @injection.content))
     (#lua-match? @_name "^on[a-z]+$")
     (#set! injection.language "javascript"))
 
@@ -31,8 +30,8 @@
 ; <input pattern="[0-9]">
 ((attribute
      (attribute_name) @_attr
-     (quoted_attribute_value
-         (attribute_value) @injection.content))
+     (attribute_value
+         (quoted_attribute_value) @injection.content))
     (#eq? @_attr "pattern")
     (#set! injection.language "regex"))
 
@@ -41,67 +40,57 @@
 ; Leaf expressions in interpolations
 ; #(variable.name)
 ; #(complex.expression())
-((leaf_interpolation
-     (leaf_expression) @injection.content)
-    (#set! injection.language "swift"))
-
-; Leaf expressions in conditional attributes
-; #if(user.isAdmin)
-((leaf_conditional_attribute
-     (leaf_expression) @injection.content)
-    (#set! injection.language "swift"))
-
-; Leaf expressions in loop attributes
-; #for(item in items)
-((leaf_loop_attribute
-     (leaf_expression) @injection.content)
+((leaf_variable
+     (expression) @injection.content)
     (#set! injection.language "swift"))
 
 ; ===== LEAF EXPRESSION INJECTIONS =====
 
 ; Function calls in Leaf
-((leaf_function_call) @injection.content
+((function_call) @injection.content
     (#set! injection.language "swift"))
 
 ; Member access in Leaf
-((leaf_member_access) @injection.content
+((member_access) @injection.content
     (#set! injection.language "swift"))
 
 ; Array access in Leaf
-((leaf_array_access) @injection.content
+((array_access) @injection.content
     (#set! injection.language "swift"))
 
 ; Binary expressions in Leaf
-((leaf_binary_expression) @injection.content
+((binary_expression) @injection.content
     (#set! injection.language "swift"))
 
 ; Ternary expressions in Leaf
-((leaf_ternary_expression) @injection.content
+((ternary_expression) @injection.content
     (#set! injection.language "swift"))
 
 ; Unary expressions in Leaf
-((leaf_unary_expression) @injection.content
+((unary_expression) @injection.content
     (#set! injection.language "swift"))
 
 ; Parenthesized expressions in Leaf
-((leaf_parenthesized_expression) @injection.content
+((parenthesized_expression) @injection.content
     (#set! injection.language "swift"))
 
 ; ===== CSS AND JAVASCRIPT IN ELEMENTS =====
 
 ; CSS in style elements (basic detection)
-((element
+((html_element
      (start_tag
          (tag_name) @_tag)
-     (text) @injection.content)
+     (html_content
+         (text) @injection.content))
     (#eq? @_tag "style")
     (#set! injection.language "css"))
 
 ; JavaScript in script elements (basic detection)
-((element
+((html_element
      (start_tag
          (tag_name) @_tag)
-     (text) @injection.content)
+     (html_content
+         (text) @injection.content))
     (#eq? @_tag "script")
     (#set! injection.language "javascript"))
 
@@ -144,8 +133,8 @@
 ; CSS with potential Leaf interpolations in style attributes
 ((attribute
      (attribute_name) @_attr
-     (quoted_attribute_value
-         (attribute_value) @injection.content))
+     (attribute_value
+         (quoted_attribute_value) @injection.content))
     (#eq? @_attr "style")
     (#lua-match? @injection.content "#%(")
     (#set! injection.language "css"))
@@ -153,8 +142,8 @@
 ; JavaScript with potential Leaf interpolations in event handlers
 ((attribute
      (attribute_name) @_name
-     (quoted_attribute_value
-         (attribute_value) @injection.content))
+     (attribute_value
+         (quoted_attribute_value) @injection.content))
     (#lua-match? @_name "^on[a-z]+$")
     (#lua-match? @injection.content "#%(")
     (#set! injection.language "javascript"))

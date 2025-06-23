@@ -1,5 +1,5 @@
 ================================================================================
-If statement
+Simple if statement
 ================================================================================
 
 #if(user.isActive):
@@ -8,22 +8,124 @@ If statement
 
 --------------------------------------------------------------------------------
 
-(document
-  (leaf_if_directive
-    (leaf_expression
-      (leaf_member_access
-        (identifier)
-        (identifier)))
-    (element
+(template
+  (if_directive
+    (if_header
+      (expression
+        (member_access
+          (identifier)
+          (identifier))))
+    (html_element
       (start_tag
         (tag_name))
-      (text)
-      (leaf_interpolation
-        (leaf_expression
-          (leaf_member_access
-            (identifier)
-            (identifier))))
-      (text)
+      (html_content
+        (text)
+        (leaf_variable
+          (expression
+            (member_access
+              (identifier)
+              (identifier))))
+        (text))
       (end_tag
         (tag_name)))
-    (leaf_endif_directive)))
+    (end_if_directive)))
+
+================================================================================
+If-else statement
+================================================================================
+
+#if(user.isLoggedIn):
+  <p>Welcome back, #(user.name)!</p>
+#else:
+  <p>Please log in.</p>
+#endif
+
+--------------------------------------------------------------------------------
+
+(template
+  (if_directive
+    (if_header
+      (expression
+        (member_access
+          (identifier)
+          (identifier))))
+    (html_element
+      (start_tag
+        (tag_name))
+      (html_content
+        (text)
+        (leaf_variable
+          (expression
+            (member_access
+              (identifier)
+              (identifier))))
+        (text))
+      (end_tag
+        (tag_name)))
+    (else_directive)
+    (html_element
+      (start_tag
+        (tag_name))
+      (html_content
+        (text))
+      (end_tag
+        (tag_name)))
+    (end_if_directive)))
+
+================================================================================
+Unless directive
+================================================================================
+
+#unless(user.isBlocked):
+  <p>You can access this content.</p>
+#endunless
+
+--------------------------------------------------------------------------------
+
+(template
+  (unless_directive
+    (unless_header
+      (expression
+        (member_access
+          (identifier)
+          (identifier))))
+    (html_element
+      (start_tag
+        (tag_name))
+      (html_content
+        (text))
+      (end_tag
+        (tag_name)))
+    (end_unless_directive)))
+
+================================================================================
+Conditional inside HTML element
+================================================================================
+
+<div>
+  #if(isAuthenticated):
+    <p>You are logged in.</p>
+  #endif
+</div>
+
+--------------------------------------------------------------------------------
+
+(template
+  (html_element
+    (start_tag
+      (tag_name))
+    (html_content
+      (if_directive
+        (if_header
+          (expression
+            (identifier)))
+        (html_element
+          (start_tag
+            (tag_name))
+          (html_content
+            (text))
+          (end_tag
+            (tag_name)))
+        (end_if_directive)))
+    (end_tag
+      (tag_name))))

@@ -1,3 +1,4 @@
+
 ================================================================================
 HTML comments and Leaf comments
 ================================================================================
@@ -6,30 +7,31 @@ HTML comments and Leaf comments
 <div>
   <!-- This is a nested comment with <tags> inside -->
   <p>Regular content</p>
-  // This is a Leaf comment
-  #(user.name) // Inline Leaf comment
+  #* This is a Leaf comment *#
+  #(user.name)
 </div>
 
 --------------------------------------------------------------------------------
 
-(document
-  (comment)
-  (element
+(template
+  (html_comment)
+  (html_element
     (start_tag
       (tag_name))
-    (comment)
-    (element
-      (start_tag
-        (tag_name))
-      (text)
-      (end_tag
-        (tag_name)))
-    (leaf_comment)
-    (leaf_interpolation
-      (leaf_expression
-        (leaf_member_access
-          (identifier)
-          (identifier))))
-    (leaf_comment)
+    (html_content
+      (html_comment)
+      (html_element
+        (start_tag
+          (tag_name))
+        (html_content
+          (text))
+        (end_tag
+          (tag_name)))
+      (comment)
+      (leaf_variable
+        (expression
+          (member_access
+            (identifier)
+            (identifier)))))
     (end_tag
       (tag_name))))

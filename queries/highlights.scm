@@ -1,98 +1,115 @@
 (tag_name) @tag
 
 ; (erroneous_end_tag_name) @error ; we do not lint syntax errors
+(html_comment) @comment @spell
 (comment) @comment @spell
 
 (attribute_name) @tag.attribute
 
+; Fix: quoted_attribute_value is nested under attribute_value
 ((attribute
-     (quoted_attribute_value) @string)
+     (attribute_value
+         (quoted_attribute_value) @string))
     (#set! priority 99))
 
 (text) @none @spell
 
-((element
+((html_element
      (start_tag
          (tag_name) @_tag)
-     (text) @markup.heading)
+     (html_content
+         (text) @markup.heading))
     (#eq? @_tag "title"))
 
-((element
+((html_element
      (start_tag
          (tag_name) @_tag)
-     (text) @markup.heading.1)
+     (html_content
+         (text) @markup.heading.1))
     (#eq? @_tag "h1"))
 
-((element
+((html_element
      (start_tag
          (tag_name) @_tag)
-     (text) @markup.heading.2)
+     (html_content
+         (text) @markup.heading.2))
     (#eq? @_tag "h2"))
 
-((element
+((html_element
      (start_tag
          (tag_name) @_tag)
-     (text) @markup.heading.3)
+     (html_content
+         (text) @markup.heading.3))
     (#eq? @_tag "h3"))
 
-((element
+((html_element
      (start_tag
          (tag_name) @_tag)
-     (text) @markup.heading.4)
+     (html_content
+         (text) @markup.heading.4))
     (#eq? @_tag "h4"))
 
-((element
+((html_element
      (start_tag
          (tag_name) @_tag)
-     (text) @markup.heading.5)
+     (html_content
+         (text) @markup.heading.5))
     (#eq? @_tag "h5"))
 
-((element
+((html_element
      (start_tag
          (tag_name) @_tag)
-     (text) @markup.heading.6)
+     (html_content
+         (text) @markup.heading.6))
     (#eq? @_tag "h6"))
 
-((element
+((html_element
      (start_tag
          (tag_name) @_tag)
-     (text) @markup.strong)
+     (html_content
+         (text) @markup.strong))
     (#any-of? @_tag "strong" "b"))
 
-((element
+((html_element
      (start_tag
          (tag_name) @_tag)
-     (text) @markup.italic)
+     (html_content
+         (text) @markup.italic))
     (#any-of? @_tag "em" "i"))
 
-((element
+((html_element
      (start_tag
          (tag_name) @_tag)
-     (text) @markup.strikethrough)
+     (html_content
+         (text) @markup.strikethrough))
     (#any-of? @_tag "s" "del"))
 
-((element
+((html_element
      (start_tag
          (tag_name) @_tag)
-     (text) @markup.underline)
+     (html_content
+         (text) @markup.underline))
     (#eq? @_tag "u"))
 
-((element
+((html_element
      (start_tag
          (tag_name) @_tag)
-     (text) @markup.raw)
+     (html_content
+         (text) @markup.raw))
     (#any-of? @_tag "code" "kbd"))
 
-((element
+((html_element
      (start_tag
          (tag_name) @_tag)
-     (text) @markup.link.label)
+     (html_content
+         (text) @markup.link.label))
     (#eq? @_tag "a"))
 
+; Fix: also update URL pattern to match the correct structure
 ((attribute
      (attribute_name) @_attr
-     (quoted_attribute_value
-         (attribute_value) @string.special.url))
+     (attribute_value
+         (quoted_attribute_value) @string.special.url))
     (#any-of? @_attr "href" "src"))
 
 [
@@ -107,28 +124,32 @@
 ; ===== LEAF-SPECIFIC SYNTAX =====
 
 ; Leaf Comments
-(leaf_comment) @comment @spell
+(comment) @comment @spell
 
 ; Leaf Directive Nodes
-(leaf_if_directive) @keyword.directive
-(leaf_else_directive) @keyword.directive
-(leaf_endif_directive) @keyword.directive
-(leaf_for_directive) @keyword.directive
-(leaf_endfor_directive) @keyword.directive
+(if_directive) @keyword.directive
+(else_directive) @keyword.directive
+(end_if_directive) @keyword.directive
+(for_directive) @keyword.directive
+(end_for_directive) @keyword.directive
+(unless_directive) @keyword.directive
+(end_unless_directive) @keyword.directive
+(while_directive) @keyword.directive
+(end_while_directive) @keyword.directive
+(extend_directive) @keyword.directive
+(end_extend_directive) @keyword.directive
+(export_directive) @keyword.directive
+(end_export_directive) @keyword.directive
 
 ; Leaf Interpolation
-(leaf_interpolation
+(leaf_variable
     [
         "#("
         ")"
         ] @punctuation.special)
 
-(leaf_interpolation
-    expression: (leaf_expression) @embedded)
-
-; Leaf Conditional and Loop Attributes
-(leaf_conditional_attribute) @keyword.directive
-(leaf_loop_attribute) @keyword.directive
+(leaf_variable
+    (expression) @embedded)
 
 ; Leaf Expressions
 (identifier) @variable
@@ -138,21 +159,21 @@
 (boolean_literal) @constant.builtin.boolean
 
 ; Member Access
-(leaf_member_access
+(member_access
     "." @punctuation.delimiter)
 
 ; Array Access
-(leaf_array_access
+(array_access
     [
         "["
         "]"
         ] @punctuation.bracket)
 
 ; Function Calls - highlight the first identifier in a function call as function
-((leaf_function_call
+((function_call
      (identifier) @function))
 
-(leaf_function_call
+(function_call
     [
         "("
         ")"
@@ -195,7 +216,7 @@
     ] @operator.ternary
 
 ; Leaf Parentheses and Punctuation
-(leaf_parenthesized_expression
+(parenthesized_expression
     [
         "("
         ")"

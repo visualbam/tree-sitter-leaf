@@ -10,19 +10,22 @@ Basic HTML with Leaf conditional
 
 --------------------------------------------------------------------------------
 
-(document
-  (element
+(template
+  (html_element
     (start_tag
       (tag_name))
-    (leaf_if_directive
-      (leaf_expression
-        (identifier))
-      (element
-        (start_tag
-          (tag_name))
-        (text)
-        (end_tag
-          (tag_name)))
-      (leaf_endif_directive))
+    (html_content
+      (if_directive
+        (if_header
+          (expression
+            (identifier)))
+        (html_element
+          (start_tag
+            (tag_name))
+          (html_content
+            (text))
+          (end_tag
+            (tag_name)))
+        (end_if_directive)))
     (end_tag
       (tag_name))))
