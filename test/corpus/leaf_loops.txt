@@ -1,29 +1,26 @@
 ================================================================================
-If statement
+Leaf loop directives
 ================================================================================
 
-#if(user.isActive):
-    <p>Welcome, #(user.name)!</p>
-#endif
+#for(item in items):
+  <li>#(item.name)</li>
+#endfor
 
 --------------------------------------------------------------------------------
 
 (document
-  (leaf_if_directive
+  (leaf_for_directive
+    (identifier)
     (leaf_expression
-      (leaf_member_access
-        (identifier)
-        (identifier)))
+      (identifier))
     (element
       (start_tag
         (tag_name))
-      (text)
       (leaf_interpolation
         (leaf_expression
           (leaf_member_access
             (identifier)
             (identifier))))
-      (text)
       (end_tag
         (tag_name)))
-    (leaf_endif_directive)))
+    (leaf_endfor_directive)))

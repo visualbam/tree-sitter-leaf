@@ -1,6 +1,6 @@
 [
   {
-    "type": "attribute",
+    "type": "argument_list",
     "named": true,
     "fields": {},
     "children": {
@@ -8,42 +8,40 @@
       "required": true,
       "types": [
         {
-          "type": "attribute_name",
-          "named": true
-        },
-        {
-          "type": "attribute_value",
-          "named": true
-        },
-        {
-          "type": "leaf_interpolation",
-          "named": true
-        },
-        {
-          "type": "quoted_attribute_value",
+          "type": "leaf_expression",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "attribute_name",
+    "type": "attribute",
     "named": true,
-    "fields": {}
-  },
-  {
-    "type": "attribute_value",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "leaf_interpolation",
-          "named": true
-        }
-      ]
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "attribute_name",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "leaf_interpolation",
+            "named": true
+          },
+          {
+            "type": "quoted_attribute_value",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -83,11 +81,15 @@
           "named": true
         },
         {
-          "type": "erroneous_end_tag",
+          "type": "leaf_comment",
           "named": true
         },
         {
-          "type": "leaf_directive",
+          "type": "leaf_for_directive",
+          "named": true
+        },
+        {
+          "type": "leaf_if_directive",
           "named": true
         },
         {
@@ -130,19 +132,19 @@
           "named": true
         },
         {
-          "type": "erroneous_end_tag",
+          "type": "leaf_comment",
           "named": true
         },
         {
-          "type": "leaf_directive",
+          "type": "leaf_for_directive",
+          "named": true
+        },
+        {
+          "type": "leaf_if_directive",
           "named": true
         },
         {
           "type": "leaf_interpolation",
-          "named": true
-        },
-        {
-          "type": "script_element",
           "named": true
         },
         {
@@ -151,14 +153,6 @@
         },
         {
           "type": "start_tag",
-          "named": true
-        },
-        {
-          "type": "style_element",
-          "named": true
-        },
-        {
-          "type": "tag_name",
           "named": true
         },
         {
@@ -171,58 +165,13 @@
   {
     "type": "end_tag",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "tag_name",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "erroneous_end_tag",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "erroneous_end_tag_name",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "erroneous_end_tag_name",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "leaf_array_access",
-    "named": true,
     "fields": {
-      "array": {
+      "tag_name": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "leaf_expression",
-            "named": true
-          }
-        ]
-      },
-      "index": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "leaf_expression",
+            "type": "tag_name",
             "named": true
           }
         ]
@@ -230,47 +179,19 @@
     }
   },
   {
-    "type": "leaf_attribute",
+    "type": "leaf_array_access",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "leaf_conditional_attribute",
+          "type": "identifier",
           "named": true
         },
         {
-          "type": "leaf_custom_attribute",
-          "named": true
-        },
-        {
-          "type": "leaf_export_attribute",
-          "named": true
-        },
-        {
-          "type": "leaf_extend_attribute",
-          "named": true
-        },
-        {
-          "type": "leaf_import_attribute",
-          "named": true
-        },
-        {
-          "type": "leaf_inline_attribute",
-          "named": true
-        },
-        {
-          "type": "leaf_loop_attribute",
-          "named": true
-        },
-        {
-          "type": "leaf_raw_attribute",
-          "named": true
-        },
-        {
-          "type": "leaf_unsaferaw_attribute",
+          "type": "leaf_expression",
           "named": true
         }
       ]
@@ -279,125 +200,10 @@
   {
     "type": "leaf_binary_expression",
     "named": true,
-    "fields": {
-      "left": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "leaf_expression",
-            "named": true
-          }
-        ]
-      },
-      "operator": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "!=",
-            "named": false
-          },
-          {
-            "type": "%",
-            "named": false
-          },
-          {
-            "type": "&&",
-            "named": false
-          },
-          {
-            "type": "*",
-            "named": false
-          },
-          {
-            "type": "+",
-            "named": false
-          },
-          {
-            "type": "-",
-            "named": false
-          },
-          {
-            "type": "/",
-            "named": false
-          },
-          {
-            "type": "<",
-            "named": false
-          },
-          {
-            "type": "<=",
-            "named": false
-          },
-          {
-            "type": "==",
-            "named": false
-          },
-          {
-            "type": ">",
-            "named": false
-          },
-          {
-            "type": ">=",
-            "named": false
-          },
-          {
-            "type": "||",
-            "named": false
-          }
-        ]
-      },
-      "right": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "leaf_expression",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "leaf_conditional_attribute",
-    "named": true,
-    "fields": {
-      "condition": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "leaf_expression",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "leaf_custom_attribute",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "#",
-            "named": false
-          },
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "leaf_expression",
@@ -407,110 +213,24 @@
     }
   },
   {
-    "type": "leaf_define_directive",
+    "type": "leaf_comment",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "leaf_conditional_attribute",
     "named": true,
     "fields": {
-      "name": {
+      "attribute": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "attribute",
             "named": true
           }
         ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "comment",
-          "named": true
-        },
-        {
-          "type": "doctype",
-          "named": true
-        },
-        {
-          "type": "element",
-          "named": true
-        },
-        {
-          "type": "erroneous_end_tag",
-          "named": true
-        },
-        {
-          "type": "leaf_directive",
-          "named": true
-        },
-        {
-          "type": "leaf_interpolation",
-          "named": true
-        },
-        {
-          "type": "self_closing_tag",
-          "named": true
-        },
-        {
-          "type": "text",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "leaf_directive",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "leaf_define_directive",
-          "named": true
-        },
-        {
-          "type": "leaf_else_directive",
-          "named": true
-        },
-        {
-          "type": "leaf_elseif_directive",
-          "named": true
-        },
-        {
-          "type": "leaf_endfor_directive",
-          "named": true
-        },
-        {
-          "type": "leaf_endif_directive",
-          "named": true
-        },
-        {
-          "type": "leaf_evaluate_directive",
-          "named": true
-        },
-        {
-          "type": "leaf_for_directive",
-          "named": true
-        },
-        {
-          "type": "leaf_if_directive",
-          "named": true
-        },
-        {
-          "type": "leaf_set_directive",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "leaf_elseif_directive",
-    "named": true,
-    "fields": {
+      },
       "condition": {
         "multiple": false,
         "required": true,
@@ -521,39 +241,22 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "leaf_endif_directive",
+          "named": true
+        }
+      ]
     }
   },
   {
-    "type": "leaf_evaluate_directive",
+    "type": "leaf_endfor_directive",
     "named": true,
-    "fields": {
-      "expression": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "leaf_expression",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "leaf_export_attribute",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "quoted_string",
-            "named": true
-          }
-        ]
-      }
-    }
+    "fields": {}
   },
   {
     "type": "leaf_expression",
@@ -611,22 +314,6 @@
     }
   },
   {
-    "type": "leaf_extend_attribute",
-    "named": true,
-    "fields": {
-      "template": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "quoted_string",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "leaf_for_directive",
     "named": true,
     "fields": {
@@ -650,29 +337,68 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "doctype",
+          "named": true
+        },
+        {
+          "type": "element",
+          "named": true
+        },
+        {
+          "type": "leaf_comment",
+          "named": true
+        },
+        {
+          "type": "leaf_endfor_directive",
+          "named": true
+        },
+        {
+          "type": "leaf_for_directive",
+          "named": true
+        },
+        {
+          "type": "leaf_if_directive",
+          "named": true
+        },
+        {
+          "type": "leaf_interpolation",
+          "named": true
+        },
+        {
+          "type": "self_closing_tag",
+          "named": true
+        },
+        {
+          "type": "text",
+          "named": true
+        }
+      ]
     }
   },
   {
     "type": "leaf_function_call",
     "named": true,
-    "fields": {
-      "function": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "leaf_expression",
-            "named": true
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "leaf_expression",
+          "type": "argument_list",
+          "named": true
+        },
+        {
+          "type": "identifier",
           "named": true
         }
       ]
@@ -692,48 +418,56 @@
           }
         ]
       }
-    }
-  },
-  {
-    "type": "leaf_import_attribute",
-    "named": true,
-    "fields": {
-      "template": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "quoted_string",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "leaf_inline_attribute",
-    "named": true,
-    "fields": {
-      "context": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "leaf_expression",
-            "named": true
-          }
-        ]
-      },
-      "template": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "quoted_string",
-            "named": true
-          }
-        ]
-      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "doctype",
+          "named": true
+        },
+        {
+          "type": "element",
+          "named": true
+        },
+        {
+          "type": "leaf_comment",
+          "named": true
+        },
+        {
+          "type": "leaf_else_directive",
+          "named": true
+        },
+        {
+          "type": "leaf_endif_directive",
+          "named": true
+        },
+        {
+          "type": "leaf_for_directive",
+          "named": true
+        },
+        {
+          "type": "leaf_if_directive",
+          "named": true
+        },
+        {
+          "type": "leaf_interpolation",
+          "named": true
+        },
+        {
+          "type": "self_closing_tag",
+          "named": true
+        },
+        {
+          "type": "text",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -756,6 +490,16 @@
     "type": "leaf_loop_attribute",
     "named": true,
     "fields": {
+      "attribute": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "attribute",
+            "named": true
+          }
+        ]
+      },
       "collection": {
         "multiple": false,
         "required": true,
@@ -781,27 +525,16 @@
   {
     "type": "leaf_member_access",
     "named": true,
-    "fields": {
-      "object": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "leaf_expression",
-            "named": true
-          }
-        ]
-      },
-      "property": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -820,131 +553,33 @@
     }
   },
   {
-    "type": "leaf_raw_attribute",
-    "named": true,
-    "fields": {
-      "content": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "leaf_expression",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "leaf_set_directive",
-    "named": true,
-    "fields": {
-      "value": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "leaf_expression",
-            "named": true
-          }
-        ]
-      },
-      "variable": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "leaf_ternary_expression",
     "named": true,
-    "fields": {
-      "alternate": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "leaf_expression",
-            "named": true
-          }
-        ]
-      },
-      "condition": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "leaf_expression",
-            "named": true
-          }
-        ]
-      },
-      "consequent": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "leaf_expression",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "leaf_expression",
+          "named": true
+        }
+      ]
     }
   },
   {
     "type": "leaf_unary_expression",
     "named": true,
-    "fields": {
-      "operand": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "leaf_expression",
-            "named": true
-          }
-        ]
-      },
-      "operator": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "!",
-            "named": false
-          },
-          {
-            "type": "+",
-            "named": false
-          },
-          {
-            "type": "-",
-            "named": false
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "leaf_unsaferaw_attribute",
-    "named": true,
-    "fields": {
-      "content": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "leaf_expression",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "leaf_expression",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -963,51 +598,34 @@
     }
   },
   {
-    "type": "quoted_string",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "script_element",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "end_tag",
-          "named": true
-        },
-        {
-          "type": "start_tag",
-          "named": true
-        },
-        {
-          "type": "text",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "self_closing_tag",
     "named": true,
-    "fields": {},
+    "fields": {
+      "tag_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "tag_name",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "attribute",
           "named": true
         },
         {
-          "type": "leaf_attribute",
+          "type": "leaf_conditional_attribute",
           "named": true
         },
         {
-          "type": "tag_name",
+          "type": "leaf_loop_attribute",
           "named": true
         }
       ]
@@ -1016,21 +634,32 @@
   {
     "type": "start_tag",
     "named": true,
-    "fields": {},
+    "fields": {
+      "tag_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "tag_name",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "attribute",
           "named": true
         },
         {
-          "type": "leaf_attribute",
+          "type": "leaf_conditional_attribute",
           "named": true
         },
         {
-          "type": "tag_name",
+          "type": "leaf_loop_attribute",
           "named": true
         }
       ]
@@ -1038,39 +667,6 @@
   },
   {
     "type": "string_literal",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "style_element",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "end_tag",
-          "named": true
-        },
-        {
-          "type": "start_tag",
-          "named": true
-        },
-        {
-          "type": "text",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "tag_name",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "text",
     "named": true,
     "fields": {}
   },
@@ -1087,15 +683,7 @@
     "named": false
   },
   {
-    "type": "#",
-    "named": false
-  },
-  {
     "type": "#(",
-    "named": false
-  },
-  {
-    "type": "#define(",
     "named": false
   },
   {
@@ -1103,31 +691,15 @@
     "named": false
   },
   {
-    "type": "#elseif(",
+    "type": "#endfor",
     "named": false
   },
   {
-    "type": "#enddefine",
-    "named": false
-  },
-  {
-    "type": "#evaluate(",
-    "named": false
-  },
-  {
-    "type": "#export",
-    "named": false
-  },
-  {
-    "type": "#extend",
+    "type": "#endforeach",
     "named": false
   },
   {
     "type": "#for",
-    "named": false
-  },
-  {
-    "type": "#for(",
     "named": false
   },
   {
@@ -1143,31 +715,7 @@
     "named": false
   },
   {
-    "type": "#import",
-    "named": false
-  },
-  {
-    "type": "#inline",
-    "named": false
-  },
-  {
-    "type": "#raw",
-    "named": false
-  },
-  {
-    "type": "#set(",
-    "named": false
-  },
-  {
     "type": "#unless",
-    "named": false
-  },
-  {
-    "type": "#unsafeRaw",
-    "named": false
-  },
-  {
-    "type": "#{",
     "named": false
   },
   {
@@ -1188,6 +736,10 @@
   },
   {
     "type": ")",
+    "named": false
+  },
+  {
+    "type": "):",
     "named": false
   },
   {
@@ -1216,6 +768,10 @@
   },
   {
     "type": "/",
+    "named": false
+  },
+  {
+    "type": "//",
     "named": false
   },
   {
@@ -1275,6 +831,14 @@
     "named": false
   },
   {
+    "type": "attribute_name",
+    "named": true
+  },
+  {
+    "type": "attribute_value",
+    "named": true
+  },
+  {
     "type": "doctype",
     "named": false
   },
@@ -1295,10 +859,6 @@
     "named": true
   },
   {
-    "type": "leaf_endfor_directive",
-    "named": true
-  },
-  {
     "type": "leaf_endif_directive",
     "named": true
   },
@@ -1307,15 +867,19 @@
     "named": true
   },
   {
+    "type": "tag_name",
+    "named": true
+  },
+  {
+    "type": "text",
+    "named": true
+  },
+  {
     "type": "true",
     "named": false
   },
   {
     "type": "||",
-    "named": false
-  },
-  {
-    "type": "}",
     "named": false
   }
 ]

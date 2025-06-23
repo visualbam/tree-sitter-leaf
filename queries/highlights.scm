@@ -1,229 +1,16 @@
-; HTML Tags
 (tag_name) @tag
 
-; HTML Attributes
+; (erroneous_end_tag_name) @error ; we do not lint syntax errors
+(comment) @comment @spell
+
 (attribute_name) @tag.attribute
 
-; HTML Attribute Values
 ((attribute
      (quoted_attribute_value) @string)
     (#set! priority 99))
 
-(attribute_value) @string
-
-; HTML Comments
-(comment) @comment @spell
-
-; HTML Text Content
 (text) @none @spell
 
-; HTML Tag Delimiters
-[
-    "<"
-    ">"
-    "</"
-    "/>"
-    ] @tag.delimiter
-
-; HTML Operators
-"=" @operator
-
-; Doctype
-(doctype) @keyword.directive
-
-; Error Handling
-(erroneous_end_tag_name) @error
-
-; ===== VAPOR LEAF SYNTAX =====
-
-; Leaf Interpolation
-(leaf_interpolation
-    [
-        "#("
-        ")"
-        "#{"
-        "}"
-        ] @punctuation.special)
-
-(leaf_interpolation
-    (leaf_expression) @embedded)
-
-; Leaf Directive Keywords
-[
-    "#if"
-    "#elseif"
-    "#else"
-    "#endif"
-    "#unless"
-    "#for"
-    "#forEach"
-    "#endfor"
-    "#set"
-    "#define"
-    "#enddefine"
-    "#evaluate"
-    "#import"
-    "#extend"
-    "#export"
-    "#inline"
-    "#raw"
-    "#unsafeRaw"
-    ] @keyword.directive
-
-; Leaf Directive Punctuation
-[
-    "#if("
-    "#elseif("
-    "#unless("
-    "#for("
-    "#forEach("
-    "#set("
-    "#define("
-    "#evaluate("
-    "#import("
-    "#extend("
-    "#export("
-    "#inline("
-    "#raw("
-    "#unsafeRaw("
-    ] @keyword.directive
-
-; Leaf Control Flow
-[
-    "#else:"
-    "#endif"
-    "#endfor"
-    "#enddefine"
-    ":"
-    ] @keyword.control
-
-; Leaf Custom Attributes/Directives
-(leaf_custom_attribute
-    name: (identifier) @function.macro)
-
-; Leaf Conditional Attributes
-(leaf_conditional_attribute
-    [
-        "#if"
-        "#elseif"
-        "#unless"
-        ] @keyword.conditional)
-
-; Leaf Loop Attributes  
-(leaf_loop_attribute
-    [
-        "#for"
-        "#forEach"
-        ] @keyword.repeat)
-
-(leaf_loop_attribute
-    "in" @keyword.operator)
-
-; Leaf Template Attributes
-(leaf_import_attribute "#import" @keyword.import)
-(leaf_extend_attribute "#extend" @keyword.import)
-(leaf_export_attribute "#export" @keyword.export)
-(leaf_inline_attribute "#inline" @keyword.import)
-
-; Leaf Content Attributes
-(leaf_raw_attribute "#raw" @keyword.directive)
-(leaf_unsaferaw_attribute "#unsafeRaw" @keyword.directive)
-
-; ===== LEAF EXPRESSIONS =====
-
-; Identifiers
-(identifier) @variable
-
-; Literals
-(string_literal) @string
-(quoted_string) @string
-(number_literal) @number
-(boolean_literal) @boolean
-
-; Member Access
-(leaf_member_access
-    "." @punctuation.delimiter)
-
-(leaf_member_access
-    property: (identifier) @property)
-
-; Array Access
-(leaf_array_access
-    [
-        "["
-        "]"
-        ] @punctuation.bracket)
-
-; Function Calls
-(leaf_function_call
-    function: (identifier) @function)
-
-(leaf_function_call
-    [
-        "("
-        ")"
-        ] @punctuation.bracket)
-
-; Binary Expressions
-(leaf_binary_expression
-    operator: [
-                  "+"
-                  "-"
-                  "*"
-                  "/"
-                  "%"
-                  ] @operator.arithmetic)
-
-(leaf_binary_expression
-    operator: [
-                  "=="
-                  "!="
-                  "<"
-                  ">"
-                  "<="
-                  ">="
-                  ] @operator.comparison)
-
-(leaf_binary_expression
-    operator: [
-                  "&&"
-                  "||"
-                  ] @operator.logical)
-
-; Unary Expressions
-(leaf_unary_expression
-    operator: [
-                  "!"
-                  "-"
-                  "+"
-                  ] @operator)
-
-; Ternary Expressions
-(leaf_ternary_expression
-    [
-        "?"
-        ":"
-        ] @operator.ternary)
-
-; Parentheses
-(leaf_parenthesized_expression
-    [
-        "("
-        ")"
-        ] @punctuation.bracket)
-
-; Expression Punctuation
-[
-    "("
-    ")"
-    "["
-    "]"
-    ","
-    ] @punctuation.delimiter
-
-; ===== HTML SEMANTIC HIGHLIGHTING =====
-
-; HTML Headings
 ((element
      (start_tag
          (tag_name) @_tag)
@@ -266,7 +53,6 @@
      (text) @markup.heading.6)
     (#eq? @_tag "h6"))
 
-; HTML Text Formatting
 ((element
      (start_tag
          (tag_name) @_tag)
@@ -303,73 +89,123 @@
      (text) @markup.link.label)
     (#eq? @_tag "a"))
 
-; HTML URLs
 ((attribute
      (attribute_name) @_attr
      (quoted_attribute_value
          (attribute_value) @string.special.url))
-    (#any-of? @_attr "href" "src")
-    (#set! @string.special.url url @string.special.url))
+    (#any-of? @_attr "href" "src"))
 
-; ===== SPECIAL CASES =====
+[
+    "<"
+    ">"
+    "</"
+    "/>"
+    ] @tag.delimiter
 
-; Leaf expressions in HTML attributes
-((attribute
-     (quoted_attribute_value
-         (leaf_interpolation) @embedded)))
+"=" @operator
 
-; Mixed content highlighting
-((element
-     (start_tag
-         (tag_name) @_tag)
-     (leaf_interpolation) @embedded)
-    (#any-of? @_tag "title" "h1" "h2" "h3" "h4" "h5" "h6"))
+; ===== LEAF-SPECIFIC SYNTAX =====
 
-; Void elements (self-closing tags)
-((start_tag
-     (tag_name) @tag.builtin)
-    (#any-of? @tag.builtin
-        "area" "base" "basefont" "bgsound" "br" "col" "command" "embed"
-        "frame" "hr" "image" "img" "input" "isindex" "keygen" "link"
-        "menuitem" "meta" "nextid" "param" "source" "track" "wbr"))
+; Leaf Comments
+(leaf_comment) @comment @spell
 
-; Script and style tags
-((start_tag
-     (tag_name) @tag.builtin)
-    (#any-of? @tag.builtin "script" "style"))
+; Leaf Directive Nodes
+(leaf_if_directive) @keyword.directive
+(leaf_else_directive) @keyword.directive
+(leaf_endif_directive) @keyword.directive
+(leaf_for_directive) @keyword.directive
+(leaf_endfor_directive) @keyword.directive
 
-; Common HTML elements
-((start_tag
-     (tag_name) @tag.builtin)
-    (#any-of? @tag.builtin
-        "html" "head" "body" "div" "span" "p" "a" "ul" "ol" "li"
-        "table" "tr" "td" "th" "form" "input" "button" "select" "option"))
+; Leaf Interpolation
+(leaf_interpolation
+    [
+        "#("
+        ")"
+        ] @punctuation.special)
 
-; Field names in Leaf directives
-(leaf_conditional_attribute
-    condition: (leaf_expression) @parameter)
+(leaf_interpolation
+    expression: (leaf_expression) @embedded)
 
-(leaf_loop_attribute
-    variable: (identifier) @parameter)
+; Leaf Conditional and Loop Attributes
+(leaf_conditional_attribute) @keyword.directive
+(leaf_loop_attribute) @keyword.directive
 
-(leaf_loop_attribute
-    collection: (leaf_expression) @parameter)
+; Leaf Expressions
+(identifier) @variable
 
-(leaf_set_directive
-    variable: (identifier) @parameter)
+(string_literal) @string
+(number_literal) @number
+(boolean_literal) @constant.builtin.boolean
 
-(leaf_set_directive
-    value: (leaf_expression) @parameter)
+; Member Access
+(leaf_member_access
+    "." @punctuation.delimiter)
 
-; Template names in import/extend directives
-(leaf_import_attribute
-    template: (quoted_string) @string.special.path)
+; Array Access
+(leaf_array_access
+    [
+        "["
+        "]"
+        ] @punctuation.bracket)
 
-(leaf_extend_attribute
-    template: (quoted_string) @string.special.path)
+; Function Calls - highlight the first identifier in a function call as function
+((leaf_function_call
+     (identifier) @function))
 
-(leaf_export_attribute
-    name: (quoted_string) @string.special.symbol)
+(leaf_function_call
+    [
+        "("
+        ")"
+        ] @punctuation.bracket)
 
-(leaf_inline_attribute
-    template: (quoted_string) @string.special.path)
+; Binary Expression Operators - highlight the literal operators
+[
+    "+"
+    "-"
+    "*"
+    "/"
+    "%"
+    ] @operator.arithmetic
+
+[
+    "=="
+    "!="
+    "<"
+    ">"
+    "<="
+    ">="
+    ] @operator.comparison
+
+[
+    "&&"
+    "||"
+    ] @operator.logical
+
+; Unary Expression Operators
+[
+    "!"
+    "-"
+    "+"
+    ] @operator
+
+; Ternary Expression Operators
+[
+    "?"
+    ":"
+    ] @operator.ternary
+
+; Leaf Parentheses and Punctuation
+(leaf_parenthesized_expression
+    [
+        "("
+        ")"
+        ] @punctuation.bracket)
+
+(argument_list
+    "," @punctuation.delimiter)
+
+; Keyword 'in' for loops
+"in" @keyword
+
+; String literals inside leaf expressions
+":" @punctuation.delimiter

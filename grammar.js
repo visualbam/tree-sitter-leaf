@@ -1,139 +1,99 @@
-const PREC = {
-    COMMENT: 1,
-    STRING: 2,
-    ATTRIBUTE: 3,
-    TAG: 4,
-    DIRECTIVE: 5,
-    INTERPOLATION: 6,
-};
-
 module.exports = grammar({
-    name: 'html',
+    name: 'leaf',
 
     extras: $ => [
-        /\s+/,
-        $.comment,
+        /\s+/, // Allow whitespace
     ],
 
+    // Top-level entry point for parsing
     rules: {
-        document: $ => repeat($._node),
+        document: $ => repeat($._content),
 
-        _node: $ => choice(
+        // Define the base content
+        _content: $ => choice(
             $.element,
             $.self_closing_tag,
-            $.text,
             $.comment,
-            $.doctype,
+            $.leaf_comment,
+            $.leaf_if_directive,
+            $.leaf_for_directive,
             $.leaf_interpolation,
-            $.leaf_directive,
-            $.erroneous_end_tag,
+            $.doctype,
+            $.text,
         ),
 
-        doctype: $ => seq(
-            '<!',
-            alias(/[Dd][Oo][Cc][Tt][Yy][Pp][Ee]/, 'doctype'),
-            /[^>]+/,
-            '>',
-        ),
+        comment: $ => seq('<!--', /([^-]|-[^-]|--[^>])*/, '-->'),
+        leaf_comment: $ => seq('//', /[^\n]*/),
 
-        element: $ => choice(
-            seq(
-                $.start_tag,
-                repeat($._node),
-                choice($.end_tag, $._implicit_end_tag),
-            ),
-            $.script_element,
-            $.style_element,
-        ),
+        text: $ => token(prec(-1, /[^<#\s][^<#]*/)),
 
-        script_element: $ => seq(
-            alias($.script_start_tag, $.start_tag),
-            optional(alias($.raw_text, $.text)),
-            $.end_tag,
-        ),
+        doctype: $ => seq('<!', alias(/[Dd][Oo][Cc][Tt][Yy][Pp][Ee]/, 'doctype'), /[^>]+/, '>'),
 
-        style_element: $ => seq(
-            alias($.style_start_tag, $.start_tag),
-            optional(alias($.raw_text, $.text)),
+        // Define HTML-like elements
+        element: $ => seq(
+            $.start_tag,
+            repeat($._content),
             $.end_tag,
         ),
 
         start_tag: $ => seq(
             '<',
-            alias($.tag_name, $.tag_name),
-            repeat(choice($.attribute, $.leaf_attribute)),
-            '>',
-        ),
-
-        script_start_tag: $ => seq(
-            '<',
-            alias(
-                choice('script', 'SCRIPT'),
-                $.tag_name,
-            ),
-            repeat(choice($.attribute, $.leaf_attribute)),
-            '>',
-        ),
-
-        style_start_tag: $ => seq(
-            '<',
-            alias(
-                choice('style', 'STYLE'),
-                $.tag_name,
-            ),
-            repeat(choice($.attribute, $.leaf_attribute)),
+            field('tag_name', $.tag_name),
+            repeat(choice($.attribute, $.leaf_conditional_attribute, $.leaf_loop_attribute)),
             '>',
         ),
 
         self_closing_tag: $ => seq(
             '<',
-            alias($.tag_name, $.tag_name),
-            repeat(choice($.attribute, $.leaf_attribute)),
+            field('tag_name', $.tag_name),
+            repeat(choice($.attribute, $.leaf_conditional_attribute, $.leaf_loop_attribute)),
             '/>',
         ),
 
-        end_tag: $ => prec(1, seq(
-            '</',
-            alias($.tag_name, $.tag_name),
-            '>',
-        )),
+        end_tag: $ => seq('</', field('tag_name', $.tag_name), '>'),
 
-        erroneous_end_tag: $ => seq(
-            '</',
-            $.erroneous_end_tag_name,
-            '>',
-        ),
-
-        attribute: $ => seq(
-            $.attribute_name,
+        // Leaf-specific nodes
+        leaf_if_directive: $ => seq(
+            '#if(',
+            field('condition', $.leaf_expression),
+            '):',
+            repeat($._content),
             optional(seq(
-                '=',
-                choice(
-                    $.attribute_value,
-                    $.quoted_attribute_value,
-                    $.leaf_interpolation,
-                ),
+                $.leaf_else_directive,
+                repeat($._content),
             )),
+            $.leaf_endif_directive,
         ),
 
-        // Leaf-specific attributes (e.g., #if, #for, etc.)
-        leaf_attribute: $ => choice(
-            $.leaf_conditional_attribute,
-            $.leaf_loop_attribute,
-            $.leaf_import_attribute,
-            $.leaf_extend_attribute,
-            $.leaf_export_attribute,
-            $.leaf_inline_attribute,
-            $.leaf_raw_attribute,
-            $.leaf_unsaferaw_attribute,
-            $.leaf_custom_attribute,
+        leaf_else_directive: $ => '#else:',
+        leaf_endif_directive: $ => '#endif',
+
+        leaf_for_directive: $ => seq(
+            choice('#for', '#forEach'),
+            '(',
+            field('variable', $.identifier),
+            'in',
+            field('collection', $.leaf_expression),
+            '):',
+            repeat($._content),
+            $.leaf_endfor_directive,
+        ),
+
+        leaf_endfor_directive: $ => choice('#endfor', '#endforeach'),
+
+        leaf_interpolation: $ => seq(
+            '#(',
+            field('expression', $.leaf_expression),
+            ')',
         ),
 
         leaf_conditional_attribute: $ => seq(
             choice('#if', '#elseif', '#unless'),
             '(',
             field('condition', $.leaf_expression),
-            ')',
+            '):',
+            field('attribute', $.attribute),
+            optional($.leaf_endif_directive),
         ),
 
         leaf_loop_attribute: $ => seq(
@@ -142,146 +102,31 @@ module.exports = grammar({
             field('variable', $.identifier),
             'in',
             field('collection', $.leaf_expression),
-            ')',
+            '):',
+            field('attribute', $.attribute),
         ),
 
-        leaf_import_attribute: $ => seq(
-            '#import',
-            '(',
-            field('template', $.quoted_string),
-            ')',
-        ),
-
-        leaf_extend_attribute: $ => seq(
-            '#extend',
-            '(',
-            field('template', $.quoted_string),
-            ')',
-        ),
-
-        leaf_export_attribute: $ => seq(
-            '#export',
-            '(',
-            field('name', $.quoted_string),
-            ')',
-        ),
-
-        leaf_inline_attribute: $ => seq(
-            '#inline',
-            '(',
-            field('template', $.quoted_string),
-            optional(seq(',', field('context', $.leaf_expression))),
-            ')',
-        ),
-
-        leaf_raw_attribute: $ => seq(
-            '#raw',
-            '(',
-            field('content', $.leaf_expression),
-            ')',
-        ),
-
-        leaf_unsaferaw_attribute: $ => seq(
-            '#unsafeRaw',
-            '(',
-            field('content', $.leaf_expression),
-            ')',
-        ),
-
-        leaf_custom_attribute: $ => seq(
-            field('name', seq('#', $.identifier)),
+        attribute: $ => seq(
+            field('name', $.attribute_name),
             optional(seq(
-                '(',
-                optional(commaSep($.leaf_expression)),
-                ')',
+                '=',
+                choice(
+                    field('value', $.quoted_attribute_value),
+                    field('value', $.leaf_interpolation),
+                ),
             )),
         ),
 
-        // Leaf directives (standalone)
-        leaf_directive: $ => choice(
-            $.leaf_if_directive,
-            $.leaf_else_directive,
-            $.leaf_elseif_directive,
-            $.leaf_endif_directive,
-            $.leaf_for_directive,
-            $.leaf_endfor_directive,
-            $.leaf_set_directive,
-            $.leaf_define_directive,
-            $.leaf_evaluate_directive,
+        quoted_attribute_value: $ => choice(
+            seq('"', optional($.attribute_value), '"'),
+            seq("'", optional($.attribute_value), "'"),
         ),
 
-        leaf_if_directive: $ => seq(
-            '#if(',
-            field('condition', $.leaf_expression),
-            ')',
-            ':',
-        ),
+        attribute_value: $ => token(prec(1, /[^"'<>]+/)),
 
-        leaf_else_directive: $ => '#else:',
-
-        leaf_elseif_directive: $ => seq(
-            '#elseif(',
-            field('condition', $.leaf_expression),
-            ')',
-            ':',
-        ),
-
-        leaf_endif_directive: $ => '#endif',
-
-        leaf_for_directive: $ => seq(
-            '#for(',
-            field('variable', $.identifier),
-            'in',
-            field('collection', $.leaf_expression),
-            ')',
-            ':',
-        ),
-
-        leaf_endfor_directive: $ => '#endfor',
-
-        leaf_set_directive: $ => seq(
-            '#set(',
-            field('variable', $.identifier),
-            '=',
-            field('value', $.leaf_expression),
-            ')',
-        ),
-
-        leaf_define_directive: $ => seq(
-            '#define(',
-            field('name', $.identifier),
-            ')',
-            ':',
-            repeat($._node),
-            '#enddefine',
-        ),
-
-        leaf_evaluate_directive: $ => seq(
-            '#evaluate(',
-            field('expression', $.leaf_expression),
-            ')',
-        ),
-
-        // Leaf interpolation
-        leaf_interpolation: $ => choice(
-            prec(PREC.INTERPOLATION, seq(
-                '#(',
-                field('expression', $.leaf_expression),
-                ')',
-            )),
-            prec(PREC.INTERPOLATION, seq(
-                '#{',
-                field('expression', $.leaf_expression),
-                '}',
-            )),
-        ),
-
-        // Leaf expressions
+        // Leaf expression (declared before usage to avoid ordering problems)
         leaf_expression: $ => choice(
             $.identifier,
-            $.string_literal,
-            $.number_literal,
-            $.boolean_literal,
             $.leaf_member_access,
             $.leaf_function_call,
             $.leaf_array_access,
@@ -289,108 +134,60 @@ module.exports = grammar({
             $.leaf_unary_expression,
             $.leaf_ternary_expression,
             $.leaf_parenthesized_expression,
+            $.string_literal,
+            $.number_literal,
+            $.boolean_literal,
         ),
 
-        leaf_member_access: $ => prec.left(seq(
-            field('object', $.leaf_expression),
-            '.',
-            field('property', $.identifier),
-        )),
+        // Member access like `object.member`
+        leaf_member_access: $ => prec.left(10, seq($.identifier, '.', $.identifier)),
 
-        leaf_array_access: $ => prec.left(seq(
-            field('array', $.leaf_expression),
-            '[',
-            field('index', $.leaf_expression),
-            ']',
-        )),
-
-        leaf_function_call: $ => prec.left(seq(
-            field('function', $.leaf_expression),
+        // Function calls
+        leaf_function_call: $ => seq(
+            $.identifier,
             '(',
-            optional(commaSep($.leaf_expression)),
+            optional($.argument_list),
             ')',
-        )),
-
-        leaf_binary_expression: $ => choice(
-            prec.left(1, seq(
-                field('left', $.leaf_expression),
-                field('operator', choice('+', '-', '*', '/', '%')),
-                field('right', $.leaf_expression),
-            )),
-            prec.left(2, seq(
-                field('left', $.leaf_expression),
-                field('operator', choice('==', '!=', '<', '>', '<=', '>=')),
-                field('right', $.leaf_expression),
-            )),
-            prec.left(3, seq(
-                field('left', $.leaf_expression),
-                field('operator', choice('&&', '||')),
-                field('right', $.leaf_expression),
-            )),
         ),
 
-        leaf_unary_expression: $ => prec.right(seq(
-            field('operator', choice('!', '-', '+')),
-            field('operand', $.leaf_expression),
-        )),
+        argument_list: $ => seq($.leaf_expression, repeat(seq(',', $.leaf_expression))),
 
-        leaf_ternary_expression: $ => prec.right(seq(
-            field('condition', $.leaf_expression),
-            '?',
-            field('consequent', $.leaf_expression),
-            ':',
-            field('alternate', $.leaf_expression),
-        )),
+        // Array access (e.g., `array[expr]`)
+        leaf_array_access: $ => seq($.identifier, '[', $.leaf_expression, ']'),
 
-        leaf_parenthesized_expression: $ => seq(
-            '(',
+        // Binary operators like +, -, *, etc.
+        leaf_binary_expression: $ => prec.left(1, seq(
             $.leaf_expression,
-            ')',
-        ),
+            choice('+', '-', '*', '/', '%', '==', '!=', '<', '>', '<=', '>=', '&&', '||'),
+            $.leaf_expression,
+        )),
 
-        quoted_attribute_value: $ => choice(
-            seq('"', optional(alias(repeat(choice(/[^"]+/, $.leaf_interpolation)), $.attribute_value)), '"'),
-            seq("'", optional(alias(repeat(choice(/[^']+/, $.leaf_interpolation)), $.attribute_value)), "'"),
-        ),
+        // Unary operators like `!`, `-expr`
+        leaf_unary_expression: $ => prec(2, seq(choice('!', '-', '+'), $.leaf_expression)),
 
-        attribute_value: $ => /[^<>"'=\s]+/,
+        // Ternary operators (`a ? b : c`)
+        leaf_ternary_expression: $ => prec.right(0, seq(
+            $.leaf_expression,
+            '?',
+            $.leaf_expression,
+            ':',
+            $.leaf_expression,
+        )),
 
-        text: $ => prec(-1, /[^<#]+/),
+        // Expressions in parentheses
+        leaf_parenthesized_expression: $ => seq('(', $.leaf_expression, ')'),
 
-        raw_text: $ => /[^<]+/,
-
-        comment: $ => seq('<!--', /[^>]*/, '-->'),
-
-        tag_name: $ => prec(1, /[a-zA-Z][a-zA-Z0-9\-]*/),
-
-        attribute_name: $ => /[a-zA-Z_:][\w:.-]*/,
-
-        erroneous_end_tag_name: $ => /[a-zA-Z_:][\w:.-]*/,
-
+        // Leaves of expressions
         identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
-
         string_literal: $ => choice(
-            seq('"', repeat(choice(/[^"\\]+/, /\\./)), '"'),
-            seq("'", repeat(choice(/[^'\\]+/, /\\./)), "'"),
+            seq('"', repeat(choice(/[^"\\]/, /\\./)), '"'),
+            seq("'", repeat(choice(/[^'\\]/, /\\./)), "'"),
         ),
-
-        quoted_string: $ => choice(
-            seq('"', repeat(choice(/[^"\\]+/, /\\./)), '"'),
-            seq("'", repeat(choice(/[^'\\]+/, /\\./)), "'"),
-        ),
-
-        number_literal: $ => /\d+(?:\.\d+)?/,
-
+        number_literal: $ => /\d+(\.\d+)?/,
         boolean_literal: $ => choice('true', 'false'),
 
-        _implicit_end_tag: $ => seq('</', $.tag_name, '>'),
+        // Other definitions
+        tag_name: $ => /[a-zA-Z][a-zA-Z0-9\-]*/,
+        attribute_name: $ => /[a-zA-Z_:][a-zA-Z0-9_:.-]*/,
     },
 });
-
-function commaSep(rule) {
-    return optional(commaSep1(rule));
-}
-
-function commaSep1(rule) {
-    return seq(rule, repeat(seq(',', rule)));
-}

@@ -1,0 +1,14 @@
+================================================================================
+Self-closing HTML tags
+================================================================================
+
+<img src="image.jpg" alt="Test" />
+<br />
+<input type="text" name="username" />
+
+--------------------------------------------------------------------------------
+
+(document
+  (self_closing_tag (tag_name) (attribute (attribute_name) (quoted_attribute_value (attribute_value))) (attribute (attribute_name) (quoted_attribute_value (attribute_value))))
+  (self_closing_tag (tag_name))
+  (self_closing_tag (tag_name) (attribute (attribute_name) (quoted_attribute_value (attribute_value))) (attribute (attribute_name) (quoted_attribute_value (attribute_value)))))
