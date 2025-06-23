@@ -25,14 +25,6 @@
         {
           "type": "expression",
           "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "parenthesized_expression",
-          "named": true
         }
       ]
     }
@@ -65,7 +57,15 @@
           "named": true
         },
         {
-          "type": "attribute_value",
+          "type": "leaf_variable",
+          "named": true
+        },
+        {
+          "type": "quoted_attribute_value",
+          "named": true
+        },
+        {
+          "type": "unquoted_attribute_value",
           "named": true
         }
       ]
@@ -76,15 +76,15 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
-          "type": "leaf_variable",
+          "type": "html_entity",
           "named": true
         },
         {
-          "type": "quoted_attribute_value",
+          "type": "leaf_variable",
           "named": true
         }
       ]
@@ -111,6 +111,11 @@
     "fields": {}
   },
   {
+    "type": "comment",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "dictionary_literal",
     "named": true,
     "fields": {},
@@ -119,7 +124,30 @@
       "required": false,
       "types": [
         {
-          "type": "key_value_pair",
+          "type": "dictionary_pair",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "dictionary_pair",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "string_literal",
           "named": true
         }
       ]
@@ -129,6 +157,21 @@
     "type": "doctype",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "elseif_header",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "end_tag",
@@ -154,6 +197,21 @@
       "required": true,
       "types": [
         {
+          "type": "evaluate_header",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "evaluate_header",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
           "type": "expression",
           "named": true
         }
@@ -169,19 +227,7 @@
       "required": true,
       "types": [
         {
-          "type": "comment",
-          "named": true
-        },
-        {
           "type": "end_export_directive",
-          "named": true
-        },
-        {
-          "type": "evaluate_directive",
-          "named": true
-        },
-        {
-          "type": "export_directive",
           "named": true
         },
         {
@@ -189,43 +235,7 @@
           "named": true
         },
         {
-          "type": "for_directive",
-          "named": true
-        },
-        {
-          "type": "html_comment",
-          "named": true
-        },
-        {
-          "type": "html_element",
-          "named": true
-        },
-        {
-          "type": "html_self_closing_tag",
-          "named": true
-        },
-        {
-          "type": "if_directive",
-          "named": true
-        },
-        {
-          "type": "import_directive",
-          "named": true
-        },
-        {
-          "type": "leaf_variable",
-          "named": true
-        },
-        {
-          "type": "text",
-          "named": true
-        },
-        {
-          "type": "unless_directive",
-          "named": true
-        },
-        {
-          "type": "while_directive",
+          "type": "html_content",
           "named": true
         }
       ]
@@ -259,19 +269,7 @@
           "named": true
         },
         {
-          "type": "array_literal",
-          "named": true
-        },
-        {
           "type": "binary_expression",
-          "named": true
-        },
-        {
-          "type": "boolean_literal",
-          "named": true
-        },
-        {
-          "type": "dictionary_literal",
           "named": true
         },
         {
@@ -279,15 +277,7 @@
           "named": true
         },
         {
-          "type": "identifier",
-          "named": true
-        },
-        {
           "type": "member_access",
-          "named": true
-        },
-        {
-          "type": "number_literal",
           "named": true
         },
         {
@@ -295,7 +285,7 @@
           "named": true
         },
         {
-          "type": "string_literal",
+          "type": "primary_expression",
           "named": true
         },
         {
@@ -318,19 +308,7 @@
       "required": true,
       "types": [
         {
-          "type": "comment",
-          "named": true
-        },
-        {
           "type": "end_extend_directive",
-          "named": true
-        },
-        {
-          "type": "evaluate_directive",
-          "named": true
-        },
-        {
-          "type": "export_directive",
           "named": true
         },
         {
@@ -338,43 +316,7 @@
           "named": true
         },
         {
-          "type": "for_directive",
-          "named": true
-        },
-        {
-          "type": "html_comment",
-          "named": true
-        },
-        {
-          "type": "html_element",
-          "named": true
-        },
-        {
-          "type": "html_self_closing_tag",
-          "named": true
-        },
-        {
-          "type": "if_directive",
-          "named": true
-        },
-        {
-          "type": "import_directive",
-          "named": true
-        },
-        {
-          "type": "leaf_variable",
-          "named": true
-        },
-        {
-          "type": "text",
-          "named": true
-        },
-        {
-          "type": "unless_directive",
-          "named": true
-        },
-        {
-          "type": "while_directive",
+          "type": "html_content",
           "named": true
         }
       ]
@@ -404,19 +346,7 @@
       "required": true,
       "types": [
         {
-          "type": "comment",
-          "named": true
-        },
-        {
           "type": "end_for_directive",
-          "named": true
-        },
-        {
-          "type": "evaluate_directive",
-          "named": true
-        },
-        {
-          "type": "export_directive",
           "named": true
         },
         {
@@ -424,39 +354,7 @@
           "named": true
         },
         {
-          "type": "html_comment",
-          "named": true
-        },
-        {
-          "type": "html_element",
-          "named": true
-        },
-        {
-          "type": "html_self_closing_tag",
-          "named": true
-        },
-        {
-          "type": "if_directive",
-          "named": true
-        },
-        {
-          "type": "import_directive",
-          "named": true
-        },
-        {
-          "type": "leaf_variable",
-          "named": true
-        },
-        {
-          "type": "text",
-          "named": true
-        },
-        {
-          "type": "unless_directive",
-          "named": true
-        },
-        {
-          "type": "while_directive",
+          "type": "html_content",
           "named": true
         }
       ]
@@ -501,25 +399,18 @@
     }
   },
   {
+    "type": "html_comment",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "html_content",
     "named": true,
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
-        {
-          "type": "comment",
-          "named": true
-        },
-        {
-          "type": "evaluate_directive",
-          "named": true
-        },
-        {
-          "type": "for_directive",
-          "named": true
-        },
         {
           "type": "html_comment",
           "named": true
@@ -533,7 +424,7 @@
           "named": true
         },
         {
-          "type": "if_directive",
+          "type": "leaf_directive",
           "named": true
         },
         {
@@ -542,14 +433,6 @@
         },
         {
           "type": "text",
-          "named": true
-        },
-        {
-          "type": "unless_directive",
-          "named": true
-        },
-        {
-          "type": "while_directive",
           "named": true
         }
       ]
@@ -606,11 +489,11 @@
       "required": true,
       "types": [
         {
-          "type": "comment",
+          "type": "else_directive",
           "named": true
         },
         {
-          "type": "else_directive",
+          "type": "elseif_header",
           "named": true
         },
         {
@@ -618,51 +501,11 @@
           "named": true
         },
         {
-          "type": "evaluate_directive",
-          "named": true
-        },
-        {
-          "type": "export_directive",
-          "named": true
-        },
-        {
-          "type": "for_directive",
-          "named": true
-        },
-        {
-          "type": "html_comment",
-          "named": true
-        },
-        {
-          "type": "html_element",
-          "named": true
-        },
-        {
-          "type": "html_self_closing_tag",
+          "type": "html_content",
           "named": true
         },
         {
           "type": "if_header",
-          "named": true
-        },
-        {
-          "type": "import_directive",
-          "named": true
-        },
-        {
-          "type": "leaf_variable",
-          "named": true
-        },
-        {
-          "type": "text",
-          "named": true
-        },
-        {
-          "type": "unless_directive",
-          "named": true
-        },
-        {
-          "type": "while_directive",
           "named": true
         }
       ]
@@ -692,6 +535,21 @@
       "required": true,
       "types": [
         {
+          "type": "import_header",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "import_header",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
           "type": "string_literal",
           "named": true
         }
@@ -699,23 +557,48 @@
     }
   },
   {
-    "type": "key_value_pair",
+    "type": "leaf_comment",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "leaf_directive",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
-          "type": "expression",
+          "type": "evaluate_directive",
           "named": true
         },
         {
-          "type": "identifier",
+          "type": "export_directive",
           "named": true
         },
         {
-          "type": "string_literal",
+          "type": "extend_directive",
+          "named": true
+        },
+        {
+          "type": "for_directive",
+          "named": true
+        },
+        {
+          "type": "if_directive",
+          "named": true
+        },
+        {
+          "type": "import_directive",
+          "named": true
+        },
+        {
+          "type": "unless_directive",
+          "named": true
+        },
+        {
+          "type": "while_directive",
           "named": true
         }
       ]
@@ -745,11 +628,11 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "expression",
           "named": true
         },
         {
-          "type": "parenthesized_expression",
+          "type": "identifier",
           "named": true
         }
       ]
@@ -776,15 +659,54 @@
     }
   },
   {
+    "type": "primary_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "array_literal",
+          "named": true
+        },
+        {
+          "type": "boolean_literal",
+          "named": true
+        },
+        {
+          "type": "dictionary_literal",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "null_literal",
+          "named": true
+        },
+        {
+          "type": "number_literal",
+          "named": true
+        },
+        {
+          "type": "string_literal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "quoted_attribute_value",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": false,
       "types": [
         {
-          "type": "leaf_variable",
+          "type": "attribute_value",
           "named": true
         }
       ]
@@ -824,51 +746,7 @@
       "required": false,
       "types": [
         {
-          "type": "comment",
-          "named": true
-        },
-        {
           "type": "doctype",
-          "named": true
-        },
-        {
-          "type": "end_export_directive",
-          "named": true
-        },
-        {
-          "type": "end_extend_directive",
-          "named": true
-        },
-        {
-          "type": "end_for_directive",
-          "named": true
-        },
-        {
-          "type": "end_if_directive",
-          "named": true
-        },
-        {
-          "type": "end_unless_directive",
-          "named": true
-        },
-        {
-          "type": "end_while_directive",
-          "named": true
-        },
-        {
-          "type": "evaluate_directive",
-          "named": true
-        },
-        {
-          "type": "export_directive",
-          "named": true
-        },
-        {
-          "type": "extend_directive",
-          "named": true
-        },
-        {
-          "type": "for_directive",
           "named": true
         },
         {
@@ -884,11 +762,11 @@
           "named": true
         },
         {
-          "type": "if_directive",
+          "type": "leaf_comment",
           "named": true
         },
         {
-          "type": "import_directive",
+          "type": "leaf_directive",
           "named": true
         },
         {
@@ -897,14 +775,6 @@
         },
         {
           "type": "text",
-          "named": true
-        },
-        {
-          "type": "unless_directive",
-          "named": true
-        },
-        {
-          "type": "while_directive",
           "named": true
         }
       ]
@@ -949,7 +819,7 @@
       "required": true,
       "types": [
         {
-          "type": "comment",
+          "type": "else_directive",
           "named": true
         },
         {
@@ -957,51 +827,11 @@
           "named": true
         },
         {
-          "type": "evaluate_directive",
-          "named": true
-        },
-        {
-          "type": "export_directive",
-          "named": true
-        },
-        {
-          "type": "for_directive",
-          "named": true
-        },
-        {
-          "type": "html_comment",
-          "named": true
-        },
-        {
-          "type": "html_element",
-          "named": true
-        },
-        {
-          "type": "html_self_closing_tag",
-          "named": true
-        },
-        {
-          "type": "if_directive",
-          "named": true
-        },
-        {
-          "type": "import_directive",
-          "named": true
-        },
-        {
-          "type": "leaf_variable",
-          "named": true
-        },
-        {
-          "type": "text",
+          "type": "html_content",
           "named": true
         },
         {
           "type": "unless_header",
-          "named": true
-        },
-        {
-          "type": "while_directive",
           "named": true
         }
       ]
@@ -1031,55 +861,11 @@
       "required": true,
       "types": [
         {
-          "type": "comment",
-          "named": true
-        },
-        {
           "type": "end_while_directive",
           "named": true
         },
         {
-          "type": "evaluate_directive",
-          "named": true
-        },
-        {
-          "type": "export_directive",
-          "named": true
-        },
-        {
-          "type": "for_directive",
-          "named": true
-        },
-        {
-          "type": "html_comment",
-          "named": true
-        },
-        {
-          "type": "html_element",
-          "named": true
-        },
-        {
-          "type": "html_self_closing_tag",
-          "named": true
-        },
-        {
-          "type": "if_directive",
-          "named": true
-        },
-        {
-          "type": "import_directive",
-          "named": true
-        },
-        {
-          "type": "leaf_variable",
-          "named": true
-        },
-        {
-          "type": "text",
-          "named": true
-        },
-        {
-          "type": "unless_directive",
+          "type": "html_content",
           "named": true
         },
         {
@@ -1121,7 +907,11 @@
     "named": false
   },
   {
-    "type": "#evaluate(",
+    "type": "#elseif",
+    "named": false
+  },
+  {
+    "type": "#evaluate",
     "named": false
   },
   {
@@ -1137,15 +927,11 @@
     "named": false
   },
   {
-    "type": "#forEach",
-    "named": false
-  },
-  {
     "type": "#if",
     "named": false
   },
   {
-    "type": "#import(",
+    "type": "#import",
     "named": false
   },
   {
@@ -1193,11 +979,23 @@
     "named": false
   },
   {
+    "type": "-->",
+    "named": false
+  },
+  {
     "type": ".",
     "named": false
   },
   {
     "type": "/",
+    "named": false
+  },
+  {
+    "type": "//",
+    "named": false
+  },
+  {
+    "type": "///",
     "named": false
   },
   {
@@ -1213,7 +1011,7 @@
     "named": false
   },
   {
-    "type": "<!",
+    "type": "<!--",
     "named": false
   },
   {
@@ -1245,6 +1043,10 @@
     "named": false
   },
   {
+    "type": "??",
+    "named": false
+  },
+  {
     "type": "[",
     "named": false
   },
@@ -1253,17 +1055,12 @@
     "named": false
   },
   {
+    "type": "and",
+    "named": false
+  },
+  {
     "type": "attribute_name",
     "named": true
-  },
-  {
-    "type": "comment",
-    "named": true,
-    "extra": true
-  },
-  {
-    "type": "doctype",
-    "named": false
   },
   {
     "type": "else_directive",
@@ -1298,7 +1095,7 @@
     "named": false
   },
   {
-    "type": "html_comment",
+    "type": "html_entity",
     "named": true
   },
   {
@@ -1307,6 +1104,18 @@
   },
   {
     "type": "in",
+    "named": false
+  },
+  {
+    "type": "not",
+    "named": false
+  },
+  {
+    "type": "null_literal",
+    "named": true
+  },
+  {
+    "type": "or",
     "named": false
   },
   {
@@ -1320,6 +1129,10 @@
   {
     "type": "true",
     "named": false
+  },
+  {
+    "type": "unquoted_attribute_value",
+    "named": true
   },
   {
     "type": "{",

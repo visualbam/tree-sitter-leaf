@@ -1,117 +1,18 @@
+; ===== HTML HIGHLIGHTING =====
 (tag_name) @tag
 
-; (erroneous_end_tag_name) @error ; we do not lint syntax errors
-(html_comment) @comment @spell
 (comment) @comment @spell
+(html_comment) @comment @spell
 
 (attribute_name) @tag.attribute
 
-; Fix: quoted_attribute_value is nested under attribute_value
 ((attribute
-     (attribute_value
-         (quoted_attribute_value) @string))
+     (quoted_attribute_value) @string)
     (#set! priority 99))
 
 (text) @none @spell
 
-((html_element
-     (start_tag
-         (tag_name) @_tag)
-     (html_content
-         (text) @markup.heading))
-    (#eq? @_tag "title"))
-
-((html_element
-     (start_tag
-         (tag_name) @_tag)
-     (html_content
-         (text) @markup.heading.1))
-    (#eq? @_tag "h1"))
-
-((html_element
-     (start_tag
-         (tag_name) @_tag)
-     (html_content
-         (text) @markup.heading.2))
-    (#eq? @_tag "h2"))
-
-((html_element
-     (start_tag
-         (tag_name) @_tag)
-     (html_content
-         (text) @markup.heading.3))
-    (#eq? @_tag "h3"))
-
-((html_element
-     (start_tag
-         (tag_name) @_tag)
-     (html_content
-         (text) @markup.heading.4))
-    (#eq? @_tag "h4"))
-
-((html_element
-     (start_tag
-         (tag_name) @_tag)
-     (html_content
-         (text) @markup.heading.5))
-    (#eq? @_tag "h5"))
-
-((html_element
-     (start_tag
-         (tag_name) @_tag)
-     (html_content
-         (text) @markup.heading.6))
-    (#eq? @_tag "h6"))
-
-((html_element
-     (start_tag
-         (tag_name) @_tag)
-     (html_content
-         (text) @markup.strong))
-    (#any-of? @_tag "strong" "b"))
-
-((html_element
-     (start_tag
-         (tag_name) @_tag)
-     (html_content
-         (text) @markup.italic))
-    (#any-of? @_tag "em" "i"))
-
-((html_element
-     (start_tag
-         (tag_name) @_tag)
-     (html_content
-         (text) @markup.strikethrough))
-    (#any-of? @_tag "s" "del"))
-
-((html_element
-     (start_tag
-         (tag_name) @_tag)
-     (html_content
-         (text) @markup.underline))
-    (#eq? @_tag "u"))
-
-((html_element
-     (start_tag
-         (tag_name) @_tag)
-     (html_content
-         (text) @markup.raw))
-    (#any-of? @_tag "code" "kbd"))
-
-((html_element
-     (start_tag
-         (tag_name) @_tag)
-     (html_content
-         (text) @markup.link.label))
-    (#eq? @_tag "a"))
-
-; Fix: also update URL pattern to match the correct structure
-((attribute
-     (attribute_name) @_attr
-     (attribute_value
-         (quoted_attribute_value) @string.special.url))
-    (#any-of? @_attr "href" "src"))
-
+; HTML delimiters
 [
     "<"
     ">"
@@ -121,112 +22,104 @@
 
 "=" @operator
 
-; ===== LEAF-SPECIFIC SYNTAX =====
+; HTML URL attributes
+((attribute
+     (attribute_name) @_attr
+     (quoted_attribute_value
+         (attribute_value) @string.special.url))
+    (#any-of? @_attr "href" "src"))
 
-; Leaf Comments
-(comment) @comment @spell
+; ===== LEAF HIGHLIGHTING =====
 
-; Leaf Directive Nodes
-(if_directive) @keyword.directive
-(else_directive) @keyword.directive
-(end_if_directive) @keyword.directive
-(for_directive) @keyword.directive
-(end_for_directive) @keyword.directive
-(unless_directive) @keyword.directive
-(end_unless_directive) @keyword.directive
-(while_directive) @keyword.directive
-(end_while_directive) @keyword.directive
-(extend_directive) @keyword.directive
-(end_extend_directive) @keyword.directive
-(export_directive) @keyword.directive
-(end_export_directive) @keyword.directive
+; Leaf directive node types (these are actual nodes in the grammar)
+(if_header) @keyword
+(elseif_header) @keyword
+(else_directive) @keyword
+(unless_header) @keyword
+(for_header) @keyword
+(while_header) @keyword
+(extend_header) @keyword
+(export_header) @keyword
+(import_header) @keyword
+(evaluate_header) @keyword
+(end_if_directive) @keyword
+(end_unless_directive) @keyword
+(end_for_directive) @keyword
+(end_while_directive) @keyword
+(end_extend_directive) @keyword
+(end_export_directive) @keyword
 
-; Leaf Interpolation
-(leaf_variable
-    [
-        "#("
-        ")"
-        ] @punctuation.special)
+; Leaf variable delimiters
+[
+    "#("
+    ")"
+    ] @punctuation.special
 
-(leaf_variable
-    (expression) @embedded)
-
-; Leaf Expressions
-(identifier) @variable
-
-(string_literal) @string
-(number_literal) @number
-(boolean_literal) @constant.builtin.boolean
-
-; Member Access
-(member_access
-    "." @punctuation.delimiter)
-
-; Array Access
-(array_access
-    [
-        "["
-        "]"
-        ] @punctuation.bracket)
-
-; Function Calls - highlight the first identifier in a function call as function
-((function_call
-     (identifier) @function))
-
-(function_call
-    [
-        "("
-        ")"
-        ] @punctuation.bracket)
-
-; Binary Expression Operators - highlight the literal operators
+; Leaf operators
 [
     "+"
     "-"
     "*"
     "/"
     "%"
-    ] @operator.arithmetic
-
-[
     "=="
     "!="
     "<"
     ">"
     "<="
     ">="
-    ] @operator.comparison
-
-[
     "&&"
     "||"
-    ] @operator.logical
-
-; Unary Expression Operators
-[
+    "and"
+    "or"
     "!"
-    "-"
-    "+"
-    ] @operator
-
-; Ternary Expression Operators
-[
+    "not"
+    "??"
     "?"
     ":"
-    ] @operator.ternary
+    ] @operator
 
-; Leaf Parentheses and Punctuation
-(parenthesized_expression
-    [
-        "("
-        ")"
-        ] @punctuation.bracket)
+; Leaf keywords - only string literals that are actually keywords
+[
+    "in"
+    "true"
+    "false"
+    ] @keyword.builtin
 
-(argument_list
-    "," @punctuation.delimiter)
+; Leaf identifiers
+(identifier) @variable
 
-; Keyword 'in' for loops
-"in" @keyword
+; Leaf function calls
+(function_call
+    (identifier) @function)
 
-; String literals inside leaf expressions
-":" @punctuation.delimiter
+; Leaf member access
+(member_access
+    "." @punctuation.delimiter)
+
+; Leaf literals
+(string_literal) @string
+(number_literal) @number
+(boolean_literal) @boolean
+(null_literal) @constant.builtin
+
+; Leaf punctuation
+[
+    "("
+    ")"
+    "["
+    "]"
+    "{"
+    "}"
+    ","
+    "."
+    ] @punctuation.delimiter
+
+; Leaf comments
+(leaf_comment) @comment @spell
+
+; HTML entities
+(html_entity) @string.special
+
+; Doctype
+(doctype) @tag

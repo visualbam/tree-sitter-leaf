@@ -1,0 +1,318 @@
+================================================================================
+Simple if directive
+================================================================================
+
+#if(true)
+Hello
+#endif
+
+--------------------------------------------------------------------------------
+
+(template
+  (leaf_directive
+    (if_directive
+      (if_header
+        (expression
+          (primary_expression
+            (boolean_literal))))
+      (html_content
+        (text))
+      (end_if_directive))))
+
+================================================================================
+If else directive
+================================================================================
+
+<div>
+#if(user.isAdmin)
+    <p>Admin Panel</p>
+#else
+    <p>Regular User</p>
+#endif
+</div>
+
+--------------------------------------------------------------------------------
+
+(template
+  (html_element
+    (start_tag
+      (tag_name))
+    (html_content
+      (leaf_directive
+        (if_directive
+          (if_header
+            (expression
+              (member_access
+                (expression
+                  (primary_expression
+                    (identifier)))
+                (identifier))))
+          (html_content
+            (html_element
+              (start_tag
+                (tag_name))
+              (html_content
+                (text))
+              (end_tag
+                (tag_name))))
+          (else_directive)
+          (html_content
+            (html_element
+              (start_tag
+                (tag_name))
+              (html_content
+                (text))
+              (end_tag
+                (tag_name))))
+          (end_if_directive))))
+    (end_tag
+      (tag_name))))
+
+================================================================================
+If elseif else directive
+================================================================================
+
+<div>
+#if(user.role == "admin")
+    <p>Admin Panel</p>
+#elseif(user.role == "moderator")
+    <p>Moderator Panel</p>
+#else
+    <p>Regular User</p>
+#endif
+</div>
+
+--------------------------------------------------------------------------------
+
+(template
+  (html_element
+    (start_tag
+      (tag_name))
+    (html_content
+      (leaf_directive
+        (if_directive
+          (if_header
+            (expression
+              (binary_expression
+                (expression
+                  (member_access
+                    (expression
+                      (primary_expression
+                        (identifier)))
+                    (identifier)))
+                (expression
+                  (primary_expression
+                    (string_literal))))))
+          (html_content
+            (html_element
+              (start_tag
+                (tag_name))
+              (html_content
+                (text))
+              (end_tag
+                (tag_name))))
+          (elseif_header
+            (expression
+              (binary_expression
+                (expression
+                  (member_access
+                    (expression
+                      (primary_expression
+                        (identifier)))
+                    (identifier)))
+                (expression
+                  (primary_expression
+                    (string_literal))))))
+          (html_content
+            (html_element
+              (start_tag
+                (tag_name))
+              (html_content
+                (text))
+              (end_tag
+                (tag_name))))
+          (else_directive)
+          (html_content
+            (html_element
+              (start_tag
+                (tag_name))
+              (html_content
+                (text))
+              (end_tag
+                (tag_name))))
+          (end_if_directive))))
+    (end_tag
+      (tag_name))))
+
+================================================================================
+Nested if directives
+================================================================================
+
+<div>
+#if(user.isLoggedIn)
+    <p>Welcome back!</p>
+    #if(user.hasMessages)
+        <span>You have new messages</span>
+    #endif
+#else
+    <p>Please log in</p>
+#endif
+</div>
+
+--------------------------------------------------------------------------------
+
+(template
+  (html_element
+    (start_tag
+      (tag_name))
+    (html_content
+      (leaf_directive
+        (if_directive
+          (if_header
+            (expression
+              (member_access
+                (expression
+                  (primary_expression
+                    (identifier)))
+                (identifier))))
+          (html_content
+            (html_element
+              (start_tag
+                (tag_name))
+              (html_content
+                (text))
+              (end_tag
+                (tag_name)))
+            (leaf_directive
+              (if_directive
+                (if_header
+                  (expression
+                    (member_access
+                      (expression
+                        (primary_expression
+                          (identifier)))
+                      (identifier))))
+                (html_content
+                  (html_element
+                    (start_tag
+                      (tag_name))
+                    (html_content
+                      (text))
+                    (end_tag
+                      (tag_name))))
+                (end_if_directive))))
+          (else_directive)
+          (html_content
+            (html_element
+              (start_tag
+                (tag_name))
+              (html_content
+                (text))
+              (end_tag
+                (tag_name))))
+          (end_if_directive))))
+    (end_tag
+      (tag_name))))
+      
+================================================================================
+If directive with simple binary expression
+================================================================================
+
+<div>
+#if(user.age >= 18)
+    <p>Access granted</p>
+#else
+    <p>Access denied</p>
+#endif
+</div>
+
+--------------------------------------------------------------------------------
+
+(template
+  (html_element
+    (start_tag
+      (tag_name))
+    (html_content
+      (leaf_directive
+        (if_directive
+          (if_header
+            (expression
+              (binary_expression
+                (expression
+                  (member_access
+                    (expression
+                      (primary_expression
+                        (identifier)))
+                    (identifier)))
+                (expression
+                  (primary_expression
+                    (number_literal))))))
+          (html_content
+            (html_element
+              (start_tag
+                (tag_name))
+              (html_content
+                (text))
+              (end_tag
+                (tag_name))))
+          (else_directive)
+          (html_content
+            (html_element
+              (start_tag
+                (tag_name))
+              (html_content
+                (text))
+              (end_tag
+                (tag_name))))
+          (end_if_directive))))
+    (end_tag
+      (tag_name))))
+      
+================================================================================
+Unless directive
+================================================================================
+
+<div>
+#unless(user.isGuest)
+    <p>Welcome back, member!</p>
+#else
+    <p>Please sign up</p>
+#endunless
+</div>
+
+--------------------------------------------------------------------------------
+
+(template
+  (html_element
+    (start_tag
+      (tag_name))
+    (html_content
+      (leaf_directive
+        (unless_directive
+          (unless_header
+            (expression
+              (member_access
+                (expression
+                  (primary_expression
+                    (identifier)))
+                (identifier))))
+          (html_content
+            (html_element
+              (start_tag
+                (tag_name))
+              (html_content
+                (text))
+              (end_tag
+                (tag_name))))
+          (else_directive)
+          (html_content
+            (html_element
+              (start_tag
+                (tag_name))
+              (html_content
+                (text))
+              (end_tag
+                (tag_name))))
+          (end_unless_directive))))
+    (end_tag
+      (tag_name))))

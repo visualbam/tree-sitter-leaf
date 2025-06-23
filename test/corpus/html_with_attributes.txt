@@ -1,0 +1,51 @@
+================================================================================
+HTML with attributes
+================================================================================
+
+<div class="container" id="main">
+    <img src="photo.jpg" alt="Profile photo" />
+    <a href="/profile" target="_blank">View Profile</a>
+</div>
+
+--------------------------------------------------------------------------------
+
+(template
+  (html_element
+    (start_tag
+      (tag_name)
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value
+          (attribute_value)))
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value
+          (attribute_value))))
+    (html_content
+      (html_self_closing_tag
+        (tag_name)
+        (attribute
+          (attribute_name)
+          (quoted_attribute_value
+            (attribute_value)))
+        (attribute
+          (attribute_name)
+          (quoted_attribute_value
+            (attribute_value))))
+      (html_element
+        (start_tag
+          (tag_name)
+          (attribute
+            (attribute_name)
+            (quoted_attribute_value
+              (attribute_value)))
+          (attribute
+            (attribute_name)
+            (quoted_attribute_value
+              (attribute_value))))
+        (html_content
+          (text))
+        (end_tag
+          (tag_name))))
+    (end_tag
+      (tag_name))))

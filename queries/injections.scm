@@ -1,159 +1,121 @@
-; ===== HTML INJECTIONS =====
 
-; HTML Comments
+; ===== HTML INJECTIONS =====
 ((html_comment) @injection.content
     (#set! injection.language "comment"))
 
-; Leaf Comments
 ((comment) @injection.content
     (#set! injection.language "comment"))
 
-; CSS in style attributes
+((leaf_comment) @injection.content
+    (#set! injection.language "comment"))
+
+; <style>...</style>
+; <style blocking> ...</style>
+; Add "lang" to predicate check so that vue/svelte can inherit this
+; without having this element being captured twice
+((html_element
+     (start_tag
+         (tag_name) @_style) @_no_type_lang
+     (html_content) @injection.content)
+    (#eq? @_style "style")
+    (#not-lua-match? @_no_type_lang "%slang%s*=")
+    (#not-lua-match? @_no_type_lang "%stype%s*=")
+    (#set! injection.language "css"))
+
+((html_element
+     (start_tag
+         (tag_name) @_style
+         (attribute
+             (attribute_name) @_type
+             (quoted_attribute_value
+                 (attribute_value) @_css)))
+     (html_content) @injection.content)
+    (#eq? @_style "style")
+    (#eq? @_type "type")
+    (#eq? @_css "text/css")
+    (#set! injection.language "css"))
+
+; <script>...</script>
+; <script defer>...</script>
+((html_element
+     (start_tag
+         (tag_name) @_script) @_no_type_lang
+     (html_content) @injection.content)
+    (#eq? @_script "script")
+    (#not-lua-match? @_no_type_lang "%slang%s*=")
+    (#not-lua-match? @_no_type_lang "%stype%s*=")
+    (#set! injection.language "javascript"))
+
+; <script type="mimetype-or-well-known-script-type">
+((html_element
+     (start_tag
+         (tag_name) @_script
+         (attribute
+             (attribute_name) @_attr
+             (quoted_attribute_value
+                 (attribute_value) @_type)))
+     (html_content) @injection.content)
+    (#eq? @_script "script")
+    (#eq? @_attr "type")
+    (#set-lang-from-mimetype! @_type))
+
 ; <a style="/* css */">
 ((attribute
      (attribute_name) @_attr
-     (attribute_value
-         (quoted_attribute_value) @injection.content))
+     (quoted_attribute_value
+         (attribute_value) @injection.content))
     (#eq? @_attr "style")
     (#set! injection.language "css"))
 
-; JavaScript in event handler attributes
-; <input type="checkbox" onchange="this.closest('form').elements.output.value = this.checked">
+; lit-html style template interpolation
+; <a @click=${e => console.log(e)}>
+; <a @click="${e => console.log(e)}">
 ((attribute
-     (attribute_name) @_name
-     (attribute_value
-         (quoted_attribute_value) @injection.content))
-    (#lua-match? @_name "^on[a-z]+$")
+     (quoted_attribute_value
+         (attribute_value) @injection.content))
+    (#lua-match? @injection.content "%${")
+    (#offset! @injection.content 0 2 0 -1)
     (#set! injection.language "javascript"))
 
-; Regular expressions in pattern attributes
-; <input pattern="[0-9]">
+; Handle unquoted attribute values with template literals
 ((attribute
-     (attribute_name) @_attr
-     (attribute_value
-         (quoted_attribute_value) @injection.content))
+     (unquoted_attribute_value) @injection.content)
+    (#lua-match? @injection.content "%${")
+    (#offset! @injection.content 0 2 0 -2)
+    (#set! injection.language "javascript"))
+
+; <input pattern="[0-9]"> or <input pattern=[0-9]>
+((html_element
+     (start_tag
+         (tag_name) @_tagname
+         (attribute
+             (attribute_name) @_attr
+             [
+                 (quoted_attribute_value
+                     (attribute_value) @injection.content)
+                 (unquoted_attribute_value) @injection.content
+                 ])))
+    (#eq? @_tagname "input")
     (#eq? @_attr "pattern")
     (#set! injection.language "regex"))
 
-; ===== VAPOR LEAF INJECTIONS =====
-
-; Leaf expressions in interpolations
-; #(variable.name)
-; #(complex.expression())
-((leaf_variable
-     (expression) @injection.content)
-    (#set! injection.language "swift"))
-
-; ===== LEAF EXPRESSION INJECTIONS =====
-
-; Function calls in Leaf
-((function_call) @injection.content
-    (#set! injection.language "swift"))
-
-; Member access in Leaf
-((member_access) @injection.content
-    (#set! injection.language "swift"))
-
-; Array access in Leaf
-((array_access) @injection.content
-    (#set! injection.language "swift"))
-
-; Binary expressions in Leaf
-((binary_expression) @injection.content
-    (#set! injection.language "swift"))
-
-; Ternary expressions in Leaf
-((ternary_expression) @injection.content
-    (#set! injection.language "swift"))
-
-; Unary expressions in Leaf
-((unary_expression) @injection.content
-    (#set! injection.language "swift"))
-
-; Parenthesized expressions in Leaf
-((parenthesized_expression) @injection.content
-    (#set! injection.language "swift"))
-
-; ===== CSS AND JAVASCRIPT IN ELEMENTS =====
-
-; CSS in style elements (basic detection)
-((html_element
-     (start_tag
-         (tag_name) @_tag)
-     (html_content
-         (text) @injection.content))
-    (#eq? @_tag "style")
-    (#set! injection.language "css"))
-
-; JavaScript in script elements (basic detection)
-((html_element
-     (start_tag
-         (tag_name) @_tag)
-     (html_content
-         (text) @injection.content))
-    (#eq? @_tag "script")
-    (#set! injection.language "javascript"))
-
-; ===== SPECIALIZED CONTENT TYPE INJECTIONS =====
-
-; JSON-like data in string literals
-((string_literal) @injection.content
-    (#lua-match? @injection.content "^[\"']%s*[{%[]")
-    (#set! injection.language "json"))
-
-; XML-like data in string literals
-((string_literal) @injection.content
-    (#lua-match? @injection.content "<%?xml")
-    (#set! injection.language "xml"))
-
-; HTML-like data in string literals
-((string_literal) @injection.content
-    (#lua-match? @injection.content "<!DOCTYPE%s+html")
-    (#set! injection.language "html"))
-
-; SQL-like strings in string literals
-((string_literal) @injection.content
-    (#lua-match? @injection.content "SELECT%s+")
-    (#set! injection.language "sql"))
-
-((string_literal) @injection.content
-    (#lua-match? @injection.content "INSERT%s+")
-    (#set! injection.language "sql"))
-
-((string_literal) @injection.content
-    (#lua-match? @injection.content "UPDATE%s+")
-    (#set! injection.language "sql"))
-
-((string_literal) @injection.content
-    (#lua-match? @injection.content "DELETE%s+")
-    (#set! injection.language "sql"))
-
-; ===== MIXED CONTENT INJECTIONS =====
-
-; CSS with potential Leaf interpolations in style attributes
-((attribute
-     (attribute_name) @_attr
-     (attribute_value
-         (quoted_attribute_value) @injection.content))
-    (#eq? @_attr "style")
-    (#lua-match? @injection.content "#%(")
-    (#set! injection.language "css"))
-
-; JavaScript with potential Leaf interpolations in event handlers
+; <input type="checkbox" onchange="this.closest('form').elements.output.value = this.checked">
 ((attribute
      (attribute_name) @_name
-     (attribute_value
-         (quoted_attribute_value) @injection.content))
+     (quoted_attribute_value
+         (attribute_value) @injection.content))
     (#lua-match? @_name "^on[a-z]+$")
-    (#lua-match? @injection.content "#%(")
     (#set! injection.language "javascript"))
 
-; ===== BASIC LEAF TYPES =====
+; ===== LEAF INJECTIONS =====
 
-; Basic identifiers
-((identifier) @injection.content
-    (#set! injection.language "swift"))
+; Leaf string literals can contain expressions
+((string_literal) @injection.content
+    (#lua-match? @injection.content "#{")
+    (#set! injection.language "leaf"))
 
-; Argument lists in function calls
-((argument_list) @injection.content
-    (#set! injection.language "swift"))
+; Leaf expressions in HTML attributes
+((attribute
+     (leaf_variable
+         (expression) @injection.content))
+    (#set! injection.language "leaf"))

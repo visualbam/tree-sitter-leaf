@@ -1,4 +1,5 @@
 
+; ===== HTML INDENTATION =====
 ((html_element
      (start_tag
          (tag_name) @_not_void_element))
@@ -6,7 +7,6 @@
         "area" "base" "basefont" "bgsound" "br" "col" "command" "embed" "frame" "hr" "image" "img"
         "input" "isindex" "keygen" "link" "menuitem" "meta" "nextid" "param" "source" "track" "wbr")) @indent.begin
 
-; Self-closing tags are standalone nodes, not children of html_element
 (html_self_closing_tag) @indent.begin
 
 ((start_tag
@@ -22,7 +22,6 @@
     (end_tag
         ">" @indent.end))
 
-; Self-closing tags end with />
 (html_self_closing_tag
     "/>" @indent.end)
 
@@ -37,32 +36,39 @@
 
 (html_comment) @indent.ignore
 (comment) @indent.ignore
+(leaf_comment) @indent.ignore
 
-; Leaf-specific indents
+; ===== LEAF INDENTATION =====
+
+; Leaf directive blocks
 (if_directive) @indent.begin
-
-(else_directive) @indent.same
-
-(end_if_directive) @indent.end
-
-(for_directive) @indent.begin
-
-(end_for_directive) @indent.end
-
 (unless_directive) @indent.begin
-
-(end_unless_directive) @indent.end
-
+(for_directive) @indent.begin
 (while_directive) @indent.begin
-
-(end_while_directive) @indent.end
-
 (extend_directive) @indent.begin
-
-(end_extend_directive) @indent.end
-
 (export_directive) @indent.begin
 
+; Leaf directive ends
+(end_if_directive) @indent.end
+(end_unless_directive) @indent.end
+(end_for_directive) @indent.end
+(end_while_directive) @indent.end
+(end_extend_directive) @indent.end
 (end_export_directive) @indent.end
 
-(leaf_variable) @indent.same
+; Leaf else/elseif branching
+(else_directive) @indent.branch
+(elseif_header) @indent.branch
+
+; Leaf expression grouping
+[
+    "("
+    "["
+    "{"
+    ] @indent.begin
+
+[
+    ")"
+    "]"
+    "}"
+    ] @indent.end

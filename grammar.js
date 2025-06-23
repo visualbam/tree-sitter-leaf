@@ -1,543 +1,387 @@
-module.exports = grammar({
-    name: "leaf",
 
-    extras: ($) => [
-        // More specific whitespace handling
-        token(prec(-1, /[ \t]+/)),     // Only consume spaces and tabs
+module.exports = grammar({
+    name: 'leaf',
+
+    extras: $ => [
+        /\s/,
         $.comment,
-        // Remove the generic newline token to preserve line structure
     ],
 
     rules: {
-        template: ($) =>
-            repeat(
+        template: $ => repeat(choice(
+            $.doctype,
+            $.html_comment,
+            $.leaf_comment,
+            $.leaf_directive,
+            $.leaf_variable,
+            $.html_element,
+            $.html_self_closing_tag,
+            $.text,
+        )),
+
+        // HTML Structure
+        html_element: $ => seq(
+            $.start_tag,
+            optional($.html_content),
+            $.end_tag,
+        ),
+
+        html_self_closing_tag: $ => seq(
+            '<',
+            $.tag_name,
+            repeat($.attribute),
+            '/>',
+        ),
+
+        start_tag: $ => seq(
+            '<',
+            $.tag_name,
+            repeat($.attribute),
+            '>',
+        ),
+
+        end_tag: $ => seq(
+            '</',
+            $.tag_name,
+            '>',
+        ),
+
+        tag_name: $ => /[a-zA-Z][a-zA-Z0-9-]*/,
+
+        attribute: $ => seq(
+            $.attribute_name,
+            optional(seq(
+                '=',
                 choice(
-                    $.extend_directive,
-                    $.export_directive,
-                    $.import_directive,
-                    $.if_directive,
-                    $.unless_directive,
-                    $.for_directive,
-                    $.while_directive,
-                    $.evaluate_directive,
+                    $.quoted_attribute_value,
+                    $.unquoted_attribute_value,
                     $.leaf_variable,
-                    $.html_element,
-                    $.html_self_closing_tag,
-                    $.html_comment,
-                    $.text,
-                    $.comment,
-                    $.doctype,
-                    // Add support for individual end directives to match existing tests
-                    $.end_extend_directive,
-                    $.end_export_directive,
-                    $.end_if_directive,
-                    $.end_unless_directive,
-                    $.end_for_directive,
-                    $.end_while_directive,
                 ),
-            ),
-
-        // Add explicit whitespace handling for HTML content
-        html_content: ($) =>
-            repeat1(
-                choice(
-                    $.if_directive,
-                    $.unless_directive,
-                    $.for_directive,
-                    $.while_directive,
-                    $.evaluate_directive,
-                    $.leaf_variable,
-                    $.html_element,
-                    $.html_self_closing_tag,
-                    $.html_comment,
-                    $.text,
-                    $.comment,
-                    // Add newline handling for proper indentation
-                    token(prec(-2, /\n\s*/)),
-                ),
-            ),
-
-        // Improve text handling to preserve meaningful whitespace
-        text: ($) => token(prec(-1, choice(
-            /[^#<\s\n]+([^#<\n]*[^#<\s\n]+)*/,  // Non-whitespace text
-            /[ \t]+/,                            // Horizontal whitespace
-        ))),
-
-        // Rest of your grammar rules remain the same...
-        // (keeping all the existing rules as they are)
-
-        // Define explicit end directive nodes (for compatibility)
-        end_extend_directive: $ => "#endextend",
-        end_export_directive: $ => "#endexport",
-        end_if_directive: $ => "#endif",
-        end_unless_directive: $ => "#endunless",
-        end_for_directive: $ => "#endfor",
-        end_while_directive: $ => "#endwhile",
-
-        // Add doctype support
-        doctype: $ => seq('<!', alias(/[Dd][Oo][Cc][Tt][Yy][Pp][Ee]/, 'doctype'), /[^>]+/, '>'),
-
-        // Block directives with unified headers
-        extend_directive: ($) =>
-            seq(
-                $.extend_header,
-                repeat(
-                    choice(
-                        $.export_directive,
-                        $.import_directive,
-                        $.if_directive,
-                        $.unless_directive,
-                        $.for_directive,
-                        $.while_directive,
-                        $.evaluate_directive,
-                        $.leaf_variable,
-                        $.html_element,
-                        $.html_self_closing_tag,
-                        $.html_comment,
-                        $.text,
-                        $.comment,
-                    ),
-                ),
-                $.end_extend_directive,
-            ),
-
-        export_directive: ($) =>
-            seq(
-                $.export_header,
-                repeat(
-                    choice(
-                        $.export_directive,  // Added: nested export directives
-                        $.import_directive,  // Added: import directives  
-                        $.if_directive,
-                        $.unless_directive,
-                        $.for_directive,
-                        $.while_directive,
-                        $.evaluate_directive,
-                        $.leaf_variable,
-                        $.html_element,
-                        $.html_self_closing_tag,
-                        $.html_comment,
-                        $.text,
-                        $.comment,
-                    ),
-                ),
-                $.end_export_directive,
-            ),
-
-        if_directive: ($) =>
-            seq(
-                $.if_header,
-                repeat(
-                    choice(
-                        $.export_directive,
-                        $.import_directive,
-                        $.unless_directive,
-                        $.for_directive,
-                        $.while_directive,
-                        $.evaluate_directive,
-                        $.leaf_variable,
-                        $.html_element,
-                        $.html_self_closing_tag,
-                        $.html_comment,
-                        $.text,
-                        $.comment,
-                    ),
-                ),
-                // Add support for else directive
-                optional(seq(
-                    $.else_directive,
-                    repeat(
-                        choice(
-                            $.export_directive,
-                            $.import_directive,
-                            $.unless_directive,
-                            $.for_directive,
-                            $.while_directive,
-                            $.evaluate_directive,
-                            $.leaf_variable,
-                            $.html_element,
-                            $.html_self_closing_tag,
-                            $.html_comment,
-                            $.text,
-                            $.comment,
-                        ),
-                    ),
-                )),
-                $.end_if_directive,
-            ),
-
-        unless_directive: ($) =>
-            seq(
-                $.unless_header,
-                repeat(
-                    choice(
-                        $.export_directive,
-                        $.import_directive,
-                        $.if_directive,
-                        $.for_directive,
-                        $.while_directive,
-                        $.evaluate_directive,
-                        $.leaf_variable,
-                        $.html_element,
-                        $.html_self_closing_tag,
-                        $.html_comment,
-                        $.text,
-                        $.comment,
-                    ),
-                ),
-                $.end_unless_directive,
-            ),
-
-        for_directive: ($) =>
-            seq(
-                $.for_header,
-                repeat(
-                    choice(
-                        $.export_directive,
-                        $.import_directive,
-                        $.if_directive,
-                        $.unless_directive,
-                        $.while_directive,
-                        $.evaluate_directive,
-                        $.leaf_variable,
-                        $.html_element,
-                        $.html_self_closing_tag,
-                        $.html_comment,
-                        $.text,
-                        $.comment,
-                    ),
-                ),
-                $.end_for_directive,
-            ),
-
-        while_directive: ($) =>
-            seq(
-                $.while_header,
-                repeat(
-                    choice(
-                        $.export_directive,
-                        $.import_directive,
-                        $.if_directive,
-                        $.unless_directive,
-                        $.for_directive,
-                        $.evaluate_directive,
-                        $.leaf_variable,
-                        $.html_element,
-                        $.html_self_closing_tag,
-                        $.html_comment,
-                        $.text,
-                        $.comment,
-                    ),
-                ),
-                $.end_while_directive,
-            ),
-
-        // Add else directive
-        else_directive: $ => token('#else:'),
-
-        // Directive headers as unified tokens
-        extend_header: ($) => seq(
-            token('#extend'),
-            token('('),
-            $.string_literal,
-            token(')'),
-            token(':')
+            )),
         ),
-        export_header: ($) => seq(
-            token('#export'),
-            token('('),
-            $.string_literal,
-            token(')'),
-            token(':')
+
+        attribute_name: $ => /[a-zA-Z_:][a-zA-Z0-9_:.-]*/,
+
+        quoted_attribute_value: $ => choice(
+            seq('"', optional($.attribute_value), '"'),
+            seq("'", optional($.attribute_value), "'"),
         ),
-        if_header: ($) => seq(
-            token('#if'),
-            token('('),
+
+        unquoted_attribute_value: $ => /[^\s<>"'=`{}#]+/,
+
+        attribute_value: $ => repeat1(choice(
+            /[^"'<>&{}#]+/,
+            $.leaf_variable,
+            $.html_entity,
+        )),
+
+        html_entity: $ => /&[a-zA-Z0-9]+;/,
+
+        html_content: $ => repeat1(choice(
+            $.leaf_directive,
+            $.leaf_variable,
+            $.html_element,
+            $.html_self_closing_tag,
+            $.html_comment,
+            $.text,
+        )),
+
+        html_comment: $ => seq('<!--', /[^>]*/, '-->'),
+
+        // Leaf Specific Rules
+        leaf_directive: $ => choice(
+            $.if_directive,
+            $.unless_directive,
+            $.for_directive,
+            $.while_directive,
+            $.extend_directive,
+            $.export_directive,
+            $.import_directive,
+            $.evaluate_directive,
+        ),
+
+        // Conditional Directives
+        if_directive: $ => prec(1, seq(
+            $.if_header,
+            optional($.html_content),
+            repeat(seq(
+                $.elseif_header,
+                optional($.html_content),
+            )),
+            optional(seq(
+                $.else_directive,
+                optional($.html_content),
+            )),
+            $.end_if_directive,
+        )),
+
+        unless_directive: $ => prec(1, seq(
+            $.unless_header,
+            optional($.html_content),
+            optional(seq(
+                $.else_directive,
+                optional($.html_content),
+            )),
+            $.end_unless_directive,
+        )),
+
+        // Loop Directives
+        for_directive: $ => seq(
+            $.for_header,
+            optional($.html_content),
+            $.end_for_directive,
+        ),
+
+        while_directive: $ => seq(
+            $.while_header,
+            optional($.html_content),
+            $.end_while_directive,
+        ),
+
+        // Template Directives
+        extend_directive: $ => seq(
+            $.extend_header,
+            optional($.html_content),
+            $.end_extend_directive,
+        ),
+
+        export_directive: $ => seq(
+            $.export_header,
+            optional($.html_content),
+            $.end_export_directive,
+        ),
+
+        import_directive: $ => $.import_header,
+
+        evaluate_directive: $ => $.evaluate_header,
+
+        // Directive Headers
+        if_header: $ => seq(
+            '#if',
+            '(',
             $.expression,
-            token(')'),
-            token(':')
+            ')',
         ),
-        unless_header: ($) => seq(
-            token('#unless'),
-            token('('),
+
+        elseif_header: $ => seq(
+            '#elseif',
+            '(',
             $.expression,
-            token(')'),
-            token(':')
+            ')',
         ),
-        for_header: ($) => seq(
-            choice(token('#for'), token('#forEach')),
-            token('('),
+
+        else_directive: $ => '#else',
+
+        unless_header: $ => seq(
+            '#unless',
+            '(',
+            $.expression,
+            ')',
+        ),
+
+        for_header: $ => seq(
+            '#for',
+            '(',
             $.identifier,
-            token('in'),
+            'in',
             $.expression,
-            token(')'),
-            token(':')
-        ),
-        while_header: ($) => seq(
-            token('#while'),
-            token('('),
-            $.expression,
-            token(')'),
-            token(':')
+            ')',
         ),
 
-        // Simple directives
-        import_directive: ($) => seq(
-            token('#import('),
+        while_header: $ => seq(
+            '#while',
+            '(',
+            $.expression,
+            ')',
+        ),
+
+        extend_header: $ => seq(
+            '#extend',
+            '(',
             $.string_literal,
-            token(')')
-        ),
-        evaluate_directive: ($) => seq(
-            token('#evaluate('),
-            $.expression,
-            token(')')
+            ')',
         ),
 
-        // Leaf variables (interpolation)
-        leaf_variable: ($) => seq(
-            token('#('),
+        export_header: $ => seq(
+            '#export',
+            '(',
+            $.string_literal,
+            ')',
+        ),
+
+        import_header: $ => seq(
+            '#import',
+            '(',
+            $.string_literal,
+            ')',
+        ),
+
+        evaluate_header: $ => seq(
+            '#evaluate',
+            '(',
             $.expression,
-            token(')')
+            ')',
+        ),
+
+        // End Directives
+        end_if_directive: $ => '#endif',
+        end_unless_directive: $ => '#endunless',
+        end_for_directive: $ => '#endfor',
+        end_while_directive: $ => '#endwhile',
+        end_extend_directive: $ => '#endextend',
+        end_export_directive: $ => '#endexport',
+
+        // Leaf Variables
+        leaf_variable: $ => seq(
+            '#(',
+            $.expression,
+            ')',
         ),
 
         // Expressions
-        expression: ($) =>
-            choice(
-                $.member_access,
-                $.function_call,
-                $.array_access,
-                $.identifier,
-                $.string_literal,
-                $.number_literal,
-                $.boolean_literal,
-                $.array_literal,
-                $.dictionary_literal,
-                $.ternary_expression,
-                $.binary_expression,
-                $.unary_expression,
-                $.parenthesized_expression,
-            ),
-
-        // HTML elements
-        html_element: ($) =>
-            seq(
-                $.start_tag,
-                optional($.html_content),
-                $.end_tag
-            ),
-
-        start_tag: ($) => seq(
-            token('<'),
-            $.tag_name,
-            repeat($.attribute),
-            token('>')
+        expression: $ => choice(
+            $.binary_expression,
+            $.unary_expression,
+            $.ternary_expression,
+            $.function_call,
+            $.member_access,
+            $.array_access,
+            $.parenthesized_expression,
+            $.primary_expression,
         ),
 
-        end_tag: ($) => seq(
-            token('</'),
-            $.tag_name,
-            token('>')
+        primary_expression: $ => choice(
+            $.identifier,
+            $.string_literal,
+            $.number_literal,
+            $.boolean_literal,
+            $.null_literal,
+            $.array_literal,
+            $.dictionary_literal,
         ),
 
-        html_self_closing_tag: ($) =>
-            seq(
-                token('<'),
-                $.tag_name,
-                repeat($.attribute),
-                token('/>')
-            ),
+        binary_expression: $ => choice(
+            prec.left(10, seq($.expression, '*', $.expression)),
+            prec.left(10, seq($.expression, '/', $.expression)),
+            prec.left(10, seq($.expression, '%', $.expression)),
+            prec.left(9, seq($.expression, '+', $.expression)),
+            prec.left(9, seq($.expression, '-', $.expression)),
+            prec.left(8, seq($.expression, '<', $.expression)),
+            prec.left(8, seq($.expression, '>', $.expression)),
+            prec.left(8, seq($.expression, '<=', $.expression)),
+            prec.left(8, seq($.expression, '>=', $.expression)),
+            prec.left(7, seq($.expression, '==', $.expression)),
+            prec.left(7, seq($.expression, '!=', $.expression)),
+            prec.left(6, seq($.expression, choice('&&', 'and'), $.expression)),
+            prec.left(5, seq($.expression, choice('||', 'or'), $.expression)),
+            prec.left(4, seq($.expression, '??', $.expression)),
+        ),
 
-        tag_name: ($) => /[a-zA-Z][a-zA-Z0-9-]*/,
+        unary_expression: $ => choice(
+            prec(11, seq('!', $.expression)),
+            prec(11, seq('not', $.expression)),
+            prec(11, seq('-', $.expression)),
+            prec(11, seq('+', $.expression)),
+        ),
 
-        attribute: ($) =>
-            seq(
-                $.attribute_name,
-                optional(seq(
-                    token('='),
-                    $.attribute_value
-                ))
-            ),
-
-        attribute_name: ($) => /[a-zA-Z:_][a-zA-Z0-9:._-]*/,
-
-        attribute_value: ($) =>
-            choice($.quoted_attribute_value, $.leaf_variable, /[^\s"'=<>`#]+/),
-
-        quoted_attribute_value: ($) =>
-            choice(
-                seq(
-                    token('"'),
-                    repeat(choice(/[^"#]+/, $.leaf_variable)),
-                    token('"')
-                ),
-                seq(
-                    token("'"),
-                    repeat(choice(/[^'#]+/, $.leaf_variable)),
-                    token("'")
-                ),
-            ),
-
-        // Fixed HTML comment rule
-        html_comment: ($) => token(seq(
-            '<!--',
-            repeat(choice(
-                /[^-]/,
-                /-[^-]/,
-                /--[^>]/
-            )),
-            '-->'
+        ternary_expression: $ => prec.right(3, seq(
+            $.expression,
+            '?',
+            $.expression,
+            ':',
+            $.expression,
         )),
 
-        // Expression components
-        member_access: ($) =>
-            prec.left(10, seq(
-                choice($.identifier, $.parenthesized_expression),
-                repeat1(seq(
-                    token('.'),
-                    $.identifier
-                ))
-            )),
+        function_call: $ => seq(
+            $.identifier,
+            '(',
+            optional($.argument_list),
+            ')',
+        ),
 
-        function_call: ($) =>
-            prec.left(9, seq(
-                $.identifier,
-                token('('),
-                optional($.argument_list),
-                token(')')
-            )),
+        argument_list: $ => seq(
+            $.expression,
+            repeat(seq(',', $.expression)),
+            optional(','),
+        ),
 
-        // Add array access (from highlights)
-        array_access: ($) => prec.left(8, seq(
-            choice($.identifier, $.parenthesized_expression),
+        member_access: $ => seq(
+            $.expression,
+            '.',
+            $.identifier,
+        ),
+
+        array_access: $ => seq(
+            $.expression,
             '[',
             $.expression,
-            ']'
-        )),
-
-        argument_list: ($) => seq(
-            $.expression,
-            repeat(seq(
-                token(','),
-                $.expression
-            ))
+            ']',
         ),
 
-        ternary_expression: ($) =>
-            prec.right(1, seq(
-                $.expression,
-                token('?'),
-                $.expression,
-                token(':'),
-                $.expression
-            )),
-
-        binary_expression: ($) =>
-            choice(
-                prec.left(2, seq(
-                    $.expression,
-                    token('||'),
-                    $.expression
-                )),
-                prec.left(3, seq(
-                    $.expression,
-                    token('&&'),
-                    $.expression
-                )),
-                prec.left(4, seq(
-                    $.expression,
-                    choice(token('=='), token('!=')),
-                    $.expression
-                )),
-                prec.left(5, seq(
-                    $.expression,
-                    choice(token('<'), token('>'), token('<='), token('>=')),
-                    $.expression
-                )),
-                prec.left(6, seq(
-                    $.expression,
-                    choice(token('+'), token('-')),
-                    $.expression
-                )),
-                prec.left(7, seq(
-                    $.expression,
-                    choice(token('*'), token('/'), token('%')),
-                    $.expression
-                )),
-            ),
-
-        unary_expression: ($) =>
-            prec(8, seq(
-                choice(token('!'), token('-'), token('+')),
-                $.expression
-            )),
-
-        parenthesized_expression: ($) => seq(
-            token('('),
+        parenthesized_expression: $ => seq(
+            '(',
             $.expression,
-            token(')')
+            ')',
         ),
-
-        array_literal: ($) =>
-            seq(
-                token('['),
-                optional(
-                    seq(
-                        $.expression,
-                        repeat(seq(token(','), $.expression)),
-                        optional(token(','))
-                    ),
-                ),
-                token(']')
-            ),
-
-        dictionary_literal: ($) =>
-            seq(
-                token('{'),
-                optional(
-                    seq(
-                        $.key_value_pair,
-                        repeat(seq(token(','), $.key_value_pair)),
-                        optional(token(','))
-                    ),
-                ),
-                token('}')
-            ),
-
-        key_value_pair: ($) =>
-            seq(
-                choice($.string_literal, $.identifier),
-                token(':'),
-                $.expression
-            ),
 
         // Literals
-        string_literal: ($) =>
-            choice(
-                seq(
-                    token('"'),
-                    repeat(choice(/[^"\\]+/, /\\./)),
-                    token('"')
-                ),
-                seq(
-                    token("'"),
-                    repeat(choice(/[^'\\]+/, /\\./)),
-                    token("'")
-                ),
-            ),
+        identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
-        number_literal: ($) => choice(/\d+\.\d+/, /\d+/),
+        string_literal: $ => choice(
+            seq('"', repeat(choice(/[^"\\]/, /\\./)), '"'),
+            seq("'", repeat(choice(/[^'\\]/, /\\./)), "'"),
+        ),
 
-        boolean_literal: ($) => choice("true", "false"),
+        number_literal: $ => choice(
+            /\d+\.\d+/,
+            /\d+/,
+        ),
 
-        identifier: ($) => /[a-zA-Z_][a-zA-Z0-9_]*/,
+        boolean_literal: $ => choice('true', 'false'),
 
-        comment: ($) => token(seq(
-            '#*',
-            repeat(choice(
-                /[^*]/,
-                /\*[^#]/
+        null_literal: $ => 'nil',
+
+        array_literal: $ => seq(
+            '[',
+            optional(seq(
+                $.expression,
+                repeat(seq(',', $.expression)),
+                optional(','),
             )),
-            '*#'
-        )),
+            ']',
+        ),
+
+        // Dictionary literals use curly braces to avoid conflict with arrays
+        dictionary_literal: $ => seq(
+            '{',
+            optional(seq(
+                $.dictionary_pair,
+                repeat(seq(',', $.dictionary_pair)),
+                optional(','),
+            )),
+            '}',
+        ),
+
+        dictionary_pair: $ => seq(
+            choice($.string_literal, $.identifier),
+            ':',
+            $.expression,
+        ),
+
+        // Comments
+        leaf_comment: $ => seq('///', /[^\r\n]*/),
+        comment: $ => seq('//', /[^\r\n]*/),
+
+        // Text content - back to original
+        text: $ => token(prec(-1, /[^<#\s][^<#]*/)),
+
+        // DOCTYPE
+        doctype: $ => seq(
+            '<',
+            token(prec(1, '!')),
+            /[Dd][Oo][Cc][Tt][Yy][Pp][Ee]/,
+            /[^>]+/,
+            '>',
+        ),
     },
 });

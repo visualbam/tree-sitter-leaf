@@ -1,13 +1,9 @@
 
 ================================================================================
-Basic HTML with Leaf conditional
+Simple HTML element
 ================================================================================
 
-<div>
-  #if(isAuthenticated):
-    <p>You are logged in.</p>
-  #endif
-</div>
+<div>Hello</div>
 
 --------------------------------------------------------------------------------
 
@@ -16,17 +12,6 @@ Basic HTML with Leaf conditional
     (start_tag
       (tag_name))
     (html_content
-      (if_directive
-        (if_header
-          (expression
-            (identifier)))
-        (html_element
-          (start_tag
-            (tag_name))
-          (html_content
-            (text))
-          (end_tag
-            (tag_name)))
-        (end_if_directive)))
+      (text))
     (end_tag
       (tag_name))))

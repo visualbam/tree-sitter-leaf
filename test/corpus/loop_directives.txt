@@ -1,0 +1,85 @@
+================================================================================
+Simple for loop directive
+================================================================================
+
+<ul>
+#for(item in items)
+    <li>#(item.name)</li>
+#endfor
+</ul>
+
+--------------------------------------------------------------------------------
+
+(template
+  (html_element
+    (start_tag
+      (tag_name))
+    (html_content
+      (leaf_directive
+        (for_directive
+          (for_header
+            (identifier)
+            (expression
+              (primary_expression
+                (identifier))))
+          (html_content
+            (html_element
+              (start_tag
+                (tag_name))
+              (html_content
+                (leaf_variable
+                  (expression
+                    (member_access
+                      (expression
+                        (primary_expression
+                          (identifier)))
+                      (identifier)))))
+              (end_tag
+                (tag_name))))
+          (end_for_directive))))
+    (end_tag
+      (tag_name))))
+      
+================================================================================
+While directive
+================================================================================
+
+<div>
+#while(counter < 5)
+    <p>Count: #(counter)</p>
+#endwhile
+</div>
+
+--------------------------------------------------------------------------------
+
+(template
+  (html_element
+    (start_tag
+      (tag_name))
+    (html_content
+      (leaf_directive
+        (while_directive
+          (while_header
+            (expression
+              (binary_expression
+                (expression
+                  (primary_expression
+                    (identifier)))
+                (expression
+                  (primary_expression
+                    (number_literal))))))
+          (html_content
+            (html_element
+              (start_tag
+                (tag_name))
+              (html_content
+                (text)
+                (leaf_variable
+                  (expression
+                    (primary_expression
+                      (identifier)))))
+              (end_tag
+                (tag_name))))
+          (end_while_directive))))
+    (end_tag
+      (tag_name))))
