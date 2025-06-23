@@ -170,19 +170,69 @@ module.exports = grammar({
             ),
 
         // Directive headers as unified tokens
-        extend_header: ($) => seq("#extend", "(", $.string_literal, ")", ":"),
-        export_header: ($) => seq("#export", "(", $.string_literal, ")", ":"),
-        if_header: ($) => seq("#if", "(", $.expression, ")", ":"),
-        unless_header: ($) => seq("#unless", "(", $.expression, ")", ":"),
-        for_header: ($) => seq("#for", "(", $.identifier, "in", $.expression, ")", ":"),
-        while_header: ($) => seq("#while", "(", $.expression, ")", ":"),
+        extend_header: ($) => seq(
+            token('#extend'),
+            token('('),
+            $.string_literal,
+            token(')'),
+            token(':')
+        ),
+        export_header: ($) => seq(
+            token('#export'),
+            token('('),
+            $.string_literal,
+            token(')'),
+            token(':')
+        ),
+        if_header: ($) => seq(
+            token('#if'),
+            token('('),
+            $.expression,
+            token(')'),
+            token(':')
+        ),
+        unless_header: ($) => seq(
+            token('#unless'),
+            token('('),
+            $.expression,
+            token(')'),
+            token(':')
+        ),
+        for_header: ($) => seq(
+            token('#for'),
+            token('('),
+            $.identifier,
+            token('in'),
+            $.expression,
+            token(')'),
+            token(':')
+        ),
+        while_header: ($) => seq(
+            token('#while'),
+            token('('),
+            $.expression,
+            token(')'),
+            token(':')
+        ),
 
         // Simple directives
-        import_directive: ($) => seq("#import(", $.string_literal, ")"),
-        evaluate_directive: ($) => seq("#evaluate(", $.expression, ")"),
+        import_directive: ($) => seq(
+            token('#import('),
+            $.string_literal,
+            token(')')
+        ),
+        evaluate_directive: ($) => seq(
+            token('#evaluate('),
+            $.expression,
+            token(')')
+        ),
 
         // Leaf variables
-        leaf_variable: ($) => seq("#(", $.expression, ")"),
+        leaf_variable: ($) => seq(
+            token('#('),
+            $.expression,
+            token(')')
+        ),
 
         // Expressions
         expression: ($) =>
@@ -225,17 +275,37 @@ module.exports = grammar({
                 ),
             ),
 
-        start_tag: ($) => seq("<", $.tag_name, repeat($.attribute), ">"),
+        start_tag: ($) => seq(
+            token('<'),
+            $.tag_name,
+            repeat($.attribute),
+            token('>')
+        ),
 
-        end_tag: ($) => seq("</", $.tag_name, ">"),
+        end_tag: ($) => seq(
+            token('</'),
+            $.tag_name,
+            token('>')
+        ),
 
         html_self_closing_tag: ($) =>
-            seq("<", $.tag_name, repeat($.attribute), "/>"),
+            seq(
+                token('<'),
+                $.tag_name,
+                repeat($.attribute),
+                token('/>')
+            ),
 
         tag_name: ($) => /[a-zA-Z][a-zA-Z0-9-]*/,
 
         attribute: ($) =>
-            seq($.attribute_name, optional(seq("=", $.attribute_value))),
+            seq(
+                $.attribute_name,
+                optional(seq(
+                    token('='),
+                    $.attribute_value
+                ))
+            ),
 
         attribute_name: ($) => /[a-zA-Z:_][a-zA-Z0-9:._-]*/,
 
@@ -244,72 +314,151 @@ module.exports = grammar({
 
         quoted_attribute_value: ($) =>
             choice(
-                seq('"', repeat(choice(/[^"#]+/, $.leaf_variable)), '"'),
-                seq("'", repeat(choice(/[^'#]+/, $.leaf_variable)), "'"),
+                seq(
+                    token('"'),
+                    repeat(choice(/[^"#]+/, $.leaf_variable)),
+                    token('"')
+                ),
+                seq(
+                    token("'"),
+                    repeat(choice(/[^'#]+/, $.leaf_variable)),
+                    token("'")
+                ),
             ),
 
-        html_comment: ($) => seq("<!--", /[^>]*(-[^>]+)*?/, "-->"),
+        html_comment: ($) => seq(
+            token('<!--'),
+            /[^>]*(-[^>]+)*?/,
+            token('-->')
+        ),
 
         // Expression components
         member_access: ($) =>
-            prec.left(1, seq($.identifier, repeat1(seq(".", $.identifier)))),
+            prec.left(1, seq(
+                $.identifier,
+                repeat1(seq(
+                    token('.'),
+                    $.identifier
+                ))
+            )),
 
         function_call: ($) =>
-            prec.left(2, seq($.identifier, "(", optional($.argument_list), ")")),
+            prec.left(2, seq(
+                $.identifier,
+                token('('),
+                optional($.argument_list),
+                token(')')
+            )),
 
-        argument_list: ($) => seq($.expression, repeat(seq(",", $.expression))),
+        argument_list: ($) => seq(
+            $.expression,
+            repeat(seq(
+                token(','),
+                $.expression
+            ))
+        ),
 
         ternary_expression: ($) =>
-            prec.right(seq($.expression, "?", $.expression, ":", $.expression)),
+            prec.right(seq(
+                $.expression,
+                token('?'),
+                $.expression,
+                token(':'),
+                $.expression
+            )),
 
         binary_expression: ($) =>
             choice(
-                prec.left(1, seq($.expression, "||", $.expression)),
-                prec.left(2, seq($.expression, "&&", $.expression)),
-                prec.left(3, seq($.expression, choice("==", "!="), $.expression)),
-                prec.left(
-                    4,
-                    seq($.expression, choice("<", ">", "<=", ">="), $.expression),
-                ),
-                prec.left(5, seq($.expression, choice("+", "-"), $.expression)),
-                prec.left(6, seq($.expression, choice("*", "/", "%"), $.expression)),
+                prec.left(1, seq(
+                    $.expression,
+                    token('||'),
+                    $.expression
+                )),
+                prec.left(2, seq(
+                    $.expression,
+                    token('&&'),
+                    $.expression
+                )),
+                prec.left(3, seq(
+                    $.expression,
+                    choice(token('=='), token('!=')),
+                    $.expression
+                )),
+                prec.left(4, seq(
+                    $.expression,
+                    choice(token('<'), token('>'), token('<='), token('>=')),
+                    $.expression
+                )),
+                prec.left(5, seq(
+                    $.expression,
+                    choice(token('+'), token('-')),
+                    $.expression
+                )),
+                prec.left(6, seq(
+                    $.expression,
+                    choice(token('*'), token('/'), token('%')),
+                    $.expression
+                )),
             ),
 
         unary_expression: ($) =>
-            prec.right(seq(choice("!", "-", "+"), $.expression)),
+            prec.right(seq(
+                choice(token('!'), token('-'), token('+')),
+                $.expression
+            )),
 
-        parenthesized_expression: ($) => seq("(", $.expression, ")"),
+        parenthesized_expression: ($) => seq(
+            token('('),
+            $.expression,
+            token(')')
+        ),
 
         array_literal: ($) =>
             seq(
-                "[",
+                token('['),
                 optional(
-                    seq($.expression, repeat(seq(",", $.expression)), optional(",")),
+                    seq(
+                        $.expression,
+                        repeat(seq(token(','), $.expression)),
+                        optional(token(','))
+                    ),
                 ),
-                "]",
+                token(']')
             ),
 
         dictionary_literal: ($) =>
             seq(
-                "{",
+                token('{'),
                 optional(
                     seq(
                         $.key_value_pair,
-                        repeat(seq(",", $.key_value_pair)),
-                        optional(","),
+                        repeat(seq(token(','), $.key_value_pair)),
+                        optional(token(','))
                     ),
                 ),
-                "}",
+                token('}')
             ),
 
         key_value_pair: ($) =>
-            seq(choice($.string_literal, $.identifier), ":", $.expression),
+            seq(
+                choice($.string_literal, $.identifier),
+                token(':'),
+                $.expression
+            ),
 
         // Literals
         string_literal: ($) =>
             choice(
-                seq('"', repeat(choice(/[^"\\]+/, /\\./)), '"'),
-                seq("'", repeat(choice(/[^'\\]+/, /\\./)), "'"),
+                seq(
+                    token('"'),
+                    repeat(choice(/[^"\\]+/, /\\./)),
+                    token('"')
+                ),
+                seq(
+                    token("'"),
+                    repeat(choice(/[^'\\]+/, /\\./)),
+                    token("'")
+                ),
             ),
 
         number_literal: ($) => choice(/\d+\.\d+/, /\d+/),
@@ -320,6 +469,10 @@ module.exports = grammar({
 
         text: ($) => /[^#<\s]+([^#<]*[^#<\s]+)*/,
 
-        comment: ($) => seq("#*", /[^*]*\*+([^#*][^*]*\*+)*/, "#"),
+        comment: ($) => seq(
+            token('#*'),
+            /[^*]*\*+([^#*][^*]*\*+)*/,
+            token('#')
+        ),
     },
 });
