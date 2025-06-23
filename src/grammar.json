@@ -94,6 +94,89 @@
         ]
       }
     },
+    "html_content": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "if_directive"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "unless_directive"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "for_directive"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "while_directive"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "evaluate_directive"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "leaf_variable"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "html_element"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "html_self_closing_tag"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "html_comment"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "text"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "comment"
+          },
+          {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": -2,
+              "content": {
+                "type": "PATTERN",
+                "value": "\\n\\s*"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "text": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": -1,
+        "content": {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "[^#<\\s\\n]+([^#<\\n]*[^#<\\s\\n]+)*"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[ \\t]+"
+            }
+          ]
+        }
+      }
+    },
     "end_extend_directive": {
       "type": "STRING",
       "value": "#endextend"
@@ -1041,58 +1124,6 @@
           "name": "end_tag"
         }
       ]
-    },
-    "html_content": {
-      "type": "REPEAT1",
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "if_directive"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "unless_directive"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "for_directive"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "while_directive"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "evaluate_directive"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "leaf_variable"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "html_element"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "html_self_closing_tag"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "html_comment"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "text"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "comment"
-          }
-        ]
-      }
     },
     "start_tag": {
       "type": "SEQ",
@@ -2077,17 +2108,6 @@
       "type": "PATTERN",
       "value": "[a-zA-Z_][a-zA-Z0-9_]*"
     },
-    "text": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": -1,
-        "content": {
-          "type": "PATTERN",
-          "value": "[^#<\\s]+([^#<]*[^#<\\s]+)*"
-        }
-      }
-    },
     "comment": {
       "type": "TOKEN",
       "content": {
@@ -2123,23 +2143,19 @@
   },
   "extras": [
     {
-      "type": "PATTERN",
-      "value": "\\s"
-    },
-    {
-      "type": "SYMBOL",
-      "name": "comment"
-    },
-    {
       "type": "TOKEN",
       "content": {
         "type": "PREC",
         "value": -1,
         "content": {
           "type": "PATTERN",
-          "value": "\\n"
+          "value": "[ \\t]+"
         }
       }
+    },
+    {
+      "type": "SYMBOL",
+      "name": "comment"
     }
   ],
   "conflicts": [],

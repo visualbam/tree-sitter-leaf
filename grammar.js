@@ -1,11 +1,11 @@
-
 module.exports = grammar({
     name: "leaf",
 
     extras: ($) => [
-        /\s/,
+        // More specific whitespace handling
+        token(prec(-1, /[ \t]+/)),     // Only consume spaces and tabs
         $.comment,
-        token(prec(-1, /\n/))
+        // Remove the generic newline token to preserve line structure
     ],
 
     rules: {
@@ -36,6 +36,35 @@ module.exports = grammar({
                     $.end_while_directive,
                 ),
             ),
+
+        // Add explicit whitespace handling for HTML content
+        html_content: ($) =>
+            repeat1(
+                choice(
+                    $.if_directive,
+                    $.unless_directive,
+                    $.for_directive,
+                    $.while_directive,
+                    $.evaluate_directive,
+                    $.leaf_variable,
+                    $.html_element,
+                    $.html_self_closing_tag,
+                    $.html_comment,
+                    $.text,
+                    $.comment,
+                    // Add newline handling for proper indentation
+                    token(prec(-2, /\n\s*/)),
+                ),
+            ),
+
+        // Improve text handling to preserve meaningful whitespace
+        text: ($) => token(prec(-1, choice(
+            /[^#<\s\n]+([^#<\n]*[^#<\s\n]+)*/,  // Non-whitespace text
+            /[ \t]+/,                            // Horizontal whitespace
+        ))),
+
+        // Rest of your grammar rules remain the same...
+        // (keeping all the existing rules as they are)
 
         // Define explicit end directive nodes (for compatibility)
         end_extend_directive: $ => "#endextend",
@@ -297,23 +326,6 @@ module.exports = grammar({
                 $.end_tag
             ),
 
-        html_content: ($) =>
-            repeat1(
-                choice(
-                    $.if_directive,
-                    $.unless_directive,
-                    $.for_directive,
-                    $.while_directive,
-                    $.evaluate_directive,
-                    $.leaf_variable,
-                    $.html_element,
-                    $.html_self_closing_tag,
-                    $.html_comment,
-                    $.text,
-                    $.comment,
-                ),
-            ),
-
         start_tag: ($) => seq(
             token('<'),
             $.tag_name,
@@ -518,8 +530,6 @@ module.exports = grammar({
         boolean_literal: ($) => choice("true", "false"),
 
         identifier: ($) => /[a-zA-Z_][a-zA-Z0-9_]*/,
-
-        text: ($) => token(prec(-1, /[^#<\s]+([^#<]*[^#<\s]+)*/)),
 
         comment: ($) => token(seq(
             '#*',
