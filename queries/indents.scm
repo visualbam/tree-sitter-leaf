@@ -15,9 +15,6 @@
         "area" "base" "basefont" "bgsound" "br" "col" "command" "embed" "frame" "hr" "image" "img"
         "input" "isindex" "keygen" "link" "menuitem" "meta" "nextid" "param" "source" "track" "wbr")) @indent.begin
 
-; These are the nodes that will be captured when we do `normal o`
-; But last element has already been ended, so capturing this
-; to mark end of last element
 (html_element
     (end_tag
         ">" @indent.end))
@@ -25,7 +22,6 @@
 (html_self_closing_tag
     "/>" @indent.end)
 
-; Script/style elements aren't indented, so only branch the end tag of other elements
 (html_element
     (end_tag) @indent.branch)
 
@@ -40,23 +36,34 @@
 
 ; ===== LEAF INDENTATION =====
 
-; Leaf directive blocks
-(if_directive) @indent.begin
-(unless_directive) @indent.begin
-(for_directive) @indent.begin
-(while_directive) @indent.begin
-(extend_directive) @indent.begin
-(export_directive) @indent.begin
+; Target html_content inside directives specifically
+(extend_directive
+    (html_content) @indent.begin)
 
-; Leaf directive ends
-(end_if_directive) @indent.end
-(end_unless_directive) @indent.end
-(end_for_directive) @indent.end
-(end_while_directive) @indent.end
-(end_extend_directive) @indent.end
-(end_export_directive) @indent.end
+(export_directive
+    (html_content) @indent.begin)
 
-; Leaf else/elseif branching
+(if_directive
+    (html_content) @indent.begin)
+
+(unless_directive
+    (html_content) @indent.begin)
+
+(for_directive
+    (html_content) @indent.begin)
+
+(while_directive
+    (html_content) @indent.begin)
+
+; Use dedent on the end directives
+(end_extend_directive) @indent.dedent
+(end_export_directive) @indent.dedent
+(end_if_directive) @indent.dedent
+(end_unless_directive) @indent.dedent
+(end_for_directive) @indent.dedent
+(end_while_directive) @indent.dedent
+
+; Branch on else/elseif
 (else_directive) @indent.branch
 (elseif_header) @indent.branch
 
