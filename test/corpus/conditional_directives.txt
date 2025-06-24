@@ -156,7 +156,7 @@ Nested if directives
 ================================================================================
 
 <div>
-#if(user.isLoggedIn)
+#if(user.isLoggedIn):
     <p>Welcome back!</p>
     #if(user.hasMessages)
         <span>You have new messages</span>
@@ -228,7 +228,7 @@ If directive with simple binary expression
 ================================================================================
 
 <div>
-#if(user.age >= 18)
+#if(user.age >= 18):
     <p>Access granted</p>
 #else
     <p>Access denied</p>

@@ -103,7 +103,7 @@ module.exports = grammar({
             $.evaluate_directive,
         ),
 
-        // New: Individual Leaf tags (functions that can be used inline)
+        // Leaf tags (functions that can be used inline)
         leaf_tag: $ => choice(
             $.count_tag,
             $.lowercased_tag,
@@ -173,24 +173,34 @@ module.exports = grammar({
         // Conditional Directives
         if_directive: $ => prec(1, seq(
             $.if_header,
+            optional('{'),
             optional($.html_content),
+            optional('}'),
             repeat(seq(
                 $.elseif_header,
+                optional('{'),
                 optional($.html_content),
+                optional('}'),
             )),
             optional(seq(
                 $.else_directive,
+                optional('{'),
                 optional($.html_content),
+                optional('}'),
             )),
             $.end_if_directive,
         )),
 
         unless_directive: $ => prec(1, seq(
             $.unless_header,
+            optional('{'),
             optional($.html_content),
+            optional('}'),
             optional(seq(
                 $.else_directive,
+                optional('{'),
                 optional($.html_content),
+                optional('}'),
             )),
             $.end_unless_directive,
         )),
@@ -198,13 +208,17 @@ module.exports = grammar({
         // Loop Directives
         for_directive: $ => seq(
             $.for_header,
+            optional('{'),
             optional($.html_content),
+            optional('}'),
             $.end_for_directive,
         ),
 
         while_directive: $ => seq(
             $.while_header,
+            optional('{'),
             optional($.html_content),
+            optional('}'),
             $.end_while_directive,
         ),
 
@@ -225,12 +239,13 @@ module.exports = grammar({
 
         evaluate_directive: $ => $.evaluate_header,
 
-        // Directive Headers
+        // Directive Headers - Updated with colon support
         if_header: $ => seq(
             '#if',
             '(',
             $.expression,
             ')',
+            optional(':'),
         ),
 
         elseif_header: $ => seq(
@@ -238,15 +253,17 @@ module.exports = grammar({
             '(',
             $.expression,
             ')',
+            optional(':'),
         ),
 
-        else_directive: $ => '#else',
+        else_directive: $ => choice('#else', '#else:'),
 
         unless_header: $ => seq(
             '#unless',
             '(',
             $.expression,
             ')',
+            optional(':'),
         ),
 
         for_header: $ => seq(
@@ -256,6 +273,7 @@ module.exports = grammar({
             'in',
             $.expression,
             ')',
+            optional(':'),
         ),
 
         while_header: $ => seq(
@@ -263,6 +281,7 @@ module.exports = grammar({
             '(',
             $.expression,
             ')',
+            optional(':'),
         ),
 
         extend_header: $ => seq(
@@ -270,6 +289,7 @@ module.exports = grammar({
             '(',
             $.string_literal,
             ')',
+            optional(':'),
         ),
 
         export_header: $ => seq(
@@ -277,6 +297,7 @@ module.exports = grammar({
             '(',
             $.string_literal,
             ')',
+            optional(':'),
         ),
 
         import_header: $ => seq(
@@ -308,7 +329,7 @@ module.exports = grammar({
             ')',
         ),
 
-        // NEW: Rewritten expression system with proper precedence
+        // Expression system with proper precedence
         expression: $ => choice(
             $.ternary_expression,
             $.binary_expression,
@@ -316,7 +337,7 @@ module.exports = grammar({
             $.postfix_expression,
         ),
 
-        // NEW: Postfix expressions handle member access, function calls, and array access
+        // Postfix expressions handle member access, function calls, and array access
         postfix_expression: $ => prec.left(12, choice(
             $.primary_expression,
             $.member_expression,
@@ -324,14 +345,14 @@ module.exports = grammar({
             $.subscript_expression,
         )),
 
-        // NEW: Member expressions (property access)
+        // Member expressions (property access)
         member_expression: $ => prec.left(12, seq(
             $.postfix_expression,
             '.',
             $.identifier,
         )),
 
-        // NEW: Call expressions (function/method calls)
+        // Call expressions (function/method calls)
         call_expression: $ => prec.left(12, seq(
             $.postfix_expression,
             '(',
@@ -339,7 +360,7 @@ module.exports = grammar({
             ')',
         )),
 
-        // NEW: Subscript expressions (array access)
+        // Subscript expressions (array access)
         subscript_expression: $ => prec.left(12, seq(
             $.postfix_expression,
             '[',
@@ -347,6 +368,7 @@ module.exports = grammar({
             ']',
         )),
 
+        // Primary expressions - Updated to include tag function calls
         primary_expression: $ => choice(
             $.identifier,
             $.string_literal,
@@ -356,6 +378,18 @@ module.exports = grammar({
             $.array_literal,
             $.dictionary_literal,
             $.parenthesized_expression,
+            $.tag_function_call,
+        ),
+
+        // NEW: Tag functions used in expressions (without #)
+        tag_function_call: $ => choice(
+            seq('count', '(', $.expression, ')'),
+            seq('lowercased', '(', $.expression, ')'),
+            seq('uppercased', '(', $.expression, ')'),
+            seq('capitalized', '(', $.expression, ')'),
+            seq('contains', '(', $.expression, ',', $.expression, ')'),
+            seq('date', '(', $.expression, optional(seq(',', $.expression)), optional(seq(',', $.expression)), ')'),
+            seq('unsafeHTML', '(', $.expression, ')'),
         ),
 
         parenthesized_expression: $ => seq(
@@ -473,7 +507,7 @@ module.exports = grammar({
         leaf_comment: $ => seq('///', /[^\r\n]*/),
         comment: $ => seq('//', /[^\r\n]*/),
 
-        // Text content - back to original
+        // Text content
         text: $ => token(prec(-1, /[^<#\s][^<#]*/)),
 
         // DOCTYPE

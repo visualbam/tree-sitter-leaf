@@ -231,6 +231,11 @@
     "fields": {}
   },
   {
+    "type": "else_directive",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "elseif_header",
     "named": true,
     "fields": {},
@@ -823,6 +828,10 @@
         {
           "type": "string_literal",
           "named": true
+        },
+        {
+          "type": "tag_function_call",
+          "named": true
         }
       ]
     }
@@ -880,6 +889,21 @@
         },
         {
           "type": "postfix_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tag_function_call",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
           "named": true
         }
       ]
@@ -1106,6 +1130,14 @@
     "named": false
   },
   {
+    "type": "#else",
+    "named": false
+  },
+  {
+    "type": "#else:",
+    "named": false
+  },
+  {
     "type": "#elseif",
     "named": false
   },
@@ -1274,11 +1306,23 @@
     "named": true
   },
   {
-    "type": "dump_context_tag",
-    "named": true
+    "type": "capitalized",
+    "named": false
   },
   {
-    "type": "else_directive",
+    "type": "contains",
+    "named": false
+  },
+  {
+    "type": "count",
+    "named": false
+  },
+  {
+    "type": "date",
+    "named": false
+  },
+  {
+    "type": "dump_context_tag",
     "named": true
   },
   {
@@ -1322,6 +1366,10 @@
     "named": false
   },
   {
+    "type": "lowercased",
+    "named": false
+  },
+  {
     "type": "not",
     "named": false
   },
@@ -1348,6 +1396,14 @@
   {
     "type": "unquoted_attribute_value",
     "named": true
+  },
+  {
+    "type": "unsafeHTML",
+    "named": false
+  },
+  {
+    "type": "uppercased",
+    "named": false
   },
   {
     "type": "{",
