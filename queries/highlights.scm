@@ -1,4 +1,3 @@
-
 ; ===== HTML HIGHLIGHTING =====
 (tag_name) @tag
 
@@ -99,19 +98,25 @@
     "false"
     ] @keyword.builtin
 
-; Leaf identifiers - base variables
-(identifier) @variable
+; === IDENTIFIER HIGHLIGHTING - FIXED ORDER AND PATTERNS ===
 
-; Leaf function calls - user-defined functions
+; FIRST: Catch member access patterns specifically to highlight both parts
+(member_access
+    (expression
+        (primary_expression
+            (identifier) @variable))  ; The base object (user, item, etc.)
+    (identifier) @property)           ; The property (firstName, name, etc.)
+
+; SECOND: Catch function calls
 (function_call
-    (identifier) @function.leaf)
+    (identifier) @function)
 
-; Leaf member access - simplified pattern
+; THIRD: Catch all other identifiers as variables (fallback)
+(identifier) @variable.builtin
+
+; Member access dot
 (member_access
     "." @punctuation.delimiter)
-
-(member_access
-    (identifier) @property)
 
 ; Array access brackets
 (array_access
