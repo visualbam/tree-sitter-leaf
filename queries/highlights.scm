@@ -1,4 +1,3 @@
-
 ; ===== HTML HIGHLIGHTING =====
 (tag_name) @tag
 
@@ -32,6 +31,46 @@
 
 ; ===== LEAF HIGHLIGHTING =====
 
+; Leaf variable delimiters - HIGHEST PRIORITY - target the specific tokens within leaf_variable
+(leaf_variable "#(" @punctuation.special.leaf)
+(leaf_variable ")" @punctuation.special.leaf)
+
+; Leaf directive parentheses - HIGH PRIORITY
+(if_header "(" @punctuation.special.leaf)
+(if_header ")" @punctuation.special.leaf)
+(elseif_header "(" @punctuation.special.leaf)
+(elseif_header ")" @punctuation.special.leaf)
+(unless_header "(" @punctuation.special.leaf)
+(unless_header ")" @punctuation.special.leaf)
+(for_header "(" @punctuation.special.leaf)
+(for_header ")" @punctuation.special.leaf)
+(while_header "(" @punctuation.special.leaf)
+(while_header ")" @punctuation.special.leaf)
+(extend_header "(" @punctuation.special.leaf)
+(extend_header ")" @punctuation.special.leaf)
+(export_header "(" @punctuation.special.leaf)
+(export_header ")" @punctuation.special.leaf)
+(import_header "(" @punctuation.special.leaf)
+(import_header ")" @punctuation.special.leaf)
+(evaluate_header "(" @punctuation.special.leaf)
+(evaluate_header ")" @punctuation.special.leaf)
+
+; Leaf tag function parentheses - HIGH PRIORITY
+(count_tag "(" @punctuation.special.leaf)
+(count_tag ")" @punctuation.special.leaf)
+(lowercased_tag "(" @punctuation.special.leaf)
+(lowercased_tag ")" @punctuation.special.leaf)
+(uppercased_tag "(" @punctuation.special.leaf)
+(uppercased_tag ")" @punctuation.special.leaf)
+(capitalized_tag "(" @punctuation.special.leaf)
+(capitalized_tag ")" @punctuation.special.leaf)
+(contains_tag "(" @punctuation.special.leaf)
+(contains_tag ")" @punctuation.special.leaf)
+(date_tag "(" @punctuation.special.leaf)
+(date_tag ")" @punctuation.special.leaf)
+(unsafe_html_tag "(" @punctuation.special.leaf)
+(unsafe_html_tag ")" @punctuation.special.leaf)
+
 ; Leaf directive headers - use more distinctive highlighting
 (if_header) @keyword.directive
 (elseif_header) @keyword.directive
@@ -62,12 +101,6 @@
 (unsafe_html_tag) @function.builtin.leaf
 (dump_context_tag) @function.builtin.leaf
 
-; Leaf variable delimiters - make them more prominent
-[
-    "#("
-    ")"
-    ] @punctuation.special.leaf
-
 ; Leaf operators
 [
     "+"
@@ -77,8 +110,6 @@
     "%"
     "=="
     "!="
-    "<"
-    ">"
     "<="
     ">="
     "&&"
@@ -99,45 +130,56 @@
     "false"
     ] @keyword.builtin
 
-; === IDENTIFIER HIGHLIGHTING - UPDATED FOR NEW GRAMMAR ===
+; === IDENTIFIER HIGHLIGHTING ===
 
-; HIGHEST PRIORITY: Function calls should be highlighted distinctly
-(call_expression
-    (postfix_expression
-        (primary_expression
-            (identifier) @function)))
+; HIGHEST PRIORITY: Base objects in member expressions like 'users' in 'users.filter'
+((member_expression
+     (postfix_expression
+         (primary_expression
+             (identifier) @type)))
+    (#set! priority 200))
 
-; HIGH PRIORITY: Member access patterns for chained calls
-; This catches the base object in member access (like 'users' in 'users.filter')
-(member_expression
-    (postfix_expression
-        (primary_expression
-            (identifier) @type)))
+; HIGHEST PRIORITY: Base objects in subscript expressions like 'users' in 'users[0]' 
+((subscript_expression
+     (postfix_expression
+         (primary_expression
+             (identifier) @type)))
+    (#set! priority 200))
 
-; This catches properties/methods in member expression (like 'filter' in 'users.filter')
-(member_expression
-    (identifier) @field)
+; HIGHEST PRIORITY: Function names in call expressions like 'formatDate' in 'formatDate(...)'
+((call_expression
+     (postfix_expression
+         (primary_expression
+             (identifier) @function.call)))
+    (#set! priority 200))
 
-; MEDIUM PRIORITY: Function call arguments that are identifiers
-(call_expression
-    (argument_list
-        (expression
-            (postfix_expression
-                (primary_expression
-                    (identifier) @parameter)))))
+; HIGH PRIORITY: Properties/methods like 'name', 'uppercased' - lighter blue
+((member_expression
+     (identifier) @property)
+    (#set! priority 190))
 
-; LOWER PRIORITY: All other identifiers as variables
-(identifier) @variable
+; HIGH PRIORITY: Function arguments like 'isActive', 'age'
+((argument_list
+     (expression
+         (postfix_expression
+             (primary_expression
+                 (identifier) @parameter))))
+    (#set! priority 180))
+
+; MEDIUM PRIORITY: For loop variables
+((for_header
+     (identifier) @variable.loop)
+    (#set! priority 170))
+
+; LOW PRIORITY: Standalone identifiers in primary expressions
+((primary_expression
+     (identifier) @variable)
+    (#set! priority 100))
 
 ; Make sure punctuation is highlighted consistently
 (member_expression "." @punctuation.delimiter)
 
-; Parentheses and brackets
-[
-    "("
-    ")"
-    ] @punctuation.bracket
-
+; Brackets only - no parentheses to avoid conflicts with leaf constructs
 [
     "["
     "]"
@@ -152,6 +194,13 @@
 (subscript_expression
     "[" @punctuation.bracket
     "]" @punctuation.bracket)
+
+; Parentheses ONLY for non-leaf contexts (expressions, function calls, etc)
+(parenthesized_expression "(" @punctuation.bracket)
+(parenthesized_expression ")" @punctuation.bracket)
+
+(call_expression "(" @punctuation.bracket)
+(call_expression ")" @punctuation.bracket)
 
 ; Leaf literals
 (string_literal) @string

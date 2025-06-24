@@ -1,0 +1,414 @@
+
+
+================================================================================
+Complex html content
+================================================================================
+
+<div class="user-stats">
+    <h3>User Statistics</h3>
+    <p>Total Users: #(users.count)</p>
+    <p>Active Users: #(users.filter(isActive).count)</p>
+    <p>Average Age: #(users.map(age).average())</p>
+
+    #if(users.count > 0)
+        <p>Users per page: #(users.count / 10)</p>
+        <p>Discount eligible: #(users.filter(age >= 65).count)</p>
+    #endif
+</div>
+
+--------------------------------------------------------------------------------
+
+(template
+  (html_element
+    (start_tag
+      (tag_name)
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value
+          (attribute_value))))
+    (html_content
+      (html_element
+        (start_tag
+          (tag_name))
+        (html_content
+          (text))
+        (end_tag
+          (tag_name)))
+      (html_element
+        (start_tag
+          (tag_name))
+        (html_content
+          (text)
+          (leaf_variable
+            (expression
+              (postfix_expression
+                (member_expression
+                  (postfix_expression
+                    (primary_expression
+                      (identifier)))
+                  (identifier))))))
+        (end_tag
+          (tag_name)))
+      (html_element
+        (start_tag
+          (tag_name))
+        (html_content
+          (text)
+          (leaf_variable
+            (expression
+              (postfix_expression
+                (member_expression
+                  (postfix_expression
+                    (call_expression
+                      (postfix_expression
+                        (member_expression
+                          (postfix_expression
+                            (primary_expression
+                              (identifier)))
+                          (identifier)))
+                      (argument_list
+                        (expression
+                          (postfix_expression
+                            (primary_expression
+                              (identifier)))))))
+                  (identifier))))))
+        (end_tag
+          (tag_name)))
+      (html_element
+        (start_tag
+          (tag_name))
+        (html_content
+          (text)
+          (leaf_variable
+            (expression
+              (postfix_expression
+                (call_expression
+                  (postfix_expression
+                    (member_expression
+                      (postfix_expression
+                        (call_expression
+                          (postfix_expression
+                            (member_expression
+                              (postfix_expression
+                                (primary_expression
+                                  (identifier)))
+                              (identifier)))
+                          (argument_list
+                            (expression
+                              (postfix_expression
+                                (primary_expression
+                                  (identifier)))))))
+                      (identifier))))))))
+        (end_tag
+          (tag_name)))
+      (leaf_directive
+        (if_directive
+          (if_header
+            (expression
+              (binary_expression
+                (expression
+                  (postfix_expression
+                    (member_expression
+                      (postfix_expression
+                        (primary_expression
+                          (identifier)))
+                      (identifier))))
+                (expression
+                  (postfix_expression
+                    (primary_expression
+                      (number_literal)))))))
+          (html_content
+            (html_element
+              (start_tag
+                (tag_name))
+              (html_content
+                (text)
+                (leaf_variable
+                  (expression
+                    (binary_expression
+                      (expression
+                        (postfix_expression
+                          (member_expression
+                            (postfix_expression
+                              (primary_expression
+                                (identifier)))
+                            (identifier))))
+                      (expression
+                        (postfix_expression
+                          (primary_expression
+                            (number_literal))))))))
+              (end_tag
+                (tag_name)))
+            (html_element
+              (start_tag
+                (tag_name))
+              (html_content
+                (text)
+                (leaf_variable
+                  (expression
+                    (postfix_expression
+                      (member_expression
+                        (postfix_expression
+                          (call_expression
+                            (postfix_expression
+                              (member_expression
+                                (postfix_expression
+                                  (primary_expression
+                                    (identifier)))
+                                (identifier)))
+                            (argument_list
+                              (expression
+                                (binary_expression
+                                  (expression
+                                    (postfix_expression
+                                      (primary_expression
+                                        (identifier))))
+                                  (expression
+                                    (postfix_expression
+                                      (primary_expression
+                                        (number_literal)))))))))
+                        (identifier))))))
+              (end_tag
+                (tag_name))))
+          (end_if_directive))))
+    (end_tag
+      (tag_name))))
+
+================================================================================
+Data Access Examples
+================================================================================
+
+<div class="data-access">
+    <h3>Data Access Examples</h3>
+    <p>First user: #(users[0].name)</p>
+    <p>Last user: #(users[users.count - 1].name)</p>
+    <p>Setting value: #(settings["theme"])</p>
+    <p>Nested access: #(user.preferences.notifications.email)</p>
+</div>
+
+--------------------------------------------------------------------------------
+
+(template
+  (html_element
+    (start_tag
+      (tag_name)
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value
+          (attribute_value))))
+    (html_content
+      (html_element
+        (start_tag
+          (tag_name))
+        (html_content
+          (text))
+        (end_tag
+          (tag_name)))
+      (html_element
+        (start_tag
+          (tag_name))
+        (html_content
+          (text)
+          (leaf_variable
+            (expression
+              (postfix_expression
+                (member_expression
+                  (postfix_expression
+                    (subscript_expression
+                      (postfix_expression
+                        (primary_expression
+                          (identifier)))
+                      (expression
+                        (postfix_expression
+                          (primary_expression
+                            (number_literal))))))
+                  (identifier))))))
+        (end_tag
+          (tag_name)))
+      (html_element
+        (start_tag
+          (tag_name))
+        (html_content
+          (text)
+          (leaf_variable
+            (expression
+              (postfix_expression
+                (member_expression
+                  (postfix_expression
+                    (subscript_expression
+                      (postfix_expression
+                        (primary_expression
+                          (identifier)))
+                      (expression
+                        (binary_expression
+                          (expression
+                            (postfix_expression
+                              (member_expression
+                                (postfix_expression
+                                  (primary_expression
+                                    (identifier)))
+                                (identifier))))
+                          (expression
+                            (postfix_expression
+                              (primary_expression
+                                (number_literal))))))))
+                  (identifier))))))
+        (end_tag
+          (tag_name)))
+      (html_element
+        (start_tag
+          (tag_name))
+        (html_content
+          (text)
+          (leaf_variable
+            (expression
+              (postfix_expression
+                (subscript_expression
+                  (postfix_expression
+                    (primary_expression
+                      (identifier)))
+                  (expression
+                    (postfix_expression
+                      (primary_expression
+                        (string_literal)))))))))
+        (end_tag
+          (tag_name)))
+      (html_element
+        (start_tag
+          (tag_name))
+        (html_content
+          (text)
+          (leaf_variable
+            (expression
+              (postfix_expression
+                (member_expression
+                  (postfix_expression
+                    (member_expression
+                      (postfix_expression
+                        (member_expression
+                          (postfix_expression
+                            (primary_expression
+                              (identifier)))
+                          (identifier)))
+                      (identifier)))
+                  (identifier))))))
+        (end_tag
+          (tag_name))))
+    (end_tag
+      (tag_name))))
+
+================================================================================
+Function Examples
+================================================================================
+
+<div class="functions">
+    <h3>Function Examples</h3>
+    <p>Formatted date: #(formatDate(currentDate, "yyyy-MM-dd"))</p>
+    <p>Uppercase name: #(user.name.uppercased())</p>
+    <p>Word count: #(content.wordCount())</p>
+    <p>Random number: #(random(1, 100))</p>
+</div>
+
+--------------------------------------------------------------------------------
+
+(template
+  (html_element
+    (start_tag
+      (tag_name)
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value
+          (attribute_value))))
+    (html_content
+      (html_element
+        (start_tag
+          (tag_name))
+        (html_content
+          (text))
+        (end_tag
+          (tag_name)))
+      (html_element
+        (start_tag
+          (tag_name))
+        (html_content
+          (text)
+          (leaf_variable
+            (expression
+              (postfix_expression
+                (call_expression
+                  (postfix_expression
+                    (primary_expression
+                      (identifier)))
+                  (argument_list
+                    (expression
+                      (postfix_expression
+                        (primary_expression
+                          (identifier))))
+                    (expression
+                      (postfix_expression
+                        (primary_expression
+                          (string_literal))))))))))
+        (end_tag
+          (tag_name)))
+      (html_element
+        (start_tag
+          (tag_name))
+        (html_content
+          (text)
+          (leaf_variable
+            (expression
+              (postfix_expression
+                (call_expression
+                  (postfix_expression
+                    (member_expression
+                      (postfix_expression
+                        (member_expression
+                          (postfix_expression
+                            (primary_expression
+                              (identifier)))
+                          (identifier)))
+                      (identifier))))))))
+        (end_tag
+          (tag_name)))
+      (html_element
+        (start_tag
+          (tag_name))
+        (html_content
+          (text)
+          (leaf_variable
+            (expression
+              (postfix_expression
+                (call_expression
+                  (postfix_expression
+                    (member_expression
+                      (postfix_expression
+                        (primary_expression
+                          (identifier)))
+                      (identifier))))))))
+        (end_tag
+          (tag_name)))
+      (html_element
+        (start_tag
+          (tag_name))
+        (html_content
+          (text)
+          (leaf_variable
+            (expression
+              (postfix_expression
+                (call_expression
+                  (postfix_expression
+                    (primary_expression
+                      (identifier)))
+                  (argument_list
+                    (expression
+                      (postfix_expression
+                        (primary_expression
+                          (number_literal))))
+                    (expression
+                      (postfix_expression
+                        (primary_expression
+                          (number_literal))))))))))
+        (end_tag
+          (tag_name))))
+    (end_tag
+      (tag_name))))
