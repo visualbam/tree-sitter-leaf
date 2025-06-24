@@ -132,6 +132,14 @@
 
 ; === IDENTIFIER HIGHLIGHTING ===
 
+; HIGHEST PRIORITY: Method names in call expressions that are member expressions
+; This targets patterns like: user.bio.isEmpty() where 'isEmpty' is the method
+((call_expression
+     (postfix_expression
+         (member_expression
+             (identifier) @method.call)))
+    (#set! priority 220))
+
 ; HIGHEST PRIORITY: Base objects in member expressions like 'users' in 'users.filter'
 ((member_expression
      (postfix_expression
@@ -153,7 +161,7 @@
              (identifier) @function.call)))
     (#set! priority 200))
 
-; HIGH PRIORITY: Properties/methods like 'name', 'uppercased' - lighter blue
+; HIGH PRIORITY: Properties/methods like 'name', 'bio' - lighter blue
 ((member_expression
      (identifier) @property)
     (#set! priority 190))

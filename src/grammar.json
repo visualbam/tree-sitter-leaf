@@ -1348,14 +1348,31 @@
           "value": "#("
         },
         {
-          "type": "SYMBOL",
-          "name": "expression"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "simple_variable"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "expression"
+            }
+          ]
         },
         {
           "type": "STRING",
           "value": ")"
         }
       ]
+    },
+    "simple_variable": {
+      "type": "PREC",
+      "value": 2,
+      "content": {
+        "type": "SYMBOL",
+        "name": "identifier"
+      }
     },
     "expression": {
       "type": "CHOICE",

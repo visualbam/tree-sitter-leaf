@@ -268,7 +268,7 @@ module.exports = grammar({
 
         for_header: $ => seq(
             '#for',
-            '(',
+            '(',             // FIXED: Added back the opening parenthesis
             $.identifier,
             'in',
             $.expression,
@@ -322,12 +322,18 @@ module.exports = grammar({
         end_extend_directive: $ => '#endextend',
         end_export_directive: $ => '#endexport',
 
-        // Leaf Variables
+        // Leaf Variables - UPDATED to handle simple identifiers specially
         leaf_variable: $ => seq(
             '#(',
-            $.expression,
+            choice(
+                $.simple_variable,    // NEW: for simple identifiers like 'currentTime'
+                $.expression,         // Keep complex expressions
+            ),
             ')',
         ),
+
+        // NEW: Simple variable rule for standalone identifiers
+        simple_variable: $ => prec(2, $.identifier),
 
         // Expression system with proper precedence
         expression: $ => choice(

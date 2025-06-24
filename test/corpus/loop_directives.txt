@@ -80,10 +80,8 @@ While directive
               (html_content
                 (text)
                 (leaf_variable
-                  (expression
-                    (postfix_expression
-                      (primary_expression
-                        (identifier))))))
+                  (simple_variable
+                    (identifier))))
               (end_tag
                 (tag_name))))
           (end_while_directive))))
