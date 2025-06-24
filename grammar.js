@@ -308,17 +308,44 @@ module.exports = grammar({
             ')',
         ),
 
-        // Expressions
+        // NEW: Rewritten expression system with proper precedence
         expression: $ => choice(
+            $.ternary_expression,
             $.binary_expression,
             $.unary_expression,
-            $.ternary_expression,
-            $.function_call,
-            $.member_access,
-            $.array_access,
-            $.parenthesized_expression,
-            $.primary_expression,
+            $.postfix_expression,
         ),
+
+        // NEW: Postfix expressions handle member access, function calls, and array access
+        postfix_expression: $ => prec.left(12, choice(
+            $.primary_expression,
+            $.member_expression,
+            $.call_expression,
+            $.subscript_expression,
+        )),
+
+        // NEW: Member expressions (property access)
+        member_expression: $ => prec.left(12, seq(
+            $.postfix_expression,
+            '.',
+            $.identifier,
+        )),
+
+        // NEW: Call expressions (function/method calls)
+        call_expression: $ => prec.left(12, seq(
+            $.postfix_expression,
+            '(',
+            optional($.argument_list),
+            ')',
+        )),
+
+        // NEW: Subscript expressions (array access)
+        subscript_expression: $ => prec.left(12, seq(
+            $.postfix_expression,
+            '[',
+            $.expression,
+            ']',
+        )),
 
         primary_expression: $ => choice(
             $.identifier,
@@ -328,6 +355,13 @@ module.exports = grammar({
             $.null_literal,
             $.array_literal,
             $.dictionary_literal,
+            $.parenthesized_expression,
+        ),
+
+        parenthesized_expression: $ => seq(
+            '(',
+            $.expression,
+            ')',
         ),
 
         binary_expression: $ => choice(
@@ -362,6 +396,7 @@ module.exports = grammar({
             $.expression,
         )),
 
+        // DEPRECATED: Keep for backward compatibility but remove from main expression choice
         function_call: $ => seq(
             $.identifier,
             '(',
@@ -375,23 +410,19 @@ module.exports = grammar({
             optional(','),
         ),
 
+        // DEPRECATED: Keep for backward compatibility but remove from main expression choice
         member_access: $ => seq(
             $.expression,
             '.',
             $.identifier,
         ),
 
+        // DEPRECATED: Keep for backward compatibility but remove from main expression choice
         array_access: $ => seq(
             $.expression,
             '[',
             $.expression,
             ']',
-        ),
-
-        parenthesized_expression: $ => seq(
-            '(',
-            $.expression,
-            ')',
         ),
 
         // Literals

@@ -1,3 +1,4 @@
+
 ; ===== HTML HIGHLIGHTING =====
 (tag_name) @tag
 
@@ -98,28 +99,57 @@
     "false"
     ] @keyword.builtin
 
-; === IDENTIFIER HIGHLIGHTING - FIXED ORDER AND PATTERNS ===
+; === IDENTIFIER HIGHLIGHTING - UPDATED FOR NEW GRAMMAR ===
 
-; FIRST: Catch member access patterns specifically to highlight both parts
-(member_access
-    (expression
+; HIGHEST PRIORITY: Function calls should be highlighted distinctly
+(call_expression
+    (postfix_expression
         (primary_expression
-            (identifier) @variable))  ; The base object (user, item, etc.)
-    (identifier) @property)           ; The property (firstName, name, etc.)
+            (identifier) @function)))
 
-; SECOND: Catch function calls
-(function_call
-    (identifier) @function)
+; HIGH PRIORITY: Member access patterns for chained calls
+; This catches the base object in member access (like 'users' in 'users.filter')
+(member_expression
+    (postfix_expression
+        (primary_expression
+            (identifier) @type)))
 
-; THIRD: Catch all other identifiers as variables (fallback)
-(identifier) @variable.builtin
+; This catches properties/methods in member expression (like 'filter' in 'users.filter')
+(member_expression
+    (identifier) @field)
 
-; Member access dot
-(member_access
-    "." @punctuation.delimiter)
+; MEDIUM PRIORITY: Function call arguments that are identifiers
+(call_expression
+    (argument_list
+        (expression
+            (postfix_expression
+                (primary_expression
+                    (identifier) @parameter)))))
 
-; Array access brackets
-(array_access
+; LOWER PRIORITY: All other identifiers as variables
+(identifier) @variable
+
+; Make sure punctuation is highlighted consistently
+(member_expression "." @punctuation.delimiter)
+
+; Parentheses and brackets
+[
+    "("
+    ")"
+    ] @punctuation.bracket
+
+[
+    "["
+    "]"
+    ] @punctuation.bracket
+
+[
+    "{"
+    "}"
+    ] @punctuation.bracket
+
+; Array/subscript access brackets
+(subscript_expression
     "[" @punctuation.bracket
     "]" @punctuation.bracket)
 
@@ -131,12 +161,6 @@
 
 ; Leaf punctuation
 [
-    "("
-    ")"
-    "["
-    "]"
-    "{"
-    "}"
     ","
     ] @punctuation.delimiter
 
@@ -155,11 +179,11 @@
     "}" @punctuation.bracket)
 
 (dictionary_pair
-    (identifier) @property
+    (identifier) @field
     ":" @punctuation.delimiter)
 
 (dictionary_pair
-    (string_literal) @property
+    (string_literal) @field
     ":" @punctuation.delimiter)
 
 ; Array literals

@@ -1,3 +1,4 @@
+
 ================================================================================
 Simple if directive
 ================================================================================
@@ -13,8 +14,9 @@ Hello
     (if_directive
       (if_header
         (expression
-          (primary_expression
-            (boolean_literal))))
+          (postfix_expression
+            (primary_expression
+              (boolean_literal)))))
       (html_content
         (text))
       (end_if_directive))))
@@ -42,11 +44,12 @@ If else directive
         (if_directive
           (if_header
             (expression
-              (member_access
-                (expression
-                  (primary_expression
-                    (identifier)))
-                (identifier))))
+              (postfix_expression
+                (member_expression
+                  (postfix_expression
+                    (primary_expression
+                      (identifier)))
+                  (identifier)))))
           (html_content
             (html_element
               (start_tag
@@ -95,14 +98,16 @@ If elseif else directive
             (expression
               (binary_expression
                 (expression
-                  (member_access
-                    (expression
-                      (primary_expression
-                        (identifier)))
-                    (identifier)))
+                  (postfix_expression
+                    (member_expression
+                      (postfix_expression
+                        (primary_expression
+                          (identifier)))
+                      (identifier))))
                 (expression
-                  (primary_expression
-                    (string_literal))))))
+                  (postfix_expression
+                    (primary_expression
+                      (string_literal)))))))
           (html_content
             (html_element
               (start_tag
@@ -115,14 +120,16 @@ If elseif else directive
             (expression
               (binary_expression
                 (expression
-                  (member_access
-                    (expression
-                      (primary_expression
-                        (identifier)))
-                    (identifier)))
+                  (postfix_expression
+                    (member_expression
+                      (postfix_expression
+                        (primary_expression
+                          (identifier)))
+                      (identifier))))
                 (expression
-                  (primary_expression
-                    (string_literal))))))
+                  (postfix_expression
+                    (primary_expression
+                      (string_literal)))))))
           (html_content
             (html_element
               (start_tag
@@ -170,11 +177,12 @@ Nested if directives
         (if_directive
           (if_header
             (expression
-              (member_access
-                (expression
-                  (primary_expression
-                    (identifier)))
-                (identifier))))
+              (postfix_expression
+                (member_expression
+                  (postfix_expression
+                    (primary_expression
+                      (identifier)))
+                  (identifier)))))
           (html_content
             (html_element
               (start_tag
@@ -187,11 +195,12 @@ Nested if directives
               (if_directive
                 (if_header
                   (expression
-                    (member_access
-                      (expression
-                        (primary_expression
-                          (identifier)))
-                      (identifier))))
+                    (postfix_expression
+                      (member_expression
+                        (postfix_expression
+                          (primary_expression
+                            (identifier)))
+                        (identifier)))))
                 (html_content
                   (html_element
                     (start_tag
@@ -239,14 +248,16 @@ If directive with simple binary expression
             (expression
               (binary_expression
                 (expression
-                  (member_access
-                    (expression
-                      (primary_expression
-                        (identifier)))
-                    (identifier)))
+                  (postfix_expression
+                    (member_expression
+                      (postfix_expression
+                        (primary_expression
+                          (identifier)))
+                      (identifier))))
                 (expression
-                  (primary_expression
-                    (number_literal))))))
+                  (postfix_expression
+                    (primary_expression
+                      (number_literal)))))))
           (html_content
             (html_element
               (start_tag
@@ -291,11 +302,12 @@ Unless directive
         (unless_directive
           (unless_header
             (expression
-              (member_access
-                (expression
-                  (primary_expression
-                    (identifier)))
-                (identifier))))
+              (postfix_expression
+                (member_expression
+                  (postfix_expression
+                    (primary_expression
+                      (identifier)))
+                  (identifier)))))
           (html_content
             (html_element
               (start_tag

@@ -14,17 +14,19 @@ Multiple Leaf variables
       (text)
       (leaf_variable
         (expression
-          (member_access
-            (expression
-              (primary_expression
-                (identifier)))
-            (identifier))))
+          (postfix_expression
+            (member_expression
+              (postfix_expression
+                (primary_expression
+                  (identifier)))
+              (identifier)))))
       (leaf_variable
         (expression
-          (member_access
-            (expression
-              (primary_expression
-                (identifier)))
-            (identifier)))))
+          (postfix_expression
+            (member_expression
+              (postfix_expression
+                (primary_expression
+                  (identifier)))
+              (identifier))))))
     (end_tag
       (tag_name))))

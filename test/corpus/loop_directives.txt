@@ -1,3 +1,4 @@
+
 ================================================================================
 Simple for loop directive
 ================================================================================
@@ -20,8 +21,9 @@ Simple for loop directive
           (for_header
             (identifier)
             (expression
-              (primary_expression
-                (identifier))))
+              (postfix_expression
+                (primary_expression
+                  (identifier)))))
           (html_content
             (html_element
               (start_tag
@@ -29,11 +31,12 @@ Simple for loop directive
               (html_content
                 (leaf_variable
                   (expression
-                    (member_access
-                      (expression
-                        (primary_expression
-                          (identifier)))
-                      (identifier)))))
+                    (postfix_expression
+                      (member_expression
+                        (postfix_expression
+                          (primary_expression
+                            (identifier)))
+                        (identifier))))))
               (end_tag
                 (tag_name))))
           (end_for_directive))))
@@ -63,11 +66,13 @@ While directive
             (expression
               (binary_expression
                 (expression
-                  (primary_expression
-                    (identifier)))
+                  (postfix_expression
+                    (primary_expression
+                      (identifier))))
                 (expression
-                  (primary_expression
-                    (number_literal))))))
+                  (postfix_expression
+                    (primary_expression
+                      (number_literal)))))))
           (html_content
             (html_element
               (start_tag
@@ -76,8 +81,9 @@ While directive
                 (text)
                 (leaf_variable
                   (expression
-                    (primary_expression
-                      (identifier)))))
+                    (postfix_expression
+                      (primary_expression
+                        (identifier))))))
               (end_tag
                 (tag_name))))
           (end_while_directive))))

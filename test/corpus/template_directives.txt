@@ -106,8 +106,11 @@ Evaluate directive
         (evaluate_directive
           (evaluate_header
             (expression
-              (function_call
-                (identifier))))))
+              (postfix_expression
+                (call_expression
+                  (postfix_expression
+                    (primary_expression
+                      (identifier)))))))))
       (html_element
         (start_tag
           (tag_name))
