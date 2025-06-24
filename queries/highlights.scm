@@ -1,3 +1,4 @@
+
 ; ===== HTML HIGHLIGHTING =====
 (tag_name) @tag
 
@@ -51,6 +52,16 @@
 (end_extend_directive) @keyword.directive.end
 (end_export_directive) @keyword.directive.end
 
+; Leaf tag functions - highlight each specific tag type
+(count_tag) @function.builtin.leaf
+(lowercased_tag) @function.builtin.leaf
+(uppercased_tag) @function.builtin.leaf
+(capitalized_tag) @function.builtin.leaf
+(contains_tag) @function.builtin.leaf
+(date_tag) @function.builtin.leaf
+(unsafe_html_tag) @function.builtin.leaf
+(dump_context_tag) @function.builtin.leaf
+
 ; Leaf variable delimiters - make them more prominent
 [
     "#("
@@ -88,16 +99,24 @@
     "false"
     ] @keyword.builtin
 
-; Leaf identifiers
+; Leaf identifiers - base variables
 (identifier) @variable
 
-; Leaf function calls
+; Leaf function calls - user-defined functions
 (function_call
     (identifier) @function.leaf)
 
-; Leaf member access
+; Leaf member access - simplified pattern
 (member_access
     "." @punctuation.delimiter)
+
+(member_access
+    (identifier) @property)
+
+; Array access brackets
+(array_access
+    "[" @punctuation.bracket
+    "]" @punctuation.bracket)
 
 ; Leaf literals
 (string_literal) @string
@@ -114,7 +133,6 @@
     "{"
     "}"
     ","
-    "."
     ] @punctuation.delimiter
 
 ; Leaf comments - distinguish from HTML comments
@@ -125,3 +143,30 @@
 
 ; Doctype
 (doctype) @tag
+
+; Dictionary/object literals
+(dictionary_literal
+    "{" @punctuation.bracket
+    "}" @punctuation.bracket)
+
+(dictionary_pair
+    (identifier) @property
+    ":" @punctuation.delimiter)
+
+(dictionary_pair
+    (string_literal) @property
+    ":" @punctuation.delimiter)
+
+; Array literals
+(array_literal
+    "[" @punctuation.bracket
+    "]" @punctuation.bracket)
+
+; Highlight argument separators in function calls
+(argument_list
+    "," @punctuation.delimiter)
+
+; Parameter separators in tag calls
+[
+    ","
+    ] @punctuation.delimiter

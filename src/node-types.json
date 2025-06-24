@@ -57,6 +57,10 @@
           "named": true
         },
         {
+          "type": "leaf_tag",
+          "named": true
+        },
+        {
           "type": "leaf_variable",
           "named": true
         },
@@ -81,6 +85,10 @@
       "types": [
         {
           "type": "html_entity",
+          "named": true
+        },
+        {
+          "type": "leaf_tag",
           "named": true
         },
         {
@@ -111,9 +119,69 @@
     "fields": {}
   },
   {
+    "type": "capitalized_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "comment",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "contains_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "count_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "date_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "dictionary_literal",
@@ -428,6 +496,10 @@
           "named": true
         },
         {
+          "type": "leaf_tag",
+          "named": true
+        },
+        {
           "type": "leaf_variable",
           "named": true
         },
@@ -605,7 +677,65 @@
     }
   },
   {
+    "type": "leaf_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "capitalized_tag",
+          "named": true
+        },
+        {
+          "type": "contains_tag",
+          "named": true
+        },
+        {
+          "type": "count_tag",
+          "named": true
+        },
+        {
+          "type": "date_tag",
+          "named": true
+        },
+        {
+          "type": "dump_context_tag",
+          "named": true
+        },
+        {
+          "type": "lowercased_tag",
+          "named": true
+        },
+        {
+          "type": "unsafe_html_tag",
+          "named": true
+        },
+        {
+          "type": "uppercased_tag",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "leaf_variable",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "lowercased_tag",
     "named": true,
     "fields": {},
     "children": {
@@ -770,6 +900,10 @@
           "named": true
         },
         {
+          "type": "leaf_tag",
+          "named": true
+        },
+        {
           "type": "leaf_variable",
           "named": true
         },
@@ -853,6 +987,36 @@
     }
   },
   {
+    "type": "unsafe_html_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "uppercased_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "while_directive",
     "named": true,
     "fields": {},
@@ -907,6 +1071,22 @@
     "named": false
   },
   {
+    "type": "#capitalized",
+    "named": false
+  },
+  {
+    "type": "#contains",
+    "named": false
+  },
+  {
+    "type": "#count",
+    "named": false
+  },
+  {
+    "type": "#date",
+    "named": false
+  },
+  {
     "type": "#elseif",
     "named": false
   },
@@ -935,7 +1115,19 @@
     "named": false
   },
   {
+    "type": "#lowercased",
+    "named": false
+  },
+  {
     "type": "#unless",
+    "named": false
+  },
+  {
+    "type": "#unsafeHTML",
+    "named": false
+  },
+  {
+    "type": "#uppercased",
     "named": false
   },
   {
@@ -1060,6 +1252,10 @@
   },
   {
     "type": "attribute_name",
+    "named": true
+  },
+  {
+    "type": "dump_context_tag",
     "named": true
   },
   {

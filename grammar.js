@@ -1,4 +1,3 @@
-
 module.exports = grammar({
     name: 'leaf',
 
@@ -14,6 +13,7 @@ module.exports = grammar({
             $.leaf_comment,
             $.leaf_directive,
             $.leaf_variable,
+            $.leaf_tag,
             $.html_element,
             $.html_self_closing_tag,
             $.text,
@@ -56,6 +56,7 @@ module.exports = grammar({
                     $.quoted_attribute_value,
                     $.unquoted_attribute_value,
                     $.leaf_variable,
+                    $.leaf_tag,
                 ),
             )),
         ),
@@ -72,6 +73,7 @@ module.exports = grammar({
         attribute_value: $ => repeat1(choice(
             /[^"'<>&{}#]+/,
             $.leaf_variable,
+            $.leaf_tag,
             $.html_entity,
         )),
 
@@ -80,6 +82,7 @@ module.exports = grammar({
         html_content: $ => repeat1(choice(
             $.leaf_directive,
             $.leaf_variable,
+            $.leaf_tag,
             $.html_element,
             $.html_self_closing_tag,
             $.html_comment,
@@ -99,6 +102,73 @@ module.exports = grammar({
             $.import_directive,
             $.evaluate_directive,
         ),
+
+        // New: Individual Leaf tags (functions that can be used inline)
+        leaf_tag: $ => choice(
+            $.count_tag,
+            $.lowercased_tag,
+            $.uppercased_tag,
+            $.capitalized_tag,
+            $.contains_tag,
+            $.date_tag,
+            $.unsafe_html_tag,
+            $.dump_context_tag,
+        ),
+
+        count_tag: $ => seq(
+            '#count',
+            '(',
+            $.expression,
+            ')',
+        ),
+
+        lowercased_tag: $ => seq(
+            '#lowercased',
+            '(',
+            $.expression,
+            ')',
+        ),
+
+        uppercased_tag: $ => seq(
+            '#uppercased',
+            '(',
+            $.expression,
+            ')',
+        ),
+
+        capitalized_tag: $ => seq(
+            '#capitalized',
+            '(',
+            $.expression,
+            ')',
+        ),
+
+        contains_tag: $ => seq(
+            '#contains',
+            '(',
+            $.expression,
+            ',',
+            $.expression,
+            ')',
+        ),
+
+        date_tag: $ => seq(
+            '#date',
+            '(',
+            $.expression,
+            optional(seq(',', $.expression)),
+            optional(seq(',', $.expression)),
+            ')',
+        ),
+
+        unsafe_html_tag: $ => seq(
+            '#unsafeHTML',
+            '(',
+            $.expression,
+            ')',
+        ),
+
+        dump_context_tag: $ => '#dumpContext',
 
         // Conditional Directives
         if_directive: $ => prec(1, seq(
