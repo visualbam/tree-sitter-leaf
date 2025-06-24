@@ -31,29 +31,31 @@
 
 ; ===== LEAF HIGHLIGHTING =====
 
-; Leaf directive node types (these are actual nodes in the grammar)
-(if_header) @keyword
-(elseif_header) @keyword
-(else_directive) @keyword
-(unless_header) @keyword
-(for_header) @keyword
-(while_header) @keyword
-(extend_header) @keyword
-(export_header) @keyword
-(import_header) @keyword
-(evaluate_header) @keyword
-(end_if_directive) @keyword
-(end_unless_directive) @keyword
-(end_for_directive) @keyword
-(end_while_directive) @keyword
-(end_extend_directive) @keyword
-(end_export_directive) @keyword
+; Leaf directive headers - use more distinctive highlighting
+(if_header) @keyword.directive
+(elseif_header) @keyword.directive
+(else_directive) @keyword.directive
+(unless_header) @keyword.directive
+(for_header) @keyword.directive
+(while_header) @keyword.directive
+(extend_header) @keyword.directive
+(export_header) @keyword.directive
+(import_header) @keyword.directive
+(evaluate_header) @keyword.directive
 
-; Leaf variable delimiters
+; End directives - use a different shade
+(end_if_directive) @keyword.directive.end
+(end_unless_directive) @keyword.directive.end
+(end_for_directive) @keyword.directive.end
+(end_while_directive) @keyword.directive.end
+(end_extend_directive) @keyword.directive.end
+(end_export_directive) @keyword.directive.end
+
+; Leaf variable delimiters - make them more prominent
 [
     "#("
     ")"
-    ] @punctuation.special
+    ] @punctuation.special.leaf
 
 ; Leaf operators
 [
@@ -91,7 +93,7 @@
 
 ; Leaf function calls
 (function_call
-    (identifier) @function)
+    (identifier) @function.leaf)
 
 ; Leaf member access
 (member_access
@@ -115,8 +117,8 @@
     "."
     ] @punctuation.delimiter
 
-; Leaf comments
-(leaf_comment) @comment @spell
+; Leaf comments - distinguish from HTML comments
+(leaf_comment) @comment.leaf @spell
 
 ; HTML entities
 (html_entity) @string.special
