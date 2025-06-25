@@ -206,28 +206,28 @@ module.exports = grammar({
         )),
 
         // Loop Directives
-        for_directive: $ => seq(
+        for_directive: $ => prec(1, seq(
             $.for_header,
             optional('{'),
             optional($.html_content),
             optional('}'),
             $.end_for_directive,
-        ),
+        )),
 
-        while_directive: $ => seq(
+        while_directive: $ => prec(1, seq(
             $.while_header,
             optional('{'),
             optional($.html_content),
             optional('}'),
             $.end_while_directive,
-        ),
+        )),
 
-        // Template Directives
-        extend_directive: $ => seq(
+        extend_directive: $ => prec(1, seq(
             $.extend_header,
             optional($.html_content),
             $.end_extend_directive,
-        ),
+        )),
+
 
         export_directive: $ => seq(
             $.export_header,

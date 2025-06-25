@@ -132,6 +132,7 @@
 
 ; === IDENTIFIER HIGHLIGHTING ===
 
+
 ; HIGHEST PRIORITY: Method names in call expressions that are member expressions
 ; This targets patterns like: user.bio.isEmpty() where 'isEmpty' is the method
 ((call_expression
