@@ -34,40 +34,57 @@
 (comment) @indent.ignore
 (leaf_comment) @indent.ignore
 
-; ===== LEAF INDENTATION =====
+; ===== LEAF DIRECTIVE INDENTATION =====
 
-; Target html_content inside directives specifically
-(extend_directive
-    (html_content) @indent.begin)
+; Use leaf_directive as the container and target specific directive types
+((leaf_directive
+     (if_directive)) @indent.begin)
 
-(export_directive
-    (html_content) @indent.begin)
+((leaf_directive
+     (unless_directive)) @indent.begin)
 
-(if_directive
-    (html_content) @indent.begin)
+((leaf_directive
+     (for_directive)) @indent.begin)
 
-(unless_directive
-    (html_content) @indent.begin)
+((leaf_directive
+     (while_directive)) @indent.begin)
 
-(for_directive
-    (html_content) @indent.begin)
+((leaf_directive
+     (extend_directive)) @indent.begin)
 
-(while_directive
-    (html_content) @indent.begin)
+((leaf_directive
+     (export_directive)) @indent.begin)
 
-; Use dedent on the end directives
-(end_extend_directive) @indent.dedent
-(end_export_directive) @indent.dedent
-(end_if_directive) @indent.dedent
-(end_unless_directive) @indent.dedent
-(end_for_directive) @indent.dedent
-(end_while_directive) @indent.dedent
+; End directive handling - make them align with their start
+((leaf_directive
+     (if_directive
+         (end_if_directive) @indent.branch)))
 
-; Branch on else/elseif
+((leaf_directive
+     (unless_directive
+         (end_unless_directive) @indent.branch)))
+
+((leaf_directive
+     (for_directive
+         (end_for_directive) @indent.branch)))
+
+((leaf_directive
+     (while_directive
+         (end_while_directive) @indent.branch)))
+
+((leaf_directive
+     (extend_directive
+         (end_extend_directive) @indent.branch)))
+
+((leaf_directive
+     (export_directive
+         (end_export_directive) @indent.branch)))
+
+; Branch directives
 (else_directive) @indent.branch
 (elseif_header) @indent.branch
 
-; Leaf expression grouping
+; Expression grouping
 [
     "("
     "["
