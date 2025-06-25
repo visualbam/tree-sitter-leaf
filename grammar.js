@@ -228,12 +228,11 @@ module.exports = grammar({
             $.end_extend_directive,
         )),
 
-
-        export_directive: $ => seq(
+        export_directive: $ => prec(1, seq(
             $.export_header,
             optional($.html_content),
             $.end_export_directive,
-        ),
+        )),
 
         import_directive: $ => $.import_header,
 
