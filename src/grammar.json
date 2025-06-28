@@ -363,32 +363,15 @@
       "value": "[^\\s<>\"'=`{}#]+"
     },
     "attribute_value": {
-      "type": "REPEAT1",
+      "type": "TOKEN",
       "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "PATTERN",
-            "value": "[^\"'<>&{}#\\r\\n]+"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "leaf_variable"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "leaf_tag"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "html_entity"
-          }
-        ]
+        "type": "PREC",
+        "value": 1,
+        "content": {
+          "type": "PATTERN",
+          "value": "[^\"']+"
+        }
       }
-    },
-    "html_entity": {
-      "type": "PATTERN",
-      "value": "&[a-zA-Z0-9]+;"
     },
     "html_content": {
       "type": "REPEAT1",

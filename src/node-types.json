@@ -61,29 +61,6 @@
     }
   },
   {
-    "type": "attribute_value",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "html_entity",
-          "named": true
-        },
-        {
-          "type": "leaf_tag",
-          "named": true
-        },
-        {
-          "type": "leaf_variable",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "binary_expression",
     "named": true,
     "fields": {},
@@ -1340,6 +1317,10 @@
     "named": true
   },
   {
+    "type": "attribute_value",
+    "named": true
+  },
+  {
     "type": "capitalized",
     "named": false
   },
@@ -1386,10 +1367,6 @@
   {
     "type": "false",
     "named": false
-  },
-  {
-    "type": "html_entity",
-    "named": true
   },
   {
     "type": "identifier",

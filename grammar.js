@@ -19,7 +19,7 @@ module.exports = grammar({
             $.text,
         )),
 
-        // HTML Structure
+        // HTML Structure - FIXED: Back to original structure but with better precedence
         html_element: $ => prec(1, choice(
             // Void elements (no closing tag) - HIGHEST precedence
             prec(3, seq(
@@ -65,6 +65,7 @@ module.exports = grammar({
         // Regular tag names - LOWER precedence than void tag names
         tag_name: $ => token(prec(-2, /[a-zA-Z][a-zA-Z0-9-]*/)),
 
+        // FIXED: More robust attribute handling
         attribute: $ => choice(
             // Boolean attribute (no value)
             $.attribute_name,
@@ -83,7 +84,7 @@ module.exports = grammar({
 
         attribute_name: $ => /[a-zA-Z_:][a-zA-Z0-9_:.-]*/,
 
-        // FIXED: More robust quoted attribute value handling
+        // FIXED: Simplified and more robust quoted attribute value
         quoted_attribute_value: $ => choice(
             seq('"', optional($.attribute_value), '"'),
             seq("'", optional($.attribute_value), "'"),
@@ -91,16 +92,8 @@ module.exports = grammar({
 
         unquoted_attribute_value: $ => /[^\s<>"'=`{}#]+/,
 
-        // FIXED: More robust attribute value pattern for complex URLs
-        attribute_value: $ => repeat1(choice(
-            // Handle most characters including URL-safe ones
-            /[^"'<>&{}#\r\n]+/,
-            $.leaf_variable,
-            $.leaf_tag,
-            $.html_entity,
-        )),
-
-        html_entity: $ => /&[a-zA-Z0-9]+;/,
+        // FIXED: Much more permissive attribute value pattern
+        attribute_value: $ => token(prec(1, /[^"']+/)),
 
         // HTML content
         html_content: $ => repeat1(choice(
