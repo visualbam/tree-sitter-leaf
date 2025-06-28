@@ -1,3 +1,4 @@
+
 ; ===== HTML HIGHLIGHTING =====
 (tag_name) @tag
 
@@ -224,9 +225,6 @@
 
 ; Leaf comments - distinguish from HTML comments
 (leaf_comment) @comment.leaf @spell
-
-; HTML entities
-(html_entity) @string.special
 
 ; Doctype
 (doctype) @tag
