@@ -1,12 +1,134 @@
+================================================================================
+Extend directive
+================================================================================
+
+#extend("base.leaf")
+<div>
+    <p>Extended content</p>
+</div>
+#endextend
+
+--------------------------------------------------------------------------------
+
+(template
+  (leaf_directive
+    (extend_directive
+      (extend_header
+        (string_literal))
+      (html_content
+        (html_element
+          (start_tag
+            (tag_name))
+          (html_content
+            (html_element
+              (start_tag
+                (tag_name))
+              (html_content
+                (text))
+              (end_tag
+                (tag_name))))
+          (end_tag
+            (tag_name))))
+      (end_extend_directive))))
+
+================================================================================
+Export directive
+================================================================================
+
+#export("header")
+<header>
+    <h1>Page Title</h1>
+</header>
+#endexport
+
+--------------------------------------------------------------------------------
+
+(template
+  (leaf_directive
+    (export_directive
+      (export_header
+        (string_literal))
+      (html_content
+        (html_element
+          (start_tag
+            (tag_name))
+          (html_content
+            (html_element
+              (start_tag
+                (tag_name))
+              (html_content
+                (text))
+              (end_tag
+                (tag_name))))
+          (end_tag
+            (tag_name))))
+      (end_export_directive))))
+
+================================================================================
+Import directive
+================================================================================
+
+<div>
+    #import("components/navbar.leaf")
+</div>
+
+--------------------------------------------------------------------------------
+
+(template
+  (html_element
+    (start_tag
+      (tag_name))
+    (html_content
+      (leaf_directive
+        (import_directive
+          (import_header
+            (string_literal)))))
+    (end_tag
+      (tag_name))))
+
+================================================================================
+Evaluate directive
+================================================================================
+
+<div>
+    #evaluate(logAccess())
+    <p>Welcome!</p>
+</div>
+
+--------------------------------------------------------------------------------
+
+(template
+  (html_element
+    (start_tag
+      (tag_name))
+    (html_content
+      (leaf_directive
+        (evaluate_directive
+          (evaluate_header
+            (expression
+              (postfix_expression
+                (call_expression
+                  (postfix_expression
+                    (primary_expression
+                      (identifier)))))))))
+      (html_element
+        (start_tag
+          (tag_name))
+        (html_content
+          (text))
+        (end_tag
+          (tag_name))))
+    (end_tag
+      (tag_name))))
 
 ================================================================================
 Simple for loop directive
 ================================================================================
 
 <ul>
-#for(item in items)
-    <li>#(item.name)</li>
-#endfor
+    #for(item in items)
+        <li>#(item.name)</li>
+    #endfor
 </ul>
 
 --------------------------------------------------------------------------------

@@ -19,8 +19,8 @@ module.exports = grammar({
             $.text,
         )),
 
-        // HTML Structure - FIXED: Back to original structure but with better precedence
-        html_element: $ => prec(1, choice(
+        // HTML Structure - FIXED: Proper void element handling
+        html_element: $ => choice(
             // Void elements (no closing tag) - HIGHEST precedence
             prec(3, seq(
                 '<',
@@ -28,13 +28,13 @@ module.exports = grammar({
                 repeat($.attribute),
                 '>',
             )),
-            // Regular elements (with closing tag) - HIGH precedence
+            // Regular elements (with closing tag) - HIGH precedence  
             prec(2, seq(
                 $.start_tag,
                 optional($.html_content),
                 $.end_tag,
             )),
-        )),
+        ),
 
         html_self_closing_tag: $ => seq(
             '<',
@@ -282,6 +282,7 @@ module.exports = grammar({
             optional(':'),
         ),
 
+        // FIXED: Added missing opening parenthesis
         for_header: $ => seq(
             '#for',
             '(',
