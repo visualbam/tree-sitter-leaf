@@ -141,47 +141,43 @@
       "value": "[a-zA-Z][a-zA-Z0-9-]*"
     },
     "attribute": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
           "type": "SYMBOL",
           "name": "attribute_name"
         },
         {
-          "type": "CHOICE",
+          "type": "SEQ",
           "members": [
             {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "="
-                },
-                {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "quoted_attribute_value"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "unquoted_attribute_value"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "leaf_variable"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "leaf_tag"
-                    }
-                  ]
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "attribute_name"
             },
             {
-              "type": "BLANK"
+              "type": "STRING",
+              "value": "="
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "quoted_attribute_value"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "unquoted_attribute_value"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "leaf_variable"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "leaf_tag"
+                }
+              ]
             }
           ]
         }
@@ -1916,7 +1912,7 @@
               },
               {
                 "type": "STRING",
-                "value": ">"
+                "value": "<="
               },
               {
                 "type": "SYMBOL",
@@ -1937,7 +1933,7 @@
               },
               {
                 "type": "STRING",
-                "value": "<="
+                "value": ">"
               },
               {
                 "type": "SYMBOL",

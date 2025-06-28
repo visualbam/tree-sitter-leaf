@@ -1,3 +1,4 @@
+
 module.exports = grammar({
     name: 'leaf',
 
@@ -48,9 +49,13 @@ module.exports = grammar({
 
         tag_name: $ => /[a-zA-Z][a-zA-Z0-9-]*/,
 
-        attribute: $ => seq(
+        // FIXED: Updated attribute rule to handle boolean attributes
+        attribute: $ => choice(
+            // Boolean attribute (no value)
             $.attribute_name,
-            optional(seq(
+            // Attribute with value
+            seq(
+                $.attribute_name,
                 '=',
                 choice(
                     $.quoted_attribute_value,
@@ -58,7 +63,7 @@ module.exports = grammar({
                     $.leaf_variable,
                     $.leaf_tag,
                 ),
-            )),
+            ),
         ),
 
         attribute_name: $ => /[a-zA-Z_:][a-zA-Z0-9_:.-]*/,
@@ -410,8 +415,8 @@ module.exports = grammar({
             prec.left(9, seq($.expression, '+', $.expression)),
             prec.left(9, seq($.expression, '-', $.expression)),
             prec.left(8, seq($.expression, '<', $.expression)),
-            prec.left(8, seq($.expression, '>', $.expression)),
             prec.left(8, seq($.expression, '<=', $.expression)),
+            prec.left(8, seq($.expression, '>', $.expression)),
             prec.left(8, seq($.expression, '>=', $.expression)),
             prec.left(7, seq($.expression, '==', $.expression)),
             prec.left(7, seq($.expression, '!=', $.expression)),
@@ -512,7 +517,7 @@ module.exports = grammar({
         leaf_comment: $ => seq('///', /[^\r\n]*/),
         comment: $ => seq('//', /[^\r\n]*/),
 
-        // Text content
+        // Text content - REVERTED to original working version
         text: $ => token(prec(-1, /[^<#\s][^<#]*/)),
 
         // DOCTYPE
