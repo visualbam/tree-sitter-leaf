@@ -1,6 +1,7 @@
 
 ; ===== HTML HIGHLIGHTING =====
 (tag_name) @tag
+(void_tag_name) @tag  ; Add this line to highlight void tag names
 
 (comment) @comment @spell
 (html_comment) @comment @spell
