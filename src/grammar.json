@@ -369,7 +369,7 @@
         "members": [
           {
             "type": "PATTERN",
-            "value": "[^\"'<>&{}#]+"
+            "value": "[^\"'<>&{}#\\r\\n]+"
           },
           {
             "type": "SYMBOL",
@@ -1903,27 +1903,6 @@
               {
                 "type": "STRING",
                 "value": "*"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "expression"
-              }
-            ]
-          }
-        },
-        {
-          "type": "PREC_LEFT",
-          "value": 10,
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "expression"
-              },
-              {
-                "type": "STRING",
-                "value": "/"
               },
               {
                 "type": "SYMBOL",

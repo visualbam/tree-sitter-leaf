@@ -1,4 +1,3 @@
-
 module.exports = grammar({
     name: 'leaf',
 
@@ -20,7 +19,7 @@ module.exports = grammar({
             $.text,
         )),
 
-        // HTML Structure - FIXED: Higher precedence for complete elements
+        // HTML Structure
         html_element: $ => prec(1, choice(
             // Void elements (no closing tag) - HIGHEST precedence
             prec(3, seq(
@@ -84,6 +83,7 @@ module.exports = grammar({
 
         attribute_name: $ => /[a-zA-Z_:][a-zA-Z0-9_:.-]*/,
 
+        // FIXED: More robust quoted attribute value handling
         quoted_attribute_value: $ => choice(
             seq('"', optional($.attribute_value), '"'),
             seq("'", optional($.attribute_value), "'"),
@@ -91,8 +91,10 @@ module.exports = grammar({
 
         unquoted_attribute_value: $ => /[^\s<>"'=`{}#]+/,
 
+        // FIXED: More robust attribute value pattern for complex URLs
         attribute_value: $ => repeat1(choice(
-            /[^"'<>&{}#]+/,
+            // Handle most characters including URL-safe ones
+            /[^"'<>&{}#\r\n]+/,
             $.leaf_variable,
             $.leaf_tag,
             $.html_entity,
@@ -427,7 +429,6 @@ module.exports = grammar({
 
         binary_expression: $ => choice(
             prec.left(10, seq($.expression, '*', $.expression)),
-            prec.left(10, seq($.expression, '/', $.expression)),
             prec.left(10, seq($.expression, '/', $.expression)),
             prec.left(10, seq($.expression, '%', $.expression)),
             prec.left(9, seq($.expression, '+', $.expression)),
