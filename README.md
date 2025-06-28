@@ -4,11 +4,12 @@ A [Tree-sitter](https://tree-sitter.github.io/tree-sitter/) grammar for the [Lea
 
 ## Features
 
-- Full support for Leaf directives (`#extend`, `#export`, `#import`, `#if`, `#unless`, `#for`, `#while`, `#evaluate`)
+- Full support for Leaf directives (`#extend`, `#export`, `#import`, `#if`, `#unless`, `#for`, `#while`)
 - Leaf variables with expression support (`#(variable)`, `#(user.name)`, `#(count + 1)`)
 - HTML parsing with proper nesting
 - String interpolation and complex expressions
 - Syntax highlighting, indentation, and language injections
+- Comment support for Leaf (`///`), regular (`//`), and HTML (`<!-- -->`) comments
 
 ## Installation
 
@@ -35,6 +36,14 @@ Add this to your Neovim configuration:
     -- Simple filetype detection for grep preview
     vim.filetype.add({ extension = { leaf = 'leaf' } })
     vim.treesitter.language.register('leaf', 'leaf')
+
+    -- Configure comment strings for gcc motion
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "leaf",
+      callback = function()
+        vim.bo.commentstring = "/// %s"
+      end,
+    })
 
     -- Standard setup
     require('nvim-treesitter.configs').setup {
