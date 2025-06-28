@@ -67,42 +67,59 @@ HTML Doc
         (start_tag
           (tag_name))
         (html_content
+          (html_void_element
+            (void_tag_name)
+            (attribute
+              (attribute_name)
+              (quoted_attribute_value
+                (attribute_value))))
           (html_element
             (start_tag
-              (tag_name)
-              (attribute
-                (attribute_name)
-                (quoted_attribute_value
-                  (attribute_value))))
+              (tag_name))
             (html_content
               (text))
             (end_tag
               (tag_name)))
-          (html_element
-            (start_tag
-              (tag_name)
-              (attribute
-                (attribute_name)
-                (quoted_attribute_value
-                  (attribute_value)))
-              (attribute
-                (attribute_name)
-                (quoted_attribute_value
-                  (attribute_value)))
-              (attribute
-                (attribute_name)
-                (quoted_attribute_value
-                  (attribute_value)))
-              (attribute
-                (attribute_name)
-                (quoted_attribute_value
-                  (attribute_value)))
-              (attribute
-                (attribute_name)
-                (quoted_attribute_value
-                  (attribute_value))))
-            (end_tag
-              (tag_name))))
+          (html_void_element
+            (void_tag_name)
+            (attribute
+              (attribute_name)
+              (quoted_attribute_value
+                (attribute_value)))
+            (attribute
+              (attribute_name)
+              (quoted_attribute_value
+                (attribute_value))))
+          (html_void_element
+            (void_tag_name)
+            (attribute
+              (attribute_name)
+              (quoted_attribute_value
+                (attribute_value)))
+            (attribute
+              (attribute_name)
+              (quoted_attribute_value
+                (attribute_value))))
+          (html_void_element
+            (void_tag_name)
+            (attribute
+              (attribute_name)
+              (quoted_attribute_value
+                (attribute_value)))
+            (attribute
+              (attribute_name)
+              (quoted_attribute_value
+                (attribute_value))))
+          (html_void_element
+            (void_tag_name)
+            (attribute
+              (attribute_name)
+              (quoted_attribute_value
+                (attribute_value)))
+            (attribute
+              (attribute_name)
+              (quoted_attribute_value
+                (attribute_value)))))
         (end_tag
           (tag_name)))
       (html_element

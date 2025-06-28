@@ -1,4 +1,3 @@
-
 module.exports = grammar({
     name: 'leaf',
 
@@ -15,6 +14,7 @@ module.exports = grammar({
             $.leaf_directive,
             $.leaf_variable,
             $.leaf_tag,
+            $.html_void_element,  // MOVED: Put void elements before html_element
             $.html_element,
             $.html_self_closing_tag,
             $.text,
@@ -32,6 +32,20 @@ module.exports = grammar({
             $.tag_name,
             repeat($.attribute),
             '/>',
+        ),
+
+        // NEW: Void elements that don't need closing tags
+        html_void_element: $ => seq(
+            '<',
+            field('name', $.void_tag_name),
+            repeat($.attribute),
+            '>',
+        ),
+
+        // NEW: Void tag names
+        void_tag_name: $ => choice(
+            'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input',
+            'link', 'meta', 'param', 'source', 'track', 'wbr'
         ),
 
         start_tag: $ => seq(
@@ -88,6 +102,7 @@ module.exports = grammar({
             $.leaf_directive,
             $.leaf_variable,
             $.leaf_tag,
+            $.html_void_element,  // MOVED: Put void elements before html_element
             $.html_element,
             $.html_self_closing_tag,
             $.html_comment,
@@ -272,7 +287,7 @@ module.exports = grammar({
 
         for_header: $ => seq(
             '#for',
-            '(',             // FIXED: Added back the opening parenthesis
+            '(',
             $.identifier,
             'in',
             $.expression,
@@ -330,8 +345,8 @@ module.exports = grammar({
         leaf_variable: $ => seq(
             '#(',
             choice(
-                $.simple_variable,    // NEW: for simple identifiers like 'currentTime'
-                $.expression,         // Keep complex expressions
+                $.simple_variable,
+                $.expression,
             ),
             ')',
         ),

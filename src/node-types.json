@@ -466,6 +466,10 @@
           "named": true
         },
         {
+          "type": "html_void_element",
+          "named": true
+        },
+        {
           "type": "leaf_directive",
           "named": true
         },
@@ -521,6 +525,32 @@
         },
         {
           "type": "tag_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "html_void_element",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "void_tag_name",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "attribute",
           "named": true
         }
       ]
@@ -954,6 +984,10 @@
           "named": true
         },
         {
+          "type": "html_void_element",
+          "named": true
+        },
+        {
           "type": "leaf_comment",
           "named": true
         },
@@ -1077,6 +1111,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "void_tag_name",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "while_directive",
@@ -1321,11 +1360,27 @@
     "named": false
   },
   {
+    "type": "area",
+    "named": false
+  },
+  {
     "type": "attribute_name",
     "named": true
   },
   {
+    "type": "base",
+    "named": false
+  },
+  {
+    "type": "br",
+    "named": false
+  },
+  {
     "type": "capitalized",
+    "named": false
+  },
+  {
+    "type": "col",
     "named": false
   },
   {
@@ -1343,6 +1398,10 @@
   {
     "type": "dump_context_tag",
     "named": true
+  },
+  {
+    "type": "embed",
+    "named": false
   },
   {
     "type": "end_export_directive",
@@ -1373,6 +1432,10 @@
     "named": false
   },
   {
+    "type": "hr",
+    "named": false
+  },
+  {
     "type": "html_entity",
     "named": true
   },
@@ -1381,11 +1444,27 @@
     "named": true
   },
   {
+    "type": "img",
+    "named": false
+  },
+  {
     "type": "in",
     "named": false
   },
   {
+    "type": "input",
+    "named": false
+  },
+  {
+    "type": "link",
+    "named": false
+  },
+  {
     "type": "lowercased",
+    "named": false
+  },
+  {
+    "type": "meta",
     "named": false
   },
   {
@@ -1401,12 +1480,24 @@
     "named": false
   },
   {
+    "type": "param",
+    "named": false
+  },
+  {
+    "type": "source",
+    "named": false
+  },
+  {
     "type": "tag_name",
     "named": true
   },
   {
     "type": "text",
     "named": true
+  },
+  {
+    "type": "track",
+    "named": false
   },
   {
     "type": "true",
@@ -1422,6 +1513,10 @@
   },
   {
     "type": "uppercased",
+    "named": false
+  },
+  {
+    "type": "wbr",
     "named": false
   },
   {

@@ -1,10 +1,11 @@
 ================================================================================
-HTML with attributes
+HTML with void elements
 ================================================================================
 
-<div class="container" id="main">
-    <img src="photo.jpg" alt="Profile photo" />
-    <a href="/profile" target="_blank">View Profile</a>
+<div>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="style.css">
+    <img src="photo.jpg" alt="Photo">
 </div>
 
 --------------------------------------------------------------------------------
@@ -12,18 +13,10 @@ HTML with attributes
 (template
   (html_element
     (start_tag
-      (tag_name)
-      (attribute
-        (attribute_name)
-        (quoted_attribute_value
-          (attribute_value)))
-      (attribute
-        (attribute_name)
-        (quoted_attribute_value
-          (attribute_value))))
+      (tag_name))
     (html_content
-      (html_self_closing_tag
-        (tag_name)
+      (html_void_element
+        (void_tag_name)
         (attribute
           (attribute_name)
           (quoted_attribute_value
@@ -32,20 +25,25 @@ HTML with attributes
           (attribute_name)
           (quoted_attribute_value
             (attribute_value))))
-      (html_element
-        (start_tag
-          (tag_name)
-          (attribute
-            (attribute_name)
-            (quoted_attribute_value
-              (attribute_value)))
-          (attribute
-            (attribute_name)
-            (quoted_attribute_value
-              (attribute_value))))
-        (html_content
-          (text))
-        (end_tag
-          (tag_name))))
+      (html_void_element
+        (void_tag_name)
+        (attribute
+          (attribute_name)
+          (quoted_attribute_value
+            (attribute_value)))
+        (attribute
+          (attribute_name)
+          (quoted_attribute_value
+            (attribute_value))))
+      (html_void_element
+        (void_tag_name)
+        (attribute
+          (attribute_name)
+          (quoted_attribute_value
+            (attribute_value)))
+        (attribute
+          (attribute_name)
+          (quoted_attribute_value
+            (attribute_value)))))
     (end_tag
       (tag_name))))
