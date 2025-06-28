@@ -1,5 +1,7 @@
 # tree-sitter-leaf
 
+![Leaf syntax highlighting example](assets/image.png)
+
 A [Tree-sitter](https://tree-sitter.github.io/tree-sitter/) grammar for the [Leaf templating language](https://docs.vapor.codes/leaf/overview/) used in Vapor (Swift).
 
 ## Features
