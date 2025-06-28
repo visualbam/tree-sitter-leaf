@@ -1,3 +1,4 @@
+
 module.exports = grammar({
     name: 'leaf',
 
@@ -14,9 +15,9 @@ module.exports = grammar({
             $.leaf_directive,
             $.leaf_variable,
             $.leaf_tag,
-            $.html_void_element,  // MOVED: Put void elements before html_element
-            $.html_element,
+            $.html_void_element,
             $.html_self_closing_tag,
+            $.html_element,
             $.text,
         )),
 
@@ -34,13 +35,13 @@ module.exports = grammar({
             '/>',
         ),
 
-        // NEW: Void elements that don't need closing tags
-        html_void_element: $ => seq(
+        // NEW: Void elements that don't need closing tags - add precedence
+        html_void_element: $ => prec(2, seq(
             '<',
             field('name', $.void_tag_name),
             repeat($.attribute),
             '>',
-        ),
+        )),
 
         // NEW: Void tag names
         void_tag_name: $ => choice(
@@ -98,11 +99,12 @@ module.exports = grammar({
 
         html_entity: $ => /&[a-zA-Z0-9]+;/,
 
+        // FIXED: Add void elements back with specific ordering
         html_content: $ => repeat1(choice(
             $.leaf_directive,
             $.leaf_variable,
             $.leaf_tag,
-            $.html_void_element,  // MOVED: Put void elements before html_element
+            $.html_void_element,  // Put void elements before regular elements
             $.html_element,
             $.html_self_closing_tag,
             $.html_comment,
