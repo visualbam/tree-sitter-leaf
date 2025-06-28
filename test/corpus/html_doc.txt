@@ -1,262 +1,50 @@
 
 ================================================================================
-HTML Doc
+HTML with void elements
 ================================================================================
 
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>The Dawg House | Premier Dog Daycare, Grooming, Training & Boarding</title>
-        <link rel="stylesheet" href="/css/main.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;500;600;700;800&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    </head>
-    <body>
-        #import("header")
-
-        <nav class="bg-white shadow-sm border-b border-gray-200 mb-8">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between h-16">
-                    <div class="flex space-x-8">
-                        <a href="/" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 hover:text-blue-600 transition-colors">
-                            Home
-                        </a>
-
-                        <a href="/grooming" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 hover:text-blue-600 transition-colors">
-                            Grooming
-                        </a>
-
-                        <a href="/daycare" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 hover:text-blue-600 transition-colors">
-                            Daycare
-                        </a>
-
-                        <a href="/boarding" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 hover:text-blue-600 transition-colors">
-                            Boarding
-                        </a>
-                        <a href="/about" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 hover:text-blue-600 transition-colors">
-                            About
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-
-        <main>
-            #import("content")
-        </main>
-
-        #import("footer")
-    </body>
-</html>
+<div>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="style.css">
+    <img src="photo.jpg" alt="Photo">
+</div>
 
 --------------------------------------------------------------------------------
 
 (template
-  (doctype)
   (html_element
     (start_tag
-      (tag_name)
-      (attribute
-        (attribute_name)
-        (quoted_attribute_value
-          (attribute_value))))
+      (tag_name))
     (html_content
       (html_element
-        (start_tag
-          (tag_name))
-        (html_content
-          (html_void_element
-            (void_tag_name)
-            (attribute
-              (attribute_name)
-              (quoted_attribute_value
-                (attribute_value))))
-          (html_element
-            (start_tag
-              (tag_name))
-            (html_content
-              (text))
-            (end_tag
-              (tag_name)))
-          (html_void_element
-            (void_tag_name)
-            (attribute
-              (attribute_name)
-              (quoted_attribute_value
-                (attribute_value)))
-            (attribute
-              (attribute_name)
-              (quoted_attribute_value
-                (attribute_value))))
-          (html_void_element
-            (void_tag_name)
-            (attribute
-              (attribute_name)
-              (quoted_attribute_value
-                (attribute_value)))
-            (attribute
-              (attribute_name)
-              (quoted_attribute_value
-                (attribute_value))))
-          (html_void_element
-            (void_tag_name)
-            (attribute
-              (attribute_name)
-              (quoted_attribute_value
-                (attribute_value)))
-            (attribute
-              (attribute_name)
-              (quoted_attribute_value
-                (attribute_value))))
-          (html_void_element
-            (void_tag_name)
-            (attribute
-              (attribute_name)
-              (quoted_attribute_value
-                (attribute_value)))
-            (attribute
-              (attribute_name)
-              (quoted_attribute_value
-                (attribute_value)))))
-        (end_tag
-          (tag_name)))
+        (void_tag_name)
+        (attribute
+          (attribute_name)
+          (quoted_attribute_value
+            (attribute_value)))
+        (attribute
+          (attribute_name)
+          (quoted_attribute_value
+            (attribute_value))))
       (html_element
-        (start_tag
-          (tag_name))
-        (html_content
-          (import_directive
-            (import_header
-              (string_literal)))
-          (html_element
-            (start_tag
-              (tag_name)
-              (attribute
-                (attribute_name)
-                (quoted_attribute_value
-                  (attribute_value))))
-            (html_content
-              (html_element
-                (start_tag
-                  (tag_name)
-                  (attribute
-                    (attribute_name)
-                    (quoted_attribute_value
-                      (attribute_value))))
-                (html_content
-                  (html_element
-                    (start_tag
-                      (tag_name)
-                      (attribute
-                        (attribute_name)
-                        (quoted_attribute_value
-                          (attribute_value))))
-                    (html_content
-                      (html_element
-                        (start_tag
-                          (tag_name)
-                          (attribute
-                            (attribute_name)
-                            (quoted_attribute_value
-                              (attribute_value))))
-                        (html_content
-                          (html_element
-                            (start_tag
-                              (tag_name)
-                              (attribute
-                                (attribute_name)
-                                (quoted_attribute_value
-                                  (attribute_value)))
-                              (attribute
-                                (attribute_name)
-                                (quoted_attribute_value
-                                  (attribute_value))))
-                            (html_content
-                              (text))
-                            (end_tag
-                              (tag_name)))
-                          (html_element
-                            (start_tag
-                              (tag_name)
-                              (attribute
-                                (attribute_name)
-                                (quoted_attribute_value
-                                  (attribute_value)))
-                              (attribute
-                                (attribute_name)
-                                (quoted_attribute_value
-                                  (attribute_value))))
-                            (html_content
-                              (text))
-                            (end_tag
-                              (tag_name)))
-                          (html_element
-                            (start_tag
-                              (tag_name)
-                              (attribute
-                                (attribute_name)
-                                (quoted_attribute_value
-                                  (attribute_value)))
-                              (attribute
-                                (attribute_name)
-                                (quoted_attribute_value
-                                  (attribute_value))))
-                            (html_content
-                              (text))
-                            (end_tag
-                              (tag_name)))
-                          (html_element
-                            (start_tag
-                              (tag_name)
-                              (attribute
-                                (attribute_name)
-                                (quoted_attribute_value
-                                  (attribute_value)))
-                              (attribute
-                                (attribute_name)
-                                (quoted_attribute_value
-                                  (attribute_value))))
-                            (html_content
-                              (text))
-                            (end_tag
-                              (tag_name)))
-                          (html_element
-                            (start_tag
-                              (tag_name)
-                              (attribute
-                                (attribute_name)
-                                (quoted_attribute_value
-                                  (attribute_value)))
-                              (attribute
-                                (attribute_name)
-                                (quoted_attribute_value
-                                  (attribute_value))))
-                            (html_content
-                              (text))
-                            (end_tag
-                              (tag_name))))
-                        (end_tag
-                          (tag_name))))
-                    (end_tag
-                      (tag_name))))
-                (end_tag
-                  (tag_name))))
-            (end_tag
-              (tag_name)))
-          (html_element
-            (start_tag
-              (tag_name))
-            (html_content
-              (import_directive
-                (import_header
-                  (string_literal))))
-            (end_tag
-              (tag_name)))
-          (import_directive
-            (import_header
-              (string_literal))))
-        (end_tag
-          (tag_name))))
+        (void_tag_name)
+        (attribute
+          (attribute_name)
+          (quoted_attribute_value
+            (attribute_value)))
+        (attribute
+          (attribute_name)
+          (quoted_attribute_value
+            (attribute_value))))
+      (html_element
+        (void_tag_name)
+        (attribute
+          (attribute_name)
+          (quoted_attribute_value
+            (attribute_value)))
+        (attribute
+          (attribute_name)
+          (quoted_attribute_value
+            (attribute_value)))))
     (end_tag
       (tag_name))))

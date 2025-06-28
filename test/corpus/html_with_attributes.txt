@@ -1,3 +1,4 @@
+
 ================================================================================
 HTML with void elements
 ================================================================================
@@ -15,7 +16,7 @@ HTML with void elements
     (start_tag
       (tag_name))
     (html_content
-      (html_void_element
+      (html_element
         (void_tag_name)
         (attribute
           (attribute_name)
@@ -25,7 +26,7 @@ HTML with void elements
           (attribute_name)
           (quoted_attribute_value
             (attribute_value))))
-      (html_void_element
+      (html_element
         (void_tag_name)
         (attribute
           (attribute_name)
@@ -35,7 +36,7 @@ HTML with void elements
           (attribute_name)
           (quoted_attribute_value
             (attribute_value))))
-      (html_void_element
+      (html_element
         (void_tag_name)
         (attribute
           (attribute_name)
