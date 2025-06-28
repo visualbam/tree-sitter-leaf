@@ -15,27 +15,27 @@ module.exports = grammar({
             $.leaf_directive,
             $.leaf_variable,
             $.leaf_tag,
-            $.html_element,  // This will handle both void and regular elements
+            $.html_element,
             $.html_self_closing_tag,
             $.text,
         )),
 
-        // HTML Structure - unified to handle both void and regular elements
-        html_element: $ => choice(
-            // Void elements (no closing tag)
-            seq(
+        // HTML Structure - FIXED: Higher precedence for complete elements
+        html_element: $ => prec(1, choice(
+            // Void elements (no closing tag) - HIGHEST precedence
+            prec(3, seq(
                 '<',
                 field('name', $.void_tag_name),
                 repeat($.attribute),
                 '>',
-            ),
-            // Regular elements (with closing tag)
-            seq(
+            )),
+            // Regular elements (with closing tag) - HIGH precedence
+            prec(2, seq(
                 $.start_tag,
                 optional($.html_content),
                 $.end_tag,
-            ),
-        ),
+            )),
+        )),
 
         html_self_closing_tag: $ => seq(
             '<',
@@ -44,11 +44,11 @@ module.exports = grammar({
             '/>',
         ),
 
-        // Void tag names - these are the only tags that can be void
-        void_tag_name: $ => choice(
+        // Void tag names - tokenize to avoid conflicts
+        void_tag_name: $ => token(choice(
             'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input',
             'link', 'meta', 'param', 'source', 'track', 'wbr'
-        ),
+        )),
 
         start_tag: $ => seq(
             '<',
@@ -63,10 +63,9 @@ module.exports = grammar({
             '>',
         ),
 
-        // Regular tag names - exclude void tag names to avoid conflicts
-        tag_name: $ => token(prec(-1, /[a-zA-Z][a-zA-Z0-9-]*/)),
+        // Regular tag names - LOWER precedence than void tag names
+        tag_name: $ => token(prec(-2, /[a-zA-Z][a-zA-Z0-9-]*/)),
 
-        // FIXED: Updated attribute rule to handle boolean attributes
         attribute: $ => choice(
             // Boolean attribute (no value)
             $.attribute_name,
@@ -428,6 +427,7 @@ module.exports = grammar({
 
         binary_expression: $ => choice(
             prec.left(10, seq($.expression, '*', $.expression)),
+            prec.left(10, seq($.expression, '/', $.expression)),
             prec.left(10, seq($.expression, '/', $.expression)),
             prec.left(10, seq($.expression, '%', $.expression)),
             prec.left(9, seq($.expression, '+', $.expression)),
