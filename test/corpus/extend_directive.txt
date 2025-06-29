@@ -1,0 +1,39 @@
+
+================================================================================
+Simple extend directive only
+================================================================================
+
+#extend("header")
+
+--------------------------------------------------------------------------------
+
+(template
+  (leaf_directive
+    (simple_extend_directive
+      (extend_header
+        (string_literal)))))
+
+================================================================================
+Block extend directive only
+================================================================================
+
+#extend("layout"):
+    <p>Content</p>
+#endextend
+
+--------------------------------------------------------------------------------
+
+(template
+  (leaf_directive
+    (extend_directive
+      (extend_header
+        (string_literal))
+      (html_content
+        (html_element
+          (start_tag
+            (tag_name))
+          (html_content
+            (text))
+          (end_tag
+            (tag_name))))
+      (end_extend_directive))))

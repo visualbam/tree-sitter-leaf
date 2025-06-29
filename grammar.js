@@ -115,7 +115,7 @@ module.exports = grammar({
             $.for_directive,
             $.while_directive,
             $.extend_directive,
-            $.simple_extend_directive,  // NEW: Simple extend without content
+            $.simple_extend_directive,
             $.export_directive,
             $.import_directive,
             $.evaluate_directive,
@@ -240,15 +240,15 @@ module.exports = grammar({
             $.end_while_directive,
         )),
 
-        // UPDATED: Block extend (with content and endextend)
-        extend_directive: $ => prec(1, seq(
+        // UPDATED: Block extend (with content and endextend) - HIGHER precedence
+        extend_directive: $ => prec(2, seq(
             $.extend_header,
-            optional($.html_content),
+            $.html_content,
             $.end_extend_directive,
         )),
 
-        // NEW: Simple extend (no content, no endextend)
-        simple_extend_directive: $ => $.extend_header,
+        // UPDATED: Simple extend (no content, no endextend) - LOWER precedence
+        simple_extend_directive: $ => prec(1, $.extend_header),
 
         export_directive: $ => prec(1, seq(
             $.export_header,

@@ -1069,7 +1069,7 @@
     },
     "extend_directive": {
       "type": "PREC",
-      "value": 1,
+      "value": 2,
       "content": {
         "type": "SEQ",
         "members": [
@@ -1078,16 +1078,8 @@
             "name": "extend_header"
           },
           {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "html_content"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "html_content"
           },
           {
             "type": "SYMBOL",
@@ -1097,8 +1089,12 @@
       }
     },
     "simple_extend_directive": {
-      "type": "SYMBOL",
-      "name": "extend_header"
+      "type": "PREC",
+      "value": 1,
+      "content": {
+        "type": "SYMBOL",
+        "name": "extend_header"
+      }
     },
     "export_directive": {
       "type": "PREC",
