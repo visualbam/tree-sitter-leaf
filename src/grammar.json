@@ -1064,34 +1064,33 @@
       }
     },
     "extend_directive": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "extend_header"
-        },
-        {
-          "type": "PREC",
-          "value": 1,
-          "content": {
-            "type": "SEQ",
+      "type": "PREC",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "extend_header"
+          },
+          {
+            "type": "CHOICE",
             "members": [
-              {
-                "type": "SYMBOL",
-                "name": "extend_header"
-              },
               {
                 "type": "SYMBOL",
                 "name": "html_content"
               },
               {
-                "type": "SYMBOL",
-                "name": "end_extend_directive"
+                "type": "BLANK"
               }
             ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "end_extend_directive"
           }
-        }
-      ]
+        ]
+      }
     },
     "export_directive": {
       "type": "PREC",
