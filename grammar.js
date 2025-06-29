@@ -239,11 +239,17 @@ module.exports = grammar({
             $.end_while_directive,
         )),
 
-        extend_directive: $ => prec(1, seq(
+        // UPDATED: Two forms of extend directive
+        extend_directive: $ => choice(
+            // Simple extend (no content, no endextend)
             $.extend_header,
-            optional($.html_content),
-            $.end_extend_directive,
-        )),
+            // Block extend (with content and endextend)
+            prec(1, seq(
+                $.extend_header,
+                $.html_content,
+                $.end_extend_directive,
+            )),
+        ),
 
         export_directive: $ => prec(1, seq(
             $.export_header,
