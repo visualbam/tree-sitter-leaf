@@ -26,7 +26,7 @@ Block extend directive only
 (template
   (leaf_directive
     (extend_directive
-      (extend_header
+      (extend_header_with_colon
         (string_literal))
       (html_content
         (html_element
@@ -37,3 +37,121 @@ Block extend directive only
           (end_tag
             (tag_name))))
       (end_extend_directive))))
+
+================================================================================
+Both simple and block extend directives
+================================================================================
+
+<!DOCTYPE html>
+<html>
+<head>
+    #extend("header")
+    <title>Page Title</title>
+</head>
+<body>
+    #extend("layout"):
+        <main>
+            <h1>Welcome</h1>
+            <p>This is the main content.</p>
+            
+            #if(user.isLoggedIn):
+                <p>Hello, #(user.name)!</p>
+            #endif
+        </main>
+    #endextend
+    
+    #extend("footer")
+</body>
+</html>
+
+--------------------------------------------------------------------------------
+
+(template
+  (doctype)
+  (html_element
+    (start_tag
+      (tag_name))
+    (html_content
+      (html_element
+        (start_tag
+          (tag_name))
+        (html_content
+          (leaf_directive
+            (simple_extend_directive
+              (extend_header
+                (string_literal))))
+          (html_element
+            (start_tag
+              (tag_name))
+            (html_content
+              (text))
+            (end_tag
+              (tag_name))))
+        (end_tag
+          (tag_name)))
+      (html_element
+        (start_tag
+          (tag_name))
+        (html_content
+          (leaf_directive
+            (extend_directive
+              (extend_header_with_colon
+                (string_literal))
+              (html_content
+                (html_element
+                  (start_tag
+                    (tag_name))
+                  (html_content
+                    (html_element
+                      (start_tag
+                        (tag_name))
+                      (html_content
+                        (text))
+                      (end_tag
+                        (tag_name)))
+                    (html_element
+                      (start_tag
+                        (tag_name))
+                      (html_content
+                        (text))
+                      (end_tag
+                        (tag_name)))
+                    (leaf_directive
+                      (if_directive
+                        (if_header
+                          (expression
+                            (postfix_expression
+                              (member_expression
+                                (postfix_expression
+                                  (primary_expression
+                                    (identifier)))
+                                (identifier)))))
+                        (html_content
+                          (html_element
+                            (start_tag
+                              (tag_name))
+                            (html_content
+                              (text)
+                              (leaf_variable
+                                (expression
+                                  (postfix_expression
+                                    (member_expression
+                                      (postfix_expression
+                                        (primary_expression
+                                          (identifier)))
+                                      (identifier)))))
+                              (text))
+                            (end_tag
+                              (tag_name))))
+                        (end_if_directive))))
+                  (end_tag
+                    (tag_name))))
+              (end_extend_directive)))
+          (leaf_directive
+            (simple_extend_directive
+              (extend_header
+                (string_literal)))))
+        (end_tag
+          (tag_name))))
+    (end_tag
+      (tag_name))))

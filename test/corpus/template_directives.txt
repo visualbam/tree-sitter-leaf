@@ -1,8 +1,8 @@
 ================================================================================
-Extend directive
+Block extend directive (with colon and content)
 ================================================================================
 
-#extend("base.leaf")
+#extend("base.leaf"):
 <div>
     <p>Extended content</p>
 </div>
@@ -13,7 +13,7 @@ Extend directive
 (template
   (leaf_directive
     (extend_directive
-      (extend_header
+      (extend_header_with_colon
         (string_literal))
       (html_content
         (html_element
@@ -30,6 +30,20 @@ Extend directive
           (end_tag
             (tag_name))))
       (end_extend_directive))))
+
+================================================================================
+Simple extend directive (no colon, no content)
+================================================================================
+
+#extend("header.leaf")
+
+--------------------------------------------------------------------------------
+
+(template
+  (leaf_directive
+    (simple_extend_directive
+      (extend_header
+        (string_literal)))))
 
 ================================================================================
 Export directive

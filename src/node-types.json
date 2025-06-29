@@ -350,7 +350,7 @@
           "named": true
         },
         {
-          "type": "extend_header",
+          "type": "extend_header_with_colon",
           "named": true
         },
         {
@@ -362,6 +362,21 @@
   },
   {
     "type": "extend_header",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "string_literal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "extend_header_with_colon",
     "named": true,
     "fields": {},
     "children": {

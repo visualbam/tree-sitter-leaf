@@ -1,8 +1,22 @@
 ================================================================================
-Extend directive
+Simple extend directive (no colon, no content)
 ================================================================================
 
 #extend("base.leaf")
+
+--------------------------------------------------------------------------------
+
+(template
+  (leaf_directive
+    (simple_extend_directive
+      (extend_header
+        (string_literal)))))
+
+================================================================================
+Block extend directive (with colon and content)
+================================================================================
+
+#extend("base.leaf"):
 <div>
     <p>Extended content</p>
 </div>
@@ -13,7 +27,7 @@ Extend directive
 (template
   (leaf_directive
     (extend_directive
-      (extend_header
+      (extend_header_with_colon
         (string_literal))
       (html_content
         (html_element
@@ -209,3 +223,46 @@ While directive
           (end_while_directive))))
     (end_tag
       (tag_name))))
+
+================================================================================
+Mixed extend directives
+================================================================================
+
+#extend("layout"):
+    <main>
+        #extend("header")
+        <h1>Welcome</h1>
+        #extend("sidebar")
+    </main>
+#endextend
+
+--------------------------------------------------------------------------------
+
+(template
+  (leaf_directive
+    (extend_directive
+      (extend_header_with_colon
+        (string_literal))
+      (html_content
+        (html_element
+          (start_tag
+            (tag_name))
+          (html_content
+            (leaf_directive
+              (simple_extend_directive
+                (extend_header
+                  (string_literal))))
+            (html_element
+              (start_tag
+                (tag_name))
+              (html_content
+                (text))
+              (end_tag
+                (tag_name)))
+            (leaf_directive
+              (simple_extend_directive
+                (extend_header
+                  (string_literal)))))
+          (end_tag
+            (tag_name))))
+      (end_extend_directive))))

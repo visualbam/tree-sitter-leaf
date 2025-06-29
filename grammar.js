@@ -1,3 +1,4 @@
+
 module.exports = grammar({
     name: 'leaf',
 
@@ -108,7 +109,7 @@ module.exports = grammar({
 
         html_comment: $ => seq('<!--', /[^>]*/, '-->'),
 
-        // Leaf Specific Rules - UPDATED: Added simple_extend_directive
+        // Leaf Specific Rules - UPDATED: Clear distinction using colon
         leaf_directive: $ => choice(
             $.if_directive,
             $.unless_directive,
@@ -240,15 +241,15 @@ module.exports = grammar({
             $.end_while_directive,
         )),
 
-        // UPDATED: Block extend (with content and endextend) - HIGHER precedence
-        extend_directive: $ => prec(2, seq(
-            $.extend_header,
-            $.html_content,
+        // UPDATED: Block extend (with colon and content)
+        extend_directive: $ => seq(
+            $.extend_header_with_colon,
+            optional($.html_content),
             $.end_extend_directive,
-        )),
+        ),
 
-        // UPDATED: Simple extend (no content, no endextend) - LOWER precedence
-        simple_extend_directive: $ => prec(1, $.extend_header),
+        // UPDATED: Simple extend (no colon, no content)
+        simple_extend_directive: $ => $.extend_header,
 
         export_directive: $ => prec(1, seq(
             $.export_header,
@@ -260,7 +261,7 @@ module.exports = grammar({
 
         evaluate_directive: $ => $.evaluate_header,
 
-        // Directive Headers - Updated with colon support
+        // Directive Headers - UPDATED: Separate headers with and without colon
         if_header: $ => seq(
             '#if',
             '(',
@@ -287,7 +288,6 @@ module.exports = grammar({
             optional(':'),
         ),
 
-        // FIXED: Added missing opening parenthesis
         for_header: $ => seq(
             '#for',
             '(',
@@ -306,12 +306,21 @@ module.exports = grammar({
             optional(':'),
         ),
 
+        // UPDATED: Header without colon for simple extend
         extend_header: $ => seq(
             '#extend',
             '(',
             $.string_literal,
             ')',
-            optional(':'),
+        ),
+
+        // NEW: Header with colon for block extend
+        extend_header_with_colon: $ => seq(
+            '#extend',
+            '(',
+            $.string_literal,
+            ')',
+            ':',
         ),
 
         export_header: $ => seq(
@@ -458,33 +467,10 @@ module.exports = grammar({
             $.expression,
         )),
 
-        // DEPRECATED: Keep for backward compatibility but remove from main expression choice
-        function_call: $ => seq(
-            $.identifier,
-            '(',
-            optional($.argument_list),
-            ')',
-        ),
-
         argument_list: $ => seq(
             $.expression,
             repeat(seq(',', $.expression)),
             optional(','),
-        ),
-
-        // DEPRECATED: Keep for backward compatibility but remove from main expression choice
-        member_access: $ => seq(
-            $.expression,
-            '.',
-            $.identifier,
-        ),
-
-        // DEPRECATED: Keep for backward compatibility but remove from main expression choice
-        array_access: $ => seq(
-            $.expression,
-            '[',
-            $.expression,
-            ']',
         ),
 
         // Literals
