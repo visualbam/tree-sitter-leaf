@@ -1,4 +1,3 @@
-
 ; ===== HTML HIGHLIGHTING =====
 (tag_name) @tag
 (void_tag_name) @tag  ; Add this line to highlight void tag names
@@ -50,6 +49,8 @@
 (while_header ")" @punctuation.special.leaf)
 (extend_header "(" @punctuation.special.leaf)
 (extend_header ")" @punctuation.special.leaf)
+(extend_header_with_colon "(" @punctuation.special.leaf)
+(extend_header_with_colon ")" @punctuation.special.leaf)
 (export_header "(" @punctuation.special.leaf)
 (export_header ")" @punctuation.special.leaf)
 (import_header "(" @punctuation.special.leaf)
@@ -81,6 +82,7 @@
 (for_header) @keyword.directive
 (while_header) @keyword.directive
 (extend_header) @keyword.directive
+(extend_header_with_colon) @keyword.directive
 (export_header) @keyword.directive
 (import_header) @keyword.directive
 (evaluate_header) @keyword.directive
@@ -133,7 +135,6 @@
     ] @keyword.builtin
 
 ; === IDENTIFIER HIGHLIGHTING ===
-
 
 ; HIGHEST PRIORITY: Method names in call expressions that are member expressions
 ; This targets patterns like: user.bio.isEmpty() where 'isEmpty' is the method

@@ -49,8 +49,13 @@
 ((leaf_directive
      (while_directive)) @indent.begin)
 
+; UPDATED: Only block extend directives create indentation
 ((leaf_directive
      (extend_directive)) @indent.begin)
+
+; Simple extend directives should be ignored for indentation
+((leaf_directive
+     (simple_extend_directive)) @indent.ignore)
 
 ((leaf_directive
      (export_directive)) @indent.begin)
