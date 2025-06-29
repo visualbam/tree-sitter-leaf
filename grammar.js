@@ -108,13 +108,14 @@ module.exports = grammar({
 
         html_comment: $ => seq('<!--', /[^>]*/, '-->'),
 
-        // Leaf Specific Rules
+        // Leaf Specific Rules - UPDATED: Added simple_extend_directive
         leaf_directive: $ => choice(
             $.if_directive,
             $.unless_directive,
             $.for_directive,
             $.while_directive,
             $.extend_directive,
+            $.simple_extend_directive,  // NEW: Simple extend without content
             $.export_directive,
             $.import_directive,
             $.evaluate_directive,
@@ -239,11 +240,15 @@ module.exports = grammar({
             $.end_while_directive,
         )),
 
+        // UPDATED: Block extend (with content and endextend)
         extend_directive: $ => prec(1, seq(
             $.extend_header,
             optional($.html_content),
             $.end_extend_directive,
         )),
+
+        // NEW: Simple extend (no content, no endextend)
+        simple_extend_directive: $ => $.extend_header,
 
         export_directive: $ => prec(1, seq(
             $.export_header,

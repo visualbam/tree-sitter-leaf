@@ -447,6 +447,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "simple_extend_directive"
+        },
+        {
+          "type": "SYMBOL",
           "name": "export_directive"
         },
         {
@@ -1091,6 +1095,10 @@
           }
         ]
       }
+    },
+    "simple_extend_directive": {
+      "type": "SYMBOL",
+      "name": "extend_header"
     },
     "export_directive": {
       "type": "PREC",
