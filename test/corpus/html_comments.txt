@@ -1,0 +1,106 @@
+================================================================================
+Simple HTML comment
+================================================================================
+
+<!-- This is a comment -->
+
+--------------------------------------------------------------------------------
+
+(template
+  (html_comment))
+
+================================================================================
+HTML comment with content
+================================================================================
+
+<!-- <h1>About</h1> -->
+
+--------------------------------------------------------------------------------
+
+(template
+  (html_comment))
+
+================================================================================
+HTML comment in template with elements
+================================================================================
+
+<div class="p-4">
+    <!-- This is a comment -->
+    <h1>Hello World</h1>
+</div>
+
+--------------------------------------------------------------------------------
+
+(template
+  (html_element
+    (start_tag
+      (tag_name)
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value
+          (attribute_value))))
+    (html_content
+      (html_comment)
+      (html_element
+        (start_tag
+          (tag_name))
+        (html_content
+          (text))
+        (end_tag
+          (tag_name))))
+    (end_tag
+      (tag_name))))
+
+================================================================================
+HTML comment in Leaf directive
+================================================================================
+
+#extend("layout"):
+    #export("content"):
+        <div class="p-4">
+             <!-- <h1>About</h1> -->
+        </div>
+    #endexport
+#endextend
+
+--------------------------------------------------------------------------------
+
+(template
+  (leaf_directive
+    (extend_directive
+      (extend_header_with_colon
+        (string_literal))
+      (html_content
+        (leaf_directive
+          (export_directive
+            (export_header
+              (string_literal))
+            (html_content
+              (html_element
+                (start_tag
+                  (tag_name)
+                  (attribute
+                    (attribute_name)
+                    (quoted_attribute_value
+                      (attribute_value))))
+                (html_content
+                  (html_comment))
+                (end_tag
+                  (tag_name))))
+            (end_export_directive))))
+      (end_extend_directive))))
+
+================================================================================
+Multiline HTML comment
+================================================================================
+
+<!--
+  This is a
+  multiline comment
+  with HTML: <span>test</span>
+-->
+
+--------------------------------------------------------------------------------
+
+(template
+  (html_comment))

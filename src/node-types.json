@@ -428,11 +428,6 @@
     }
   },
   {
-    "type": "html_comment",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "html_content",
     "named": true,
     "fields": {},
@@ -1253,10 +1248,6 @@
     "named": false
   },
   {
-    "type": "-->",
-    "named": false
-  },
-  {
     "type": ".",
     "named": false
   },
@@ -1274,10 +1265,6 @@
   },
   {
     "type": "<",
-    "named": false
-  },
-  {
-    "type": "<!--",
     "named": false
   },
   {
@@ -1379,6 +1366,10 @@
   {
     "type": "false",
     "named": false
+  },
+  {
+    "type": "html_comment",
+    "named": true
   },
   {
     "type": "identifier",

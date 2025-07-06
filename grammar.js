@@ -105,7 +105,7 @@ module.exports = grammar({
             $.text,
         )),
 
-        html_comment: $ => token(prec(1, seq('<!--', repeat(/[^-]|-(?!->)/), '-->'))),
+        html_comment: $ => /<!--[\s\S]*?-->/,
 
         // Leaf Specific Rules - UPDATED: Clear distinction using colon
         leaf_directive: $ => choice(

@@ -402,21 +402,8 @@
       }
     },
     "html_comment": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "<!--"
-        },
-        {
-          "type": "PATTERN",
-          "value": "[^>]*"
-        },
-        {
-          "type": "STRING",
-          "value": "-->"
-        }
-      ]
+      "type": "PATTERN",
+      "value": "<!--[\\s\\S]*?-->"
     },
     "leaf_directive": {
       "type": "CHOICE",
