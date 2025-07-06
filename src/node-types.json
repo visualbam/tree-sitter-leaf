@@ -115,11 +115,6 @@
     }
   },
   {
-    "type": "comment",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "contains_tag",
     "named": true,
     "fields": {},
@@ -610,11 +605,6 @@
     }
   },
   {
-    "type": "leaf_comment",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "leaf_directive",
     "named": true,
     "fields": {},
@@ -980,10 +970,6 @@
           "named": true
         },
         {
-          "type": "leaf_comment",
-          "named": true
-        },
-        {
           "type": "leaf_directive",
           "named": true
         },
@@ -1276,14 +1262,6 @@
   },
   {
     "type": "/",
-    "named": false
-  },
-  {
-    "type": "//",
-    "named": false
-  },
-  {
-    "type": "///",
     "named": false
   },
   {

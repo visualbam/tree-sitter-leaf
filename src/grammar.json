@@ -17,10 +17,6 @@
           },
           {
             "type": "SYMBOL",
-            "name": "leaf_comment"
-          },
-          {
-            "type": "SYMBOL",
             "name": "leaf_directive"
           },
           {
@@ -2578,32 +2574,6 @@
         }
       ]
     },
-    "leaf_comment": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "///"
-        },
-        {
-          "type": "PATTERN",
-          "value": "[^\\r\\n]*"
-        }
-      ]
-    },
-    "comment": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "//"
-        },
-        {
-          "type": "PATTERN",
-          "value": "[^\\r\\n]*"
-        }
-      ]
-    },
     "text": {
       "type": "TOKEN",
       "content": {
@@ -2652,10 +2622,6 @@
     {
       "type": "PATTERN",
       "value": "\\s"
-    },
-    {
-      "type": "SYMBOL",
-      "name": "comment"
     }
   ],
   "conflicts": [],

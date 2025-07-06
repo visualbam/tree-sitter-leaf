@@ -31,8 +31,6 @@
     ] @indent.branch
 
 (html_comment) @indent.ignore
-(comment) @indent.ignore
-(leaf_comment) @indent.ignore
 
 ; ===== LEAF DIRECTIVE INDENTATION =====
 

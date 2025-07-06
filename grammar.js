@@ -4,14 +4,12 @@ module.exports = grammar({
 
     extras: $ => [
         /\s/,
-        $.comment,
     ],
 
     rules: {
         template: $ => repeat(choice(
             $.doctype,
             $.html_comment,
-            $.leaf_comment,
             $.leaf_directive,
             $.leaf_variable,
             $.leaf_tag,
@@ -516,10 +514,6 @@ module.exports = grammar({
             ':',
             $.expression,
         ),
-
-        // Comments
-        leaf_comment: $ => seq('///', /[^\r\n]*/),
-        comment: $ => seq('//', /[^\r\n]*/),
 
         // Text content - REVERTED to original working version
         text: $ => token(prec(-1, /[^<#\s][^<#]*/)),

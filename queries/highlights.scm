@@ -2,7 +2,6 @@
 (tag_name) @tag
 (void_tag_name) @tag  ; Add this line to highlight void tag names
 
-(comment) @comment @spell
 (html_comment) @comment @spell
 
 (attribute_name) @tag.attribute
@@ -224,9 +223,6 @@
 [
     ","
     ] @punctuation.delimiter
-
-; Leaf comments - distinguish from HTML comments
-(leaf_comment) @comment.leaf @spell
 
 ; Doctype
 (doctype) @tag

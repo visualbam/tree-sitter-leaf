@@ -43,7 +43,7 @@ Add this to your Neovim configuration:
     vim.api.nvim_create_autocmd("FileType", {
       pattern = "leaf",
       callback = function()
-        vim.bo.commentstring = "/// %s"
+          vim.bo.commentstring = "<!-- %s -->"
       end,
     })
 
