@@ -105,7 +105,16 @@ module.exports = grammar({
             $.text,
         )),
 
-        html_comment: $ => /<!--[\s\S]*?-->/,
+        // FIXED: More robust HTML comment handling with higher precedence
+        html_comment: $ => token(prec(10, seq(
+            '<!--',
+            repeat(choice(
+                /[^-]+/,
+                /-[^-]/,
+                /--[^>]/,
+            )),
+            '-->'
+        ))),
 
         // Leaf Specific Rules - UPDATED: Clear distinction using colon
         leaf_directive: $ => choice(
@@ -515,8 +524,8 @@ module.exports = grammar({
             $.expression,
         ),
 
-        // Text content - REVERTED to original working version
-        text: $ => token(prec(-1, /[^<#\s][^<#]*/)),
+        // FIXED: Text should not capture sequences that contain only whitespace
+        text: $ => token(prec(-1, /[^\s<#][^<#]*/)),
 
         // DOCTYPE
         doctype: $ => seq(

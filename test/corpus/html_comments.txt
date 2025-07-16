@@ -1,4 +1,33 @@
 ================================================================================
+HTML interleaved with comments (greediness regression)
+================================================================================
+
+<!-- <article> -->
+    <!-- <p class="mast__subtitle">Your dog's home away from home</p> -->
+    <h1 class="mast__title">Pamper your pets with expert care</h1>
+    <!-- <p class="mast__description">The Dawg House offers the highest quality daycare, grooming and boarding!</p> -->
+<!-- </article> -->
+
+--------------------------------------------------------------------------------
+
+(template
+  (html_comment)
+  (html_comment)
+  (html_element
+    (start_tag
+      (tag_name)
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value
+          (attribute_value))))
+    (html_content
+      (text))
+    (end_tag
+      (tag_name)))
+  (html_comment)
+  (html_comment))
+  
+================================================================================
 Simple HTML comment
 ================================================================================
 
