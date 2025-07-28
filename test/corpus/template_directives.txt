@@ -60,7 +60,7 @@ Export directive
 (template
   (leaf_directive
     (export_directive
-      (export_header
+      (export_header_block
         (string_literal))
       (html_content
         (html_element

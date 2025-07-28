@@ -1,3 +1,4 @@
+
 ; ===== HTML HIGHLIGHTING =====
 (tag_name) @tag
 (void_tag_name) @tag  ; Add this line to highlight void tag names
@@ -50,8 +51,10 @@
 (extend_header ")" @punctuation.special.leaf)
 (extend_header_with_colon "(" @punctuation.special.leaf)
 (extend_header_with_colon ")" @punctuation.special.leaf)
-(export_header "(" @punctuation.special.leaf)
-(export_header ")" @punctuation.special.leaf)
+(export_header_block "(" @punctuation.special.leaf)
+(export_header_block ")" @punctuation.special.leaf)
+(simple_export_directive "(" @punctuation.special.leaf)
+(simple_export_directive ")" @punctuation.special.leaf)
 (import_header "(" @punctuation.special.leaf)
 (import_header ")" @punctuation.special.leaf)
 (evaluate_header "(" @punctuation.special.leaf)
@@ -82,7 +85,8 @@
 (while_header) @keyword.directive
 (extend_header) @keyword.directive
 (extend_header_with_colon) @keyword.directive
-(export_header) @keyword.directive
+(export_header_block) @keyword.directive
+(simple_export_directive) @keyword.directive
 (import_header) @keyword.directive
 (evaluate_header) @keyword.directive
 

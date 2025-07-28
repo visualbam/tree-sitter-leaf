@@ -125,6 +125,7 @@ module.exports = grammar({
             $.extend_directive,
             $.simple_extend_directive,
             $.export_directive,
+            $.simple_export_directive, // Keep this as a separate directive
             $.import_directive,
             $.evaluate_directive,
         ),
@@ -258,10 +259,38 @@ module.exports = grammar({
         // UPDATED: Simple extend (no colon, no content)
         simple_extend_directive: $ => $.extend_header,
 
-        export_directive: $ => prec(1, seq(
-            $.export_header,
-            optional($.html_content),
-            $.end_export_directive,
+        // Export directive - supports both block and simple forms
+        export_directive: $ => choice(
+            // Block form: #export("key"): content #endexport
+            prec(2, seq(
+                $.export_header_block,
+                optional($.html_content),
+                $.end_export_directive,
+            )),
+            // Legacy format without colon for compatibility with tests
+            prec(1, seq(
+                $.export_header,
+                optional($.html_content),
+                $.end_export_directive,
+            )),
+        ),
+
+        // Simple export with key and value parameters
+        simple_export_directive: $ => seq(
+            '#export',
+            '(',
+            $.string_literal,
+            ',',
+            $.expression,
+            ')',
+        ),
+
+        // Export header without colon (legacy format for test compatibility)
+        export_header: $ => prec(1, seq(
+            '#export',
+            '(',
+            $.string_literal,
+            ')',
         )),
 
         import_directive: $ => $.import_header,
@@ -330,13 +359,14 @@ module.exports = grammar({
             ':',
         ),
 
-        export_header: $ => seq(
+        // Block export header (with colon)
+        export_header_block: $ => prec(2, seq(
             '#export',
             '(',
             $.string_literal,
             ')',
             optional(':'),
-        ),
+        )),
 
         import_header: $ => seq(
             '#import',

@@ -1,0 +1,233 @@
+================================================================================
+Block export directive
+================================================================================
+
+#export("content"):
+    <p>This is content</p>
+#endexport
+
+--------------------------------------------------------------------------------
+
+(template
+  (leaf_directive
+    (export_directive
+      (export_header_block
+        (string_literal))
+      (html_content
+        (html_element
+          (start_tag
+            (tag_name))
+          (html_content
+            (text))
+          (end_tag
+            (tag_name))))
+      (end_export_directive))))
+
+================================================================================
+Simple export directive
+================================================================================
+
+#export("title", user.name)
+
+--------------------------------------------------------------------------------
+
+(template
+  (leaf_directive
+    (simple_export_directive
+      (string_literal)
+      (expression
+        (postfix_expression
+          (member_expression
+            (postfix_expression
+              (primary_expression
+                (identifier)))
+            (identifier)))))))
+
+================================================================================
+Export directives inside extend
+================================================================================
+
+#extend("Partials/service-tier"):
+    #export("title", tier.title)
+    #export("price", tier.price)
+    #export("priceLabel", tier.priceLabel)
+    #export("buttonLink", tier.buttonLink)
+    #export("buttonText", tier.buttonText)
+    #export("buttonClass", tier.buttonClass)
+    #export("note", tier.note)
+    #export("featured", tier.featured)
+    #export("badge", tier.badge)
+    #export("features", tier.features)
+#endextend
+
+--------------------------------------------------------------------------------
+
+(template
+  (leaf_directive
+    (extend_directive
+      (extend_header_with_colon
+        (string_literal))
+      (html_content
+        (leaf_directive
+          (simple_export_directive
+            (string_literal)
+            (expression
+              (postfix_expression
+                (member_expression
+                  (postfix_expression
+                    (primary_expression
+                      (identifier)))
+                  (identifier))))))
+        (leaf_directive
+          (simple_export_directive
+            (string_literal)
+            (expression
+              (postfix_expression
+                (member_expression
+                  (postfix_expression
+                    (primary_expression
+                      (identifier)))
+                  (identifier))))))
+        (leaf_directive
+          (simple_export_directive
+            (string_literal)
+            (expression
+              (postfix_expression
+                (member_expression
+                  (postfix_expression
+                    (primary_expression
+                      (identifier)))
+                  (identifier))))))
+        (leaf_directive
+          (simple_export_directive
+            (string_literal)
+            (expression
+              (postfix_expression
+                (member_expression
+                  (postfix_expression
+                    (primary_expression
+                      (identifier)))
+                  (identifier))))))
+        (leaf_directive
+          (simple_export_directive
+            (string_literal)
+            (expression
+              (postfix_expression
+                (member_expression
+                  (postfix_expression
+                    (primary_expression
+                      (identifier)))
+                  (identifier))))))
+        (leaf_directive
+          (simple_export_directive
+            (string_literal)
+            (expression
+              (postfix_expression
+                (member_expression
+                  (postfix_expression
+                    (primary_expression
+                      (identifier)))
+                  (identifier))))))
+        (leaf_directive
+          (simple_export_directive
+            (string_literal)
+            (expression
+              (postfix_expression
+                (member_expression
+                  (postfix_expression
+                    (primary_expression
+                      (identifier)))
+                  (identifier))))))
+        (leaf_directive
+          (simple_export_directive
+            (string_literal)
+            (expression
+              (postfix_expression
+                (member_expression
+                  (postfix_expression
+                    (primary_expression
+                      (identifier)))
+                  (identifier))))))
+        (leaf_directive
+          (simple_export_directive
+            (string_literal)
+            (expression
+              (postfix_expression
+                (member_expression
+                  (postfix_expression
+                    (primary_expression
+                      (identifier)))
+                  (identifier))))))
+        (leaf_directive
+          (simple_export_directive
+            (string_literal)
+            (expression
+              (postfix_expression
+                (member_expression
+                  (postfix_expression
+                    (primary_expression
+                      (identifier)))
+                  (identifier)))))))
+      (end_extend_directive))))
+
+================================================================================
+Mixed export directives
+================================================================================
+
+#extend("layout"):
+    #export("title", "My Page")
+
+    #export("content"):
+        <div class="container">
+            <h1>Welcome</h1>
+            <p>This is a test page.</p>
+        </div>
+    #endexport
+#endextend
+
+--------------------------------------------------------------------------------
+
+(template
+  (leaf_directive
+    (extend_directive
+      (extend_header_with_colon
+        (string_literal))
+      (html_content
+        (leaf_directive
+          (simple_export_directive
+            (string_literal)
+            (expression
+              (postfix_expression
+                (primary_expression
+                  (string_literal))))))
+        (leaf_directive
+          (export_directive
+            (export_header_block
+              (string_literal))
+            (html_content
+              (html_element
+                (start_tag
+                  (tag_name)
+                  (attribute
+                    (attribute_name)
+                    (quoted_attribute_value
+                      (attribute_value))))
+                (html_content
+                  (html_element
+                    (start_tag
+                      (tag_name))
+                    (html_content
+                      (text))
+                    (end_tag
+                      (tag_name)))
+                  (html_element
+                    (start_tag
+                      (tag_name))
+                    (html_content
+                      (text))
+                    (end_tag
+                      (tag_name))))
+                (end_tag
+                  (tag_name))))
+            (end_export_directive))))
+      (end_extend_directive))))

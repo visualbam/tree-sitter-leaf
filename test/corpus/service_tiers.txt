@@ -1,0 +1,193 @@
+
+================================================================================
+Service tiers with export directives
+================================================================================
+
+<div class="service-tiers__content">
+    #for(tier in serviceTiers):
+        #extend("Partials/service-tier"):
+            #export("title", tier.title)
+            #export("price", tier.price)
+            #export("priceLabel", tier.priceLabel)
+            #export("buttonLink", tier.buttonLink)
+            #export("buttonText", tier.buttonText)
+            #export("buttonClass", tier.buttonClass)
+            #export("note", tier.note)
+            #export("featured", tier.featured)
+            #export("badge", tier.badge)
+            #export("features", tier.features)
+        #endextend
+
+        #for(feature in tier.features):
+            <li>
+                <iconify-icon icon="material-symbols:check-circle-rounded" class="feature-icon"></iconify-icon>
+                #(feature)
+            </li>
+        #endfor
+    #endfor
+</div>
+
+--------------------------------------------------------------------------------
+
+(template
+  (html_element
+    (start_tag
+      (tag_name)
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value
+          (attribute_value))))
+    (html_content
+      (leaf_directive
+        (for_directive
+          (for_header
+            (identifier)
+            (expression
+              (postfix_expression
+                (primary_expression
+                  (identifier)))))
+          (html_content
+            (leaf_directive
+              (extend_directive
+                (extend_header_with_colon
+                  (string_literal))
+                (html_content
+                  (leaf_directive
+                    (simple_export_directive
+                      (string_literal)
+                      (expression
+                        (postfix_expression
+                          (member_expression
+                            (postfix_expression
+                              (primary_expression
+                                (identifier)))
+                            (identifier))))))
+                  (leaf_directive
+                    (simple_export_directive
+                      (string_literal)
+                      (expression
+                        (postfix_expression
+                          (member_expression
+                            (postfix_expression
+                              (primary_expression
+                                (identifier)))
+                            (identifier))))))
+                  (leaf_directive
+                    (simple_export_directive
+                      (string_literal)
+                      (expression
+                        (postfix_expression
+                          (member_expression
+                            (postfix_expression
+                              (primary_expression
+                                (identifier)))
+                            (identifier))))))
+                  (leaf_directive
+                    (simple_export_directive
+                      (string_literal)
+                      (expression
+                        (postfix_expression
+                          (member_expression
+                            (postfix_expression
+                              (primary_expression
+                                (identifier)))
+                            (identifier))))))
+                  (leaf_directive
+                    (simple_export_directive
+                      (string_literal)
+                      (expression
+                        (postfix_expression
+                          (member_expression
+                            (postfix_expression
+                              (primary_expression
+                                (identifier)))
+                            (identifier))))))
+                  (leaf_directive
+                    (simple_export_directive
+                      (string_literal)
+                      (expression
+                        (postfix_expression
+                          (member_expression
+                            (postfix_expression
+                              (primary_expression
+                                (identifier)))
+                            (identifier))))))
+                  (leaf_directive
+                    (simple_export_directive
+                      (string_literal)
+                      (expression
+                        (postfix_expression
+                          (member_expression
+                            (postfix_expression
+                              (primary_expression
+                                (identifier)))
+                            (identifier))))))
+                  (leaf_directive
+                    (simple_export_directive
+                      (string_literal)
+                      (expression
+                        (postfix_expression
+                          (member_expression
+                            (postfix_expression
+                              (primary_expression
+                                (identifier)))
+                            (identifier))))))
+                  (leaf_directive
+                    (simple_export_directive
+                      (string_literal)
+                      (expression
+                        (postfix_expression
+                          (member_expression
+                            (postfix_expression
+                              (primary_expression
+                                (identifier)))
+                            (identifier))))))
+                  (leaf_directive
+                    (simple_export_directive
+                      (string_literal)
+                      (expression
+                        (postfix_expression
+                          (member_expression
+                            (postfix_expression
+                              (primary_expression
+                                (identifier)))
+                            (identifier)))))))
+                (end_extend_directive)))
+            (leaf_directive
+              (for_directive
+                (for_header
+                  (identifier)
+                  (expression
+                    (postfix_expression
+                      (member_expression
+                        (postfix_expression
+                          (primary_expression
+                            (identifier)))
+                        (identifier)))))
+                (html_content
+                  (html_element
+                    (start_tag
+                      (tag_name))
+                    (html_content
+                      (html_element
+                        (start_tag
+                          (tag_name)
+                          (attribute
+                            (attribute_name)
+                            (quoted_attribute_value
+                              (attribute_value)))
+                          (attribute
+                            (attribute_name)
+                            (quoted_attribute_value
+                              (attribute_value))))
+                        (end_tag
+                          (tag_name)))
+                      (leaf_variable
+                        (simple_variable
+                          (identifier))))
+                    (end_tag
+                      (tag_name))))
+                (end_for_directive))))
+          (end_for_directive))))
+    (end_tag
+      (tag_name))))

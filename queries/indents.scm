@@ -55,8 +55,13 @@
 ((leaf_directive
      (simple_extend_directive)) @indent.ignore)
 
+; Only block export directives create indentation
 ((leaf_directive
      (export_directive)) @indent.begin)
+
+; Simple export directives should be ignored for indentation
+((leaf_directive
+     (simple_export_directive)) @indent.ignore)
 
 ; End directive handling - make them align with their start
 ((leaf_directive
