@@ -1,9 +1,5 @@
 
 module.exports = grammar({
-    externals: $ => [
-        // Special handling for #import inside attributes
-        $.import_in_attribute,
-    ],
     name: 'leaf',
 
     extras: $ => [

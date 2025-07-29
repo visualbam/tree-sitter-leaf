@@ -17,10 +17,10 @@
 #define LANGUAGE_VERSION 15
 #define STATE_COUNT 775
 #define LARGE_STATE_COUNT 2
-#define SYMBOL_COUNT 158
+#define SYMBOL_COUNT 157
 #define ALIAS_COUNT 0
-#define TOKEN_COUNT 89
-#define EXTERNAL_TOKEN_COUNT 1
+#define TOKEN_COUNT 88
+#define EXTERNAL_TOKEN_COUNT 0
 #define FIELD_COUNT 1
 #define MAX_ALIAS_SEQUENCE_LENGTH 10
 #define MAX_RESERVED_WORD_SET_SIZE 0
@@ -115,76 +115,75 @@ enum ts_symbol_identifiers {
   anon_sym_BANG2 = 85,
   aux_sym_doctype_token1 = 86,
   aux_sym_doctype_token2 = 87,
-  sym_import_in_attribute = 88,
-  sym_template = 89,
-  sym_html_element = 90,
-  sym_html_self_closing_tag = 91,
-  sym_start_tag = 92,
-  sym_end_tag = 93,
-  sym_attribute = 94,
-  sym_quoted_attribute_value = 95,
-  sym_attribute_value = 96,
-  sym_html_content = 97,
-  sym_leaf_directive = 98,
-  sym_leaf_tag = 99,
-  sym_count_tag = 100,
-  sym_lowercased_tag = 101,
-  sym_uppercased_tag = 102,
-  sym_capitalized_tag = 103,
-  sym_contains_tag = 104,
-  sym_date_tag = 105,
-  sym_unsafe_html_tag = 106,
-  sym_if_directive = 107,
-  sym_unless_directive = 108,
-  sym_for_directive = 109,
-  sym_while_directive = 110,
-  sym_extend_directive = 111,
-  sym_simple_extend_directive = 112,
-  sym_export_directive = 113,
-  sym_simple_export_directive = 114,
-  sym_export_header = 115,
-  sym_import_directive = 116,
-  sym_evaluate_directive = 117,
-  sym_if_header = 118,
-  sym_elseif_header = 119,
-  sym_else_directive = 120,
-  sym_unless_header = 121,
-  sym_for_header = 122,
-  sym_while_header = 123,
-  sym_extend_header = 124,
-  sym_extend_header_with_colon = 125,
-  sym_export_header_block = 126,
-  sym_import_header = 127,
-  sym_evaluate_header = 128,
-  sym_leaf_variable = 129,
-  sym_simple_variable = 130,
-  sym_expression = 131,
-  sym_postfix_expression = 132,
-  sym_member_expression = 133,
-  sym_call_expression = 134,
-  sym_subscript_expression = 135,
-  sym_primary_expression = 136,
-  sym_tag_function_call = 137,
-  sym_parenthesized_expression = 138,
-  sym_binary_expression = 139,
-  sym_unary_expression = 140,
-  sym_ternary_expression = 141,
-  sym_argument_list = 142,
-  sym_string_literal = 143,
-  sym_number_literal = 144,
-  sym_boolean_literal = 145,
-  sym_array_literal = 146,
-  sym_dictionary_literal = 147,
-  sym_dictionary_pair = 148,
-  sym_doctype = 149,
-  aux_sym_template_repeat1 = 150,
-  aux_sym_html_element_repeat1 = 151,
-  aux_sym_html_content_repeat1 = 152,
-  aux_sym_if_directive_repeat1 = 153,
-  aux_sym_argument_list_repeat1 = 154,
-  aux_sym_string_literal_repeat1 = 155,
-  aux_sym_string_literal_repeat2 = 156,
-  aux_sym_dictionary_literal_repeat1 = 157,
+  sym_template = 88,
+  sym_html_element = 89,
+  sym_html_self_closing_tag = 90,
+  sym_start_tag = 91,
+  sym_end_tag = 92,
+  sym_attribute = 93,
+  sym_quoted_attribute_value = 94,
+  sym_attribute_value = 95,
+  sym_html_content = 96,
+  sym_leaf_directive = 97,
+  sym_leaf_tag = 98,
+  sym_count_tag = 99,
+  sym_lowercased_tag = 100,
+  sym_uppercased_tag = 101,
+  sym_capitalized_tag = 102,
+  sym_contains_tag = 103,
+  sym_date_tag = 104,
+  sym_unsafe_html_tag = 105,
+  sym_if_directive = 106,
+  sym_unless_directive = 107,
+  sym_for_directive = 108,
+  sym_while_directive = 109,
+  sym_extend_directive = 110,
+  sym_simple_extend_directive = 111,
+  sym_export_directive = 112,
+  sym_simple_export_directive = 113,
+  sym_export_header = 114,
+  sym_import_directive = 115,
+  sym_evaluate_directive = 116,
+  sym_if_header = 117,
+  sym_elseif_header = 118,
+  sym_else_directive = 119,
+  sym_unless_header = 120,
+  sym_for_header = 121,
+  sym_while_header = 122,
+  sym_extend_header = 123,
+  sym_extend_header_with_colon = 124,
+  sym_export_header_block = 125,
+  sym_import_header = 126,
+  sym_evaluate_header = 127,
+  sym_leaf_variable = 128,
+  sym_simple_variable = 129,
+  sym_expression = 130,
+  sym_postfix_expression = 131,
+  sym_member_expression = 132,
+  sym_call_expression = 133,
+  sym_subscript_expression = 134,
+  sym_primary_expression = 135,
+  sym_tag_function_call = 136,
+  sym_parenthesized_expression = 137,
+  sym_binary_expression = 138,
+  sym_unary_expression = 139,
+  sym_ternary_expression = 140,
+  sym_argument_list = 141,
+  sym_string_literal = 142,
+  sym_number_literal = 143,
+  sym_boolean_literal = 144,
+  sym_array_literal = 145,
+  sym_dictionary_literal = 146,
+  sym_dictionary_pair = 147,
+  sym_doctype = 148,
+  aux_sym_template_repeat1 = 149,
+  aux_sym_html_element_repeat1 = 150,
+  aux_sym_html_content_repeat1 = 151,
+  aux_sym_if_directive_repeat1 = 152,
+  aux_sym_argument_list_repeat1 = 153,
+  aux_sym_string_literal_repeat1 = 154,
+  aux_sym_string_literal_repeat2 = 155,
+  aux_sym_dictionary_literal_repeat1 = 156,
 };
 
 static const char * const ts_symbol_names[] = {
@@ -276,7 +275,6 @@ static const char * const ts_symbol_names[] = {
   [anon_sym_BANG2] = "!",
   [aux_sym_doctype_token1] = "doctype_token1",
   [aux_sym_doctype_token2] = "doctype_token2",
-  [sym_import_in_attribute] = "import_in_attribute",
   [sym_template] = "template",
   [sym_html_element] = "html_element",
   [sym_html_self_closing_tag] = "html_self_closing_tag",
@@ -437,7 +435,6 @@ static const TSSymbol ts_symbol_map[] = {
   [anon_sym_BANG2] = anon_sym_BANG,
   [aux_sym_doctype_token1] = aux_sym_doctype_token1,
   [aux_sym_doctype_token2] = aux_sym_doctype_token2,
-  [sym_import_in_attribute] = sym_import_in_attribute,
   [sym_template] = sym_template,
   [sym_html_element] = sym_html_element,
   [sym_html_self_closing_tag] = sym_html_self_closing_tag,
@@ -861,10 +858,6 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
   [aux_sym_doctype_token2] = {
     .visible = false,
     .named = false,
-  },
-  [sym_import_in_attribute] = {
-    .visible = true,
-    .named = true,
   },
   [sym_template] = {
     .visible = true,
@@ -4578,7 +4571,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
 }
 
 static const TSLexerMode ts_lex_modes[STATE_COUNT] = {
-  [0] = {.lex_state = 0, .external_lex_state = 1},
+  [0] = {.lex_state = 0},
   [1] = {.lex_state = 185},
   [2] = {.lex_state = 8},
   [3] = {.lex_state = 8},
@@ -5435,7 +5428,6 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [sym_null_literal] = ACTIONS(1),
     [anon_sym_BANG2] = ACTIONS(1),
     [aux_sym_doctype_token1] = ACTIONS(1),
-    [sym_import_in_attribute] = ACTIONS(1),
   },
   [STATE(1)] = {
     [sym_template] = STATE(645),
@@ -31536,29 +31528,9 @@ static const TSParseActionEntry ts_parse_actions[] = {
   [1723] = {.entry = {.count = 1, .reusable = true}}, SHIFT(128),
 };
 
-enum ts_external_scanner_symbol_identifiers {
-  ts_external_token_import_in_attribute = 0,
-};
-
-static const TSSymbol ts_external_scanner_symbol_map[EXTERNAL_TOKEN_COUNT] = {
-  [ts_external_token_import_in_attribute] = sym_import_in_attribute,
-};
-
-static const bool ts_external_scanner_states[2][EXTERNAL_TOKEN_COUNT] = {
-  [1] = {
-    [ts_external_token_import_in_attribute] = true,
-  },
-};
-
 #ifdef __cplusplus
 extern "C" {
 #endif
-void *tree_sitter_leaf_external_scanner_create(void);
-void tree_sitter_leaf_external_scanner_destroy(void *);
-bool tree_sitter_leaf_external_scanner_scan(void *, TSLexer *, const bool *);
-unsigned tree_sitter_leaf_external_scanner_serialize(void *, char *);
-void tree_sitter_leaf_external_scanner_deserialize(void *, const char *, unsigned);
-
 #ifdef TREE_SITTER_HIDE_SYMBOLS
 #define TS_PUBLIC
 #elif defined(_WIN32)
@@ -31594,15 +31566,6 @@ TS_PUBLIC const TSLanguage *tree_sitter_leaf(void) {
     .alias_sequences = &ts_alias_sequences[0][0],
     .lex_modes = (const void*)ts_lex_modes,
     .lex_fn = ts_lex,
-    .external_scanner = {
-      &ts_external_scanner_states[0][0],
-      ts_external_scanner_symbol_map,
-      tree_sitter_leaf_external_scanner_create,
-      tree_sitter_leaf_external_scanner_destroy,
-      tree_sitter_leaf_external_scanner_scan,
-      tree_sitter_leaf_external_scanner_serialize,
-      tree_sitter_leaf_external_scanner_deserialize,
-    },
     .primary_state_ids = ts_primary_state_ids,
     .name = "leaf",
     .max_reserved_word_set_size = 0,
