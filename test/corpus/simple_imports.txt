@@ -1,0 +1,28 @@
+
+================================================================================
+Simple import directives in attributes
+================================================================================
+
+<a href="#import("buttonLink")" class="btn">#import("buttonText")</a>
+
+--------------------------------------------------------------------------------
+
+(template
+  (html_element
+    (start_tag
+      (tag_name)
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value
+          (attribute_value)))
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value
+          (attribute_value))))
+    (html_content
+      (leaf_directive
+        (import_directive
+          (import_header
+            (string_literal)))))
+    (end_tag
+      (tag_name))))

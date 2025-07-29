@@ -257,3 +257,6 @@
 [
     ","
     ] @punctuation.delimiter
+
+; Highlight ERROR nodes
+(ERROR) @error

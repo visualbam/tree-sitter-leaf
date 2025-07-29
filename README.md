@@ -12,6 +12,7 @@ A [Tree-sitter](https://tree-sitter.github.io/tree-sitter/) grammar for the [Lea
 - String interpolation and complex expressions
 - Syntax highlighting, indentation, and language injections
 - Comment support for Leaf (`///`), regular (`//`), and HTML (`<!-- -->`) comments
+- Error handling and recovery for better editing experience
 
 ## Installation
 

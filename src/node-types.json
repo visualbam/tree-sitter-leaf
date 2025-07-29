@@ -61,6 +61,11 @@
     }
   },
   {
+    "type": "attribute_value",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "binary_expression",
     "named": true,
     "fields": {},
@@ -1355,10 +1360,6 @@
   },
   {
     "type": "attribute_name",
-    "named": true
-  },
-  {
-    "type": "attribute_value",
     "named": true
   },
   {

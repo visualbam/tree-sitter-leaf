@@ -1,5 +1,9 @@
 
 module.exports = grammar({
+    externals: $ => [
+        // Special handling for #import inside attributes
+        $.import_in_attribute,
+    ],
     name: 'leaf',
 
     extras: $ => [
@@ -68,7 +72,7 @@ module.exports = grammar({
         attribute: $ => choice(
             // Boolean attribute (no value)
             $.attribute_name,
-            // Attribute with value
+            // Regular attribute with value
             seq(
                 $.attribute_name,
                 '=',
@@ -76,23 +80,28 @@ module.exports = grammar({
                     $.quoted_attribute_value,
                     $.unquoted_attribute_value,
                     $.leaf_variable,
-                    $.leaf_tag,
+                    $.leaf_tag
                 ),
             ),
         ),
 
         attribute_name: $ => /[a-zA-Z_:][a-zA-Z0-9_:.-]*/,
 
-        // FIXED: Simplified and more robust quoted attribute value
-        quoted_attribute_value: $ => choice(
+        // FIXED: Simplified and more robust quoted attribute value with higher precedence
+        quoted_attribute_value: $ => prec(3, choice(
             seq('"', optional($.attribute_value), '"'),
             seq("'", optional($.attribute_value), "'"),
-        ),
+        )),
 
         unquoted_attribute_value: $ => /[^\s<>"'=`{}#]+/,
 
-        // FIXED: Much more permissive attribute value pattern
-        attribute_value: $ => token(prec(1, /[^"']+/)),
+        // Attribute value should recognize text mixed with import directives
+        attribute_value: $ => choice(
+            // Plain text without directives (for compatibility with most tests)
+            token(prec(-1, /[^"'#]*/)),
+            // Text with #import directive inside
+            token(prec(5, /#import\([^)]*\)/)),
+        ),
 
         // HTML content
         html_content: $ => repeat1(choice(
@@ -555,7 +564,8 @@ module.exports = grammar({
         ),
 
         // FIXED: Text should not capture sequences that contain only whitespace
-        text: $ => token(prec(-1, /[^\s<#][^<#]*/)),
+        // Lower precedence to ensure other tokens take priority
+        text: $ => token(prec(-2, /[^\s<#][^<#]*/)),
 
         // DOCTYPE
         doctype: $ => seq(
