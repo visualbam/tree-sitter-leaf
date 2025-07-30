@@ -1,4 +1,8 @@
+; Special handling for attribute value delimiters
+((quoted_attribute_value) @injection.content
+  (#set! injection.language "leaf-attr-quotes"))
 
+; The actual injection grammar will be defined in the editor config
 ; ===== HTML INJECTIONS =====
 ((html_comment) @injection.content
     (#set! injection.language "comment"))

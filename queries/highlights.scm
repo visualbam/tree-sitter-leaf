@@ -1,39 +1,66 @@
 
 ; ===== HTML HIGHLIGHTING =====
-(tag_name) @tag
-(void_tag_name) @tag  ; Add this line to highlight void tag names
+; HTML tags - using @function to make them blue
+(tag_name) @function
+(void_tag_name) @function  ; Void tags also in blue
 
 (html_comment) @comment @spell
 
-(attribute_name) @tag.attribute
+; HTML attributes - using @type for yellow
+((attribute_name) @type
+    (#set! priority 110))
 
+; HTML strings with explicit attribute_value highlighting for light green
 ((attribute
      (quoted_attribute_value) @string)
     (#set! priority 99))
 
 (text) @none @spell
 
-; HTML delimiters
+; HTML delimiters - using @comment.documentation for light green
 [
     "<"
     ">"
     "</"
     "/>"
-    ] @tag.delimiter
+    ] @comment.documentation
 
-"=" @operator
+; Direct attribute value highlighting - using @tag.attribute for light green
+(attribute_value) @tag.attribute
 
-; HTML URL attributes
+; HTML URL attributes - same color as other attribute values for consistency
 ((attribute
      (attribute_name) @_attr
-     (quoted_attribute_value
-         (attribute_value) @string.special.url))
-    (#any-of? @_attr "href" "src"))
+     (quoted_attribute_value) @string)
+    (#any-of? @_attr "href" "src")
+    (#set! priority 99))
 
 ; Leaf directives inside attribute values
 (simple_export_directive) @keyword.directive
 (import_directive) @keyword.directive
 (import_header) @keyword.directive
+
+; #import inside attribute values (with higher priority than URL attributes)
+((attribute_value) @keyword.directive
+    (#match? @keyword.directive "^#import\\(")
+    (#set! priority 120))
+
+; Direct highlight for quoted attribute values to be green
+((quoted_attribute_value) @string
+    (#set! priority 99))
+
+; Special highlighting for #import in href attributes
+((attribute
+     (attribute_name) @_attr
+     (quoted_attribute_value
+         (attribute_value) @keyword.directive))
+    (#eq? @_attr "href")
+    (#match? @keyword.directive "^#import")
+    (#set! priority 150))
+
+; Highlight attribute-related syntax 
+(attribute "=" @string)
+(attribute_name) @type
 
 ; ===== LEAF HIGHLIGHTING =====
 
@@ -236,8 +263,8 @@
     ","
     ] @punctuation.delimiter
 
-; Doctype
-(doctype) @tag
+; Doctype - using @function to make it blue
+(doctype) @function
 
 ; Dictionary/object literals
 (dictionary_literal

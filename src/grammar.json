@@ -415,7 +415,7 @@
           "type": "TOKEN",
           "content": {
             "type": "PREC",
-            "value": 5,
+            "value": 10,
             "content": {
               "type": "PATTERN",
               "value": "#import\\([^)]*\\)"

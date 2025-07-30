@@ -27,6 +27,9 @@ bool tree_sitter_leaf_external_scanner_scan(void *payload, TSLexer *lexer, const
   // We only care about IMPORT_IN_ATTRIBUTE token
   if (!valid_symbols[IMPORT_IN_ATTRIBUTE]) return false;
 
+  // Store current position to mark start of token
+  lexer->mark_end(lexer);
+
   // Skip whitespace
   while (lexer->lookahead == ' ' || 
          lexer->lookahead == '\t' || 
@@ -55,6 +58,21 @@ bool tree_sitter_leaf_external_scanner_scan(void *payload, TSLexer *lexer, const
 
     // Check for opening parenthesis
     if (lexer->lookahead != '(') return false;
+    lexer->advance(lexer, false);
+
+    // Mark the end after consuming the full pattern
+    lexer->mark_end(lexer);
+
+    // Match until closing parenthesis
+    while (lexer->lookahead != ')' && lexer->lookahead != 0) {
+      lexer->advance(lexer, false);
+    }
+
+    // Consume closing parenthesis if present
+    if (lexer->lookahead == ')') {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+    }
 
     lexer->result_symbol = IMPORT_IN_ATTRIBUTE;
     return true;

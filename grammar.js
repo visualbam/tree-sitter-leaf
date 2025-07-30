@@ -103,8 +103,8 @@ module.exports = grammar({
         attribute_value: $ => choice(
             // Plain text without directives (for compatibility with most tests)
             token(prec(-1, /[^"'#]*/)),
-            // Text with #import directive inside
-            token(prec(5, /#import\([^)]*\)/)),
+            // Text with #import directive inside - with higher precedence
+            token(prec(10, /#import\([^)]*\)/)),
         ),
 
         // HTML content
