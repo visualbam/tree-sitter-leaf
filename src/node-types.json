@@ -42,6 +42,10 @@
           "named": true
         },
         {
+          "type": "leaf_directive",
+          "named": true
+        },
+        {
           "type": "leaf_tag",
           "named": true
         },
@@ -675,6 +679,25 @@
     }
   },
   {
+    "type": "leaf_directive_in_attribute",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_value",
+          "named": true
+        },
+        {
+          "type": "leaf_directive",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "leaf_tag",
     "named": true,
     "fields": {},
@@ -870,10 +893,14 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "attribute_value",
+          "named": true
+        },
+        {
+          "type": "leaf_directive_in_attribute",
           "named": true
         }
       ]

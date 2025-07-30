@@ -30,6 +30,11 @@
          (attribute_value) @string.special.url))
     (#any-of? @_attr "href" "src"))
 
+; Leaf directives inside attribute values
+(simple_export_directive) @keyword.directive
+(import_directive) @keyword.directive
+(import_header) @keyword.directive
+
 ; ===== LEAF HIGHLIGHTING =====
 
 ; Leaf variable delimiters - HIGHEST PRIORITY - target the specific tokens within leaf_variable
@@ -97,6 +102,9 @@
 (end_while_directive) @keyword.directive.end
 (end_extend_directive) @keyword.directive.end
 (end_export_directive) @keyword.directive.end
+
+; Add highlighting for directives inside attributes
+(leaf_directive_in_attribute (leaf_directive) @keyword.directive)
 
 ; Leaf tag functions - highlight each specific tag type
 (count_tag) @function.builtin.leaf

@@ -284,8 +284,45 @@
                 {
                   "type": "SYMBOL",
                   "name": "leaf_tag"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "leaf_directive"
                 }
               ]
+            }
+          ]
+        }
+      ]
+    },
+    "leaf_directive_in_attribute": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "attribute_value"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "leaf_directive"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "attribute_value"
+            },
+            {
+              "type": "BLANK"
             }
           ]
         }
@@ -316,7 +353,8 @@
                     "name": "attribute_value"
                   },
                   {
-                    "type": "BLANK"
+                    "type": "SYMBOL",
+                    "name": "leaf_directive_in_attribute"
                   }
                 ]
               },
@@ -341,7 +379,8 @@
                     "name": "attribute_value"
                   },
                   {
-                    "type": "BLANK"
+                    "type": "SYMBOL",
+                    "name": "leaf_directive_in_attribute"
                   }
                 ]
               },

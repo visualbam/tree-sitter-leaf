@@ -76,17 +76,25 @@ module.exports = grammar({
                     $.quoted_attribute_value,
                     $.unquoted_attribute_value,
                     $.leaf_variable,
-                    $.leaf_tag
+                    $.leaf_tag,
+                    $.leaf_directive
                 ),
             ),
+        ),
+
+        // Define leaf directives inside attribute values
+        leaf_directive_in_attribute: $ => seq(
+            optional($.attribute_value),
+            $.leaf_directive,
+            optional($.attribute_value)
         ),
 
         attribute_name: $ => /[a-zA-Z_:][a-zA-Z0-9_:.-]*/,
 
         // FIXED: Simplified and more robust quoted attribute value with higher precedence
         quoted_attribute_value: $ => prec(3, choice(
-            seq('"', optional($.attribute_value), '"'),
-            seq("'", optional($.attribute_value), "'"),
+            seq('"', choice($.attribute_value, $.leaf_directive_in_attribute), '"'),
+            seq("'", choice($.attribute_value, $.leaf_directive_in_attribute), "'"),
         )),
 
         unquoted_attribute_value: $ => /[^\s<>"'=`{}#]+/,
