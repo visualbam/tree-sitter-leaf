@@ -103,8 +103,8 @@ module.exports = grammar({
         attribute_value: $ => choice(
             // Plain text without directives (for compatibility with most tests)
             token(prec(-1, /[^"'#]*/)),
-            // Text with #import directive inside - with higher precedence
-            token(prec(10, /#import\([^)]*\)/)),
+            // Legacy format for compatibility - this is what we'll target with highlighting
+            token(prec(5, /#import\([^)]*\)/)),
         ),
 
         // HTML content
@@ -387,6 +387,8 @@ module.exports = grammar({
             $.string_literal,
             ')',
         ),
+
+        // Import directive parts will be handled via post-processing highlighting
 
         evaluate_header: $ => seq(
             '#evaluate',

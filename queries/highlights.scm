@@ -40,23 +40,33 @@
 (import_directive) @keyword.directive
 (import_header) @keyword.directive
 
-; #import inside attribute values (with higher priority than URL attributes)
-((attribute_value) @keyword.directive
-    (#match? @keyword.directive "^#import\\(")
-    (#set! priority 120))
+; Import directives in attributes are handled via pattern matching on attribute_value
 
 ; Direct highlight for quoted attribute values to be green
 ((quoted_attribute_value) @string
     (#set! priority 99))
 
-; Special highlighting for #import in href attributes
-((attribute
-     (attribute_name) @_attr
-     (quoted_attribute_value
-         (attribute_value) @keyword.directive))
-    (#eq? @_attr "href")
-    (#match? @keyword.directive "^#import")
+; === SPECIAL HANDLING FOR IMPORT DIRECTIVES IN ATTRIBUTES ===
+; Match #import( part with directive color
+((attribute_value) @_val
+    (#match? @_val "^#import\\(")
     (#set! priority 150))
+
+; Extract just the opening part (#import() with pink directive color
+((attribute_value) @keyword.directive
+    (#match? @keyword.directive "^#import\\(")
+    (#offset! @keyword.directive 0 0 0 8))
+
+; Extract just the closing parenthesis with pink directive color
+((attribute_value) @keyword.directive
+    (#match? @keyword.directive "#import\\(.*\\)$")
+    (#offset! @keyword.directive 0 -1 0 0))
+
+; Extract just the string content with green string color
+((attribute_value) @string
+    (#match? @string "#import\\(\"[^\"]*\"\\)")
+    (#offset! @string 0 8 0 -1)
+    (#set! priority 140))
 
 ; Highlight attribute-related syntax 
 (attribute "=" @string)
